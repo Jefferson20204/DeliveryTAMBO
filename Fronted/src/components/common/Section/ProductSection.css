@@ -1,0 +1,79 @@
+.product-section {
+  padding: 20px 20px;
+  margin: 0px 100px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.see-more {
+  background: none;
+  border: none;
+  color: var(--main-color);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.carousel-container {
+  position: relative;
+}
+
+.product-carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 10px 10px;
+}
+
+.product-carousel::-webkit-scrollbar {
+  display: none; /* Ocultar barra de scroll en Chrome/Safari */
+}
+
+.product-carousel {
+  -ms-overflow-style: none; /* IE y Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Flechas */
+.scroll-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  padding: 8px 12px;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-button.left {
+  left: -10px;
+}
+
+.scroll-button.right {
+  right: -10px;
+}
+
+/* Versión para tablet */
+@media (max-width: 1024px) {
+  .product-section {
+    padding: 20px 20px;
+    margin: 0px 0px;
+  }
+}
+
+/* Versión para móviles */
+@media (max-width: 768px) {
+  .product-section {
+    padding: 20px 20px;
+    margin: 0px 0px;
+  }
+}
