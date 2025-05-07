@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isTokenValid } from "../../utils/jwt-helper";
 
@@ -12,17 +12,22 @@ import { isTokenValid } from "../../utils/jwt-helper";
  */
 const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
+  const [checkingAuth, setCheckingAuth] = useState(true); // Controla la evaluación
 
   useEffect(() => {
-    // Verifica si el token es válido (existe y no expiró)
-    if (!isTokenValid()) {
-      // Si no es válido, redirige al login
+    const isValid = isTokenValid();
+    if (!isValid) {
       navigate("/v1/login");
     }
+    setCheckingAuth(false); // Ya verificamos
   }, [navigate]);
 
-  // Si el token es válido, muestra el contenido protegido
-  return <div>{children}</div>;
+  if (checkingAuth) {
+    // Aquí puedes mostrar un spinner si quieres
+    return null;
+  }
+
+  return <>{children}</>;
 };
 
 export default ProtectedRoute;

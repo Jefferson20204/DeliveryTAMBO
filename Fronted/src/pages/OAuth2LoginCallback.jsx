@@ -18,10 +18,14 @@ const OAuth2LoginCallback = () => {
     if (token) {
       // Si hay token, lo guarda en localStorage
       saveToken(token);
+      console.log("SI");
 
       // Redirige al home
-      navigate("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 100); // Permite que localStorage se sincronice antes de que ProtectedRoute lo consulte
     } else {
+      console.log("NO");
       // Si no hay token, redirige al login
       navigate("/v1/login");
     }
