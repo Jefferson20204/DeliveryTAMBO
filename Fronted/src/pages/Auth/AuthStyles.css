@@ -1,0 +1,66 @@
+/* Diseño del contenedor principal */
+.form-page {
+  display: flex;
+  height: calc(100vh - 70px);
+}
+
+/* Mitad izquierda: imagen */
+.form-image {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  z-index: 888;
+}
+
+.bg-login {
+  background-image: url("https://img.freepik.com/free-photo/purple-delivery-car-delivery-truck-transport-shipping-icon-online-shopping-concept-3d-illustration_56104-2110.jpg?t=st=1745970285~exp=1745973885~hmac=33b8965d0e681c6e202de18fb93d05ba70bbed5116830d796b112e4665240c52&w=826");
+}
+
+.bg-register {
+  background-image: url("https://img.freepik.com/free-photo/purple-store-shop-service-market-supermarket-ecommerce-business-icon-online-shopping-concept-3d-illustration_56104-2114.jpg?t=st=1745834675~exp=1745838275~hmac=5f28e86e9b0790458a3e45351d489c158831571404370689506b393465b77036&w=826");
+}
+
+/* Mitad derecha: formulario */
+.form-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+/* Logo */
+.form-logo {
+  width: 200px;
+}
+
+/* Título */
+.form-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--tertiary-color);
+}
+
+/* Formulario */
+.form {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 16px;
+}
+
+/* Versión para móviles */
+@media (max-width: 768px) {
+  .form-page {
+    height: 100%;
+  }
+
+  .form-image {
+    display: none;
+  }
+}

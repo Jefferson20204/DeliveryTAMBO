@@ -1,0 +1,31 @@
+/* Fronted\src\components\common\Buttons\GoogleSignIn.css */
+.btn-google-signin {
+  display: flex;
+  padding: 12px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  transition: background-color 0.3s;
+}
+
+.btn-google-signin:hover {
+  background-color: #f1f1f1;
+}
+
+.google-signin-logo {
+  width: 15px;
+  height: 15px;
+}
+
+.google-signin-text {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+  color: #555;
+}

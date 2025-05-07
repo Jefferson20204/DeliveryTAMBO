@@ -1,0 +1,27 @@
+@import url("../../../assets/Styles/variables.css");
+
+/* Input base */
+.input {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 15px;
+  border: 1px solid white;
+  border-radius: 20px;
+  box-shadow: 0 10px 27px var(--shadowColor);
+  width: 100%;
+  font-family: "Inter", sans-serif;
+}
+
+/* Placeholder del input */
+.input::placeholder {
+  color: var(--shadowColor);
+  opacity: 1; /* que no se vea deslavado */
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Estilo cuando el input está enfocado */
+.input:focus {
+  outline: none;
+  border: 1px solid var(--main-color);
+}

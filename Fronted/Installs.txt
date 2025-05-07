@@ -1,0 +1,1 @@
+npm install axios react-redux @reduxjs/toolkit react-router-dom jwt-decode
