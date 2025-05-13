@@ -1,4 +1,4 @@
-# Borrador para el proyecto de delivery tambo
+# Proyecto de delivery Tambo para Los Olivos
 
 ![Logo de tambo](https://marketing-peru.beglobal.biz/wp-content/uploads/2024/11/logo-tambo.png)
 
@@ -6,19 +6,19 @@
 
 ### Página principal
 
-- ![alt text](docs/image-2.png)
+- ![alt text](docs/image-21.png)
 
 ### Página de inicio de sesión
 
-- ![alt text](docs/image-7.png)
+- ![alt text](docs/image-18.png)
 
 ### Página de regitro
 
-- ![alt text](docs/image-8.png)
+- ![alt text](docs/image-19.png)
 
 ### Página para restablecer contraseña
 
-- ![alt text](docs/image-9.png)
+- ![alt text](docs/image-20.png)
 
 ## ☕ Requisitos para el proyecto
 
