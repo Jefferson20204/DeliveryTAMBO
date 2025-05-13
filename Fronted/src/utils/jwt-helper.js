@@ -25,6 +25,7 @@ export const saveToken = (token) => {
 // Elimina el token (logout)
 export const logOut = () => {
   localStorage.removeItem("authToken");
+  localStorage.removeItem("userInfo");
 };
 
 // Devuelve el token almacenado en localStorage

@@ -1,14 +1,25 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectUserInfo } from "../../../store/features/user";
+import {
+  selectUserInfo,
+  selectIsUserAdmin,
+} from "../../../store/features/user";
 
 const Profile = () => {
   const userInfo = useSelector(selectUserInfo);
+  const isUserAdmin = useSelector(selectIsUserAdmin);
 
   return (
-    <div className="m-1">
+    <>
       <h1>Información</h1>
       <div>
+        {isUserAdmin && (
+          <div className="text-right">
+            <Link to={"/admin/products"} className="link">
+              Panel de administrador
+            </Link>
+          </div>
+        )}
         <div>
           <h2>Detalles de contacto</h2>
         </div>
@@ -21,9 +32,15 @@ const Profile = () => {
           <p>{userInfo?.phoneNumber ?? "None"}</p>
           <p>Email</p>
           <p>{userInfo?.email}</p>
+          <p>Roles</p>
+          <ul>
+            {userInfo?.authorityList?.map((role, index) => (
+              <li key={index}>{role}</li>
+            ))}
+          </ul>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

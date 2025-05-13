@@ -9,7 +9,6 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -19,6 +18,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import com.Login.Backend.auth.exceptions.RESTAuthenticationEntryPoint;
+
 import static org.springframework.security.config.Customizer.withDefaults;
 
 // Configuración de seguridad de la aplicación Spring Boot que combina autenticación JWT y OAuth2
@@ -35,19 +37,29 @@ public class WebSecurityConfig {
     @Autowired
     private RESTAuthenticationEntryPoint restAuthenticationEntryPoint;
 
-    // Define endpoints que no requieren autenticación
-    private static final String[] publicApis = {
-            "/api/auth/**"
-    };
+    // Rutas públicas que no reuieren autenticación
+    // private static final String[] publicApis = {
+    // "/api/auth/**"
+    // };
 
+    // Configuración del filtro de seguridad
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors(withDefaults())
 
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/products", "/api/category").permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/test/**")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/products/**", "/api/category/**", "/api/discounts/**",
+                                "/admin/**")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/products", "/api/category", "/api/discounts")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/api/products/**", "/api/category/**", "/api/discounts/**")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/products/**", "/api/category/**", "/api/discounts/**")
+                        .permitAll()
                         .requestMatchers("/oauth2/success").permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(restAuthenticationEntryPoint))
@@ -60,10 +72,10 @@ public class WebSecurityConfig {
     }
 
     // Excluye completamente las rutas públicas del sistema de seguridad
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers(publicApis);
-    }
+    // @Bean
+    // public WebSecurityCustomizer webSecurityCustomizer() {
+    // return (web) -> web.ignoring().requestMatchers(publicApis);
+    // }
 
     // Configura el proveedor de autenticación con:
     // UserDetailsService (para cargar usuarios)
@@ -73,9 +85,7 @@ public class WebSecurityConfig {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-
         return new ProviderManager(daoAuthenticationProvider);
-
     }
 
     // Provee un encoder de contraseñas moderno y flexible
@@ -87,8 +97,8 @@ public class WebSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:3000"); // O "*" para todos
-        configuration.addAllowedMethod("*"); // GET, POST, OPTIONS, etc.
+        configuration.addAllowedOrigin("http://localhost:3000"); // URL del fronted
+        configuration.addAllowedMethod("*"); // GET, POST, OPTIONS, PUT, DELETE
         configuration.addAllowedHeader("*"); // Authorization, Content-Type, etc.
         configuration.setAllowCredentials(true); // Si usás cookies o auth headers
 

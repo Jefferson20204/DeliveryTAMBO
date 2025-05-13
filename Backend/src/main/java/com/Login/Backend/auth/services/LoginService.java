@@ -3,6 +3,7 @@ package com.Login.Backend.auth.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -31,23 +32,6 @@ public class LoginService {
         String userName = request.getUserName();
         String password = request.getPassword();
 
-        if (userName == null || userName.isEmpty()) {
-            return LoginResponse.builder()
-                    .code(400)
-                    .message("Ingrese el email.")
-                    .token(null)
-                    .build();
-        }
-
-        // Validar el password
-        if (password == null || password.isEmpty()) {
-            return LoginResponse.builder()
-                    .code(400)
-                    .message("Ingrese la contraseña.")
-                    .token(null)
-                    .build();
-        }
-
         try {
             Authentication authentication = new UsernamePasswordAuthenticationToken(userName, password);
             Authentication authResult = authenticationManager.authenticate(authentication);
@@ -55,6 +39,7 @@ public class LoginService {
             User user = (User) authResult.getPrincipal();
 
             if (!user.isEnabled()) {
+                System.out.println("El usuario está deshabilitado.");
                 return LoginResponse.builder()
                         .code(401)
                         .message("El usuario está deshabilitado.")
@@ -63,19 +48,30 @@ public class LoginService {
             }
 
             String token = jwtTokenHelper.generateToken(user.getEmail());
+            System.out.println("Inicio de sesión exitoso.");
             return LoginResponse.builder()
                     .code(200)
                     .message("Inicio de sesión exitoso.")
                     .token(token)
                     .build();
 
+        } catch (DisabledException e) {
+            System.out.println("El usuario está deshabilitado.");
+            return LoginResponse.builder()
+                    .code(401)
+                    .message("El usuario está deshabilitado.")
+                    .token(null)
+                    .build();
+
         } catch (BadCredentialsException e) {
+            System.out.println("Credenciales incorrectas.");
             return LoginResponse.builder()
                     .code(401)
                     .message("Credenciales incorrectas.")
                     .token(null)
                     .build();
         } catch (Exception e) {
+            System.out.println("Error interno al autenticar.");
             throw new ServerErrorException("Error interno al autenticar.", e);
         }
     }

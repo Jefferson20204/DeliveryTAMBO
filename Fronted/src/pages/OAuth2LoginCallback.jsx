@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { saveToken } from "../utils/jwt-helper";
 
@@ -18,14 +18,11 @@ const OAuth2LoginCallback = () => {
     if (token) {
       // Si hay token, lo guarda en localStorage
       saveToken(token);
-      console.log("SI");
-
-      // Redirige al home
       setTimeout(() => {
+        // Redirige al home
         navigate("/");
-      }, 100); // Permite que localStorage se sincronice antes de que ProtectedRoute lo consulte
+      }, 100);
     } else {
-      console.log("NO");
       // Si no hay token, redirige al login
       navigate("/v1/login");
     }

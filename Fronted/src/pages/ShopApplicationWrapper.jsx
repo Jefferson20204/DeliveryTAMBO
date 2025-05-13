@@ -1,10 +1,8 @@
-import React from "react";
 import { Outlet } from "react-router-dom"; // Componente para renderizar las rutas anidadas
 import { useSelector } from "react-redux"; // Hook para acceder al estado global de Redux
-import Navigation from "../components/Navigation/Header/Navigation"; // Componente de navegación superior
-import Footer from "../components/Navigation/Footer/Footer"; // Componente de pie de página (footer)
-
-import Spinner from "../components/common/Spinner/Spinner"; // Componente Spinner para mostrar carga
+import Navigation from "../components/Navbar/Navbar"; // Componente de navegación superior
+import Footer from "../components/Footer/Footer"; // Componente de pie de página (footer)
+import Spinner from "../components/Spinner/Spinner"; // Componente Spinner para mostrar carga
 
 /**
  * Componente envolvente de la aplicación de la tienda.

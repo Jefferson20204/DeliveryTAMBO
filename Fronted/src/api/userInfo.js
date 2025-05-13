@@ -19,9 +19,6 @@ export const fetchUserDetails = async () => {
       headers: getHeaders(), // Función que retorna los encabezados necesarios (como token de autenticación)
     });
 
-    // Log de depuración: imprime la respuesta completa en la consola
-    console.log(response);
-
     // Retorna los datos contenidos en la respuesta
     return response?.data;
   } catch (err) {

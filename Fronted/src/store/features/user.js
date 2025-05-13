@@ -1,36 +1,45 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// Intentamos recuperar el usuario desde localStorage
+const storedUserInfo = localStorage.getItem("userInfo");
+const parsedUserInfo = storedUserInfo ? JSON.parse(storedUserInfo) : {};
+
 // Estado inicial del usuario
 export const initialState = {
-  userInfo: {}, // Aquí se almacenará la información del usuario autenticado
+  userInfo: parsedUserInfo, // Carga desde localStorage si existe
 };
 
 // Creación del slice para manejar datos del usuario
 export const userSlice = createSlice({
-  name: "userSlice", // Nombre del slice
-  initialState, // Estado inicial definido arriba
+  name: "userSlice",
+  initialState,
   reducers: {
     // Carga o actualiza la información del usuario en el estado
     loadUserInfo: (state, action) => {
+      const user = action?.payload;
+      localStorage.setItem("userInfo", JSON.stringify(user)); // <-- Guardamos en localStorage
       return {
         ...state,
-        userInfo: action?.payload, // payload es el objeto con los datos del usuario
+        userInfo: user,
+      };
+    },
+    // Limpia el usuario (por ejemplo, en logout)
+    clearUserInfo: (state) => {
+      localStorage.removeItem("userInfo");
+      return {
+        ...state,
+        userInfo: {},
       };
     },
   },
 });
 
-// Exporta la acción para poder llamarla desde componentes o thunks
-export const { loadUserInfo } = userSlice?.actions;
+export const { loadUserInfo, clearUserInfo } = userSlice.actions;
 
-// Selector: obtiene la información del usuario desde el store
 export const selectUserInfo = (state) => state?.userState?.userInfo ?? {};
 
-// Selector: determina si el usuario tiene rol ADMIN
 export const selectIsUserAdmin = (state) =>
-  state?.userState?.userInfo?.authorityList?.find(
-    (authority) => authority?.roleCode === "ADMIN"
-  )?.authority === "ADMIN";
+  Array.isArray(state?.userState?.userInfo?.authorityList) &&
+  state.userState.userInfo.authorityList.includes("ADMIN");
 
-// Exporta el reducer para combinarlo en el store
-export default userSlice?.reducer;
+export default userSlice.reducer;

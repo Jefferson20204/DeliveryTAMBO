@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Date;
 
+import javax.crypto.SecretKey;
+
 @Component
 public class JWTTokenHelper {
 
@@ -39,10 +41,10 @@ public class JWTTokenHelper {
     // Decodifica la clave secreta en Base64 y crea una clave HMAC-SHA para firmar
     private Key getSigningKey() {
         byte[] keysBytes = Decoders.BASE64.decode(secretKey);
-        System.out.println(keysBytes);
         return Keys.hmacShaKeyFor(keysBytes);
     }
 
+    // Generar la fecha de espiración del token
     private Date generateExpirationDate() {
         return new Date(new Date().getTime() + expiresIn * 1000L);
     }
@@ -106,12 +108,12 @@ public class JWTTokenHelper {
         Claims claims;
         try {
             claims = Jwts.parser()
-                    .setSigningKey(getSigningKey())
+                    .verifyWith((SecretKey) getSigningKey())
                     .build()
-                    .parseClaimsJws(token)
-                    .getBody();
+                    .parseSignedClaims(token)
+                    .getPayload();
         } catch (Exception e) {
-            claims = null;
+            throw new RuntimeException("Token inválido o mal formado", e);
         }
         return claims;
     }
