@@ -12,7 +12,7 @@
 
 - ![alt text](docs/image-18.png)
 
-### Página de regitro
+### Página de registro
 
 - ![alt text](docs/image-19.png)
 
