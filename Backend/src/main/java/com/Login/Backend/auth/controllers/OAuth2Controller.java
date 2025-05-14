@@ -1,7 +1,7 @@
 package com.Login.Backend.auth.controllers;
 
-import com.Login.Backend.auth.config.JWTTokenHelper;
 import com.Login.Backend.auth.entities.User;
+import com.Login.Backend.auth.helper.JWTTokenHelper;
 import com.Login.Backend.auth.services.OAuth2Service;
 
 import jakarta.servlet.http.HttpServletResponse;

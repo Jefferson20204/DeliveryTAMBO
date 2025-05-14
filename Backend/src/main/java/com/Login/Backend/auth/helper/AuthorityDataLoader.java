@@ -1,4 +1,4 @@
-package com.Login.Backend.auth.config;
+package com.Login.Backend.auth.helper;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;

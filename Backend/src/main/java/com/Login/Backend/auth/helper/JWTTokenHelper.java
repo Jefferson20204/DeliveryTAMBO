@@ -1,4 +1,4 @@
-package com.Login.Backend.auth.config;
+package com.Login.Backend.auth.helper;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

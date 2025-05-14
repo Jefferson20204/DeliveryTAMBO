@@ -9,6 +9,7 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -20,6 +21,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.Login.Backend.auth.exceptions.RESTAuthenticationEntryPoint;
+import com.Login.Backend.auth.helper.JWTTokenHelper;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -38,9 +40,9 @@ public class WebSecurityConfig {
     private RESTAuthenticationEntryPoint restAuthenticationEntryPoint;
 
     // Rutas públicas que no reuieren autenticación
-    // private static final String[] publicApis = {
-    // "/api/auth/**"
-    // };
+    private static final String[] publicApis = {
+            "/api/auth/**"
+    };
 
     // Configuración del filtro de seguridad
     @Bean
@@ -72,10 +74,10 @@ public class WebSecurityConfig {
     }
 
     // Excluye completamente las rutas públicas del sistema de seguridad
-    // @Bean
-    // public WebSecurityCustomizer webSecurityCustomizer() {
-    // return (web) -> web.ignoring().requestMatchers(publicApis);
-    // }
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().requestMatchers(publicApis);
+    }
 
     // Configura el proveedor de autenticación con:
     // UserDetailsService (para cargar usuarios)

@@ -10,6 +10,7 @@ import com.Login.Backend.repositories.ProductRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -45,6 +46,7 @@ public class CategoryService {
     }
 
     // Actualizar una categoria por ID
+    @Transactional
     public CategoryDTO updateCategory(UUID id, CategoryRequestDTO dto) {
         Category existing = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found"));

@@ -9,10 +9,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ServerErrorException;
 
-import com.Login.Backend.auth.config.JWTTokenHelper;
 import com.Login.Backend.auth.dto.LoginRequest;
 import com.Login.Backend.auth.dto.LoginResponse;
 import com.Login.Backend.auth.entities.User;
+import com.Login.Backend.auth.helper.JWTTokenHelper;
 import com.Login.Backend.auth.repositories.UserDetailRepository;
 
 @Service
@@ -39,7 +39,6 @@ public class LoginService {
             User user = (User) authResult.getPrincipal();
 
             if (!user.isEnabled()) {
-                System.out.println("El usuario está deshabilitado.");
                 return LoginResponse.builder()
                         .code(401)
                         .message("El usuario está deshabilitado.")
@@ -48,7 +47,6 @@ public class LoginService {
             }
 
             String token = jwtTokenHelper.generateToken(user.getEmail());
-            System.out.println("Inicio de sesión exitoso.");
             return LoginResponse.builder()
                     .code(200)
                     .message("Inicio de sesión exitoso.")
@@ -56,7 +54,6 @@ public class LoginService {
                     .build();
 
         } catch (DisabledException e) {
-            System.out.println("El usuario está deshabilitado.");
             return LoginResponse.builder()
                     .code(401)
                     .message("El usuario está deshabilitado.")
@@ -64,14 +61,12 @@ public class LoginService {
                     .build();
 
         } catch (BadCredentialsException e) {
-            System.out.println("Credenciales incorrectas.");
             return LoginResponse.builder()
                     .code(401)
                     .message("Credenciales incorrectas.")
                     .token(null)
                     .build();
         } catch (Exception e) {
-            System.out.println("Error interno al autenticar.");
             throw new ServerErrorException("Error interno al autenticar.", e);
         }
     }
