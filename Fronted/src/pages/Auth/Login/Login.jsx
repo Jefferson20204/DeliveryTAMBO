@@ -1,15 +1,15 @@
-import React, { useCallback, useState } from "react";
-import GoogleSignIn from "../../../components/common/Buttons/GoogleSignIn";
+import { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLoading } from "../../../store/features/common";
 import { loginAPI } from "../../../api/authentication";
 import { saveToken } from "../../../utils/jwt-helper";
-import Divider from "../../../components/common/Divider/Divider";
-import Button from "../../../components/common/Buttons/Button";
+import Divider from "../../../components/Divider/Divider";
+import Button from "../../../components/Buttons/Button";
 import AuthFormWrapper from "../AuthFormWrapper";
-import Input from "../../../components/common/Input/Input";
-import Message from "../../../components/common/Message/Message";
+import Input from "../../../components/Input/Input";
+import Message from "../../../components/Message/Message";
+import GoogleSignIn from "../../../components/Buttons/GoogleSignIn";
 import "../AuthStyles.css";
 
 const Login = () => {
@@ -29,7 +29,9 @@ const Login = () => {
         .then((res) => {
           if (res?.token) {
             saveToken(res?.token);
-            navigate("/");
+            setTimeout(() => {
+              navigate("/");
+            }, 100);
           } else {
             setError("¡Algo salió mal!");
           }
@@ -62,7 +64,7 @@ const Login = () => {
 
   return (
     <>
-      <AuthFormWrapper title="Iniciar sesión">
+      <AuthFormWrapper title="Iniciar sesión" variant={"login"}>
         {apiError.message && (
           <Message type="error" message={apiError.message} />
         )}

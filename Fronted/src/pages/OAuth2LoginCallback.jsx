@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { saveToken } from "../utils/jwt-helper";
 
@@ -18,9 +18,10 @@ const OAuth2LoginCallback = () => {
     if (token) {
       // Si hay token, lo guarda en localStorage
       saveToken(token);
-
-      // Redirige al home
-      navigate("/");
+      setTimeout(() => {
+        // Redirige al home
+        navigate("/");
+      }, 100);
     } else {
       // Si no hay token, redirige al login
       navigate("/v1/login");

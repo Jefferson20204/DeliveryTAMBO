@@ -19,6 +19,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import com.Login.Backend.auth.exceptions.RESTAuthenticationEntryPoint;
+import com.Login.Backend.auth.helper.JWTTokenHelper;
+
 import static org.springframework.security.config.Customizer.withDefaults;
 
 // Configuración de seguridad de la aplicación Spring Boot que combina autenticación JWT y OAuth2
@@ -26,74 +30,91 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity // Habilita la configuración personalizada de seguridad web
 public class WebSecurityConfig {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+        @Autowired
+        private UserDetailsService userDetailsService;
 
-    @Autowired
-    private JWTTokenHelper jwtTokenHelper;
+        @Autowired
+        private JWTTokenHelper jwtTokenHelper;
 
-    @Autowired
-    private RESTAuthenticationEntryPoint restAuthenticationEntryPoint;
+        @Autowired
+        private RESTAuthenticationEntryPoint restAuthenticationEntryPoint;
 
-    // Define endpoints que no requieren autenticación
-    private static final String[] publicApis = {
-            "/api/auth/**"
-    };
+        // Rutas públicas que no reuieren autenticación
+        private static final String[] publicApis = {
+                        "/api/auth/**"
+        };
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.cors(withDefaults())
+        // Configuración del filtro de seguridad
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                http.cors(withDefaults())
 
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/products", "/api/category").permitAll()
-                        .requestMatchers("/oauth2/success").permitAll()
-                        .anyRequest().authenticated())
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(restAuthenticationEntryPoint))
-                .oauth2Login((oauth2login) -> oauth2login
-                        .defaultSuccessUrl("/oauth2/success")
-                        .loginPage("/oauth2/authorization/google"))
-                .addFilterBefore(new JWTAuthenticationFilter(jwtTokenHelper, userDetailsService),
-                        UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-    }
+                                .csrf(AbstractHttpConfigurer::disable)
+                                .authorizeHttpRequests((authorize) -> authorize
+                                                .requestMatchers("/v3/api-docs/**", "/swagger-ui.html",
+                                                                "/swagger-ui/**", "/test/**")
+                                                .permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/api/products/**", "/api/category/**",
+                                                                "/api/discounts/**",
+                                                                "/admin/**", "/api/admin/config/**")
+                                                .permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/api/products", "/api/category",
+                                                                "/api/discounts",
+                                                                "/api/admin/config/**")
+                                                .permitAll()
+                                                .requestMatchers(HttpMethod.DELETE, "/api/products/**",
+                                                                "/api/category/**", "/api/discounts/**",
+                                                                "/api/admin/config/**")
+                                                .permitAll()
+                                                .requestMatchers(HttpMethod.PUT, "/api/products/**", "/api/category/**",
+                                                                "/api/discounts/**",
+                                                                "/api/admin/config/**")
+                                                .permitAll()
+                                                .requestMatchers("/oauth2/success").permitAll()
+                                                .anyRequest().authenticated())
+                                .exceptionHandling(exception -> exception
+                                                .authenticationEntryPoint(restAuthenticationEntryPoint))
+                                .oauth2Login((oauth2login) -> oauth2login
+                                                .defaultSuccessUrl("/oauth2/success")
+                                                .loginPage("/oauth2/authorization/google"))
+                                .addFilterBefore(new JWTAuthenticationFilter(jwtTokenHelper, userDetailsService),
+                                                UsernamePasswordAuthenticationFilter.class);
+                return http.build();
+        }
 
-    // Excluye completamente las rutas públicas del sistema de seguridad
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers(publicApis);
-    }
+        // Excluye completamente las rutas públicas del sistema de seguridad
+        @Bean
+        public WebSecurityCustomizer webSecurityCustomizer() {
+                return (web) -> web.ignoring().requestMatchers(publicApis);
+        }
 
-    // Configura el proveedor de autenticación con:
-    // UserDetailsService (para cargar usuarios)
-    // PasswordEncoder (para verificar contraseñas)
-    @Bean
-    public AuthenticationManager authenticationManager() {
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        // Configura el proveedor de autenticación con:
+        // UserDetailsService (para cargar usuarios)
+        // PasswordEncoder (para verificar contraseñas)
+        @Bean
+        public AuthenticationManager authenticationManager() {
+                DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+                daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+                daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+                return new ProviderManager(daoAuthenticationProvider);
+        }
 
-        return new ProviderManager(daoAuthenticationProvider);
+        // Provee un encoder de contraseñas moderno y flexible
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        }
 
-    }
+        @Bean
+        public CorsConfigurationSource corsConfigurationSource() {
+                CorsConfiguration configuration = new CorsConfiguration();
+                configuration.addAllowedOrigin("http://localhost:3000"); // URL del fronted
+                configuration.addAllowedMethod("*"); // GET, POST, OPTIONS, PUT, DELETE
+                configuration.addAllowedHeader("*"); // Authorization, Content-Type, etc.
+                configuration.setAllowCredentials(true); // Si usás cookies o auth headers
 
-    // Provee un encoder de contraseñas moderno y flexible
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
-
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:3000"); // O "*" para todos
-        configuration.addAllowedMethod("*"); // GET, POST, OPTIONS, etc.
-        configuration.addAllowedHeader("*"); // Authorization, Content-Type, etc.
-        configuration.setAllowCredentials(true); // Si usás cookies o auth headers
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                source.registerCorsConfiguration("/**", configuration);
+                return source;
+        }
 }

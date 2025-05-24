@@ -1,12 +1,12 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLoading } from "../../../store/features/common";
 import { resetPasswordAPI } from "../../../api/authentication";
-import Button from "../../../components/common/Buttons/Button";
+import Button from "../../../components/Buttons/Button";
+import Input from "../../../components/Input/Input";
+import Message from "../../../components/Message/Message";
 import AuthFormWrapper from "../AuthFormWrapper";
-import Input from "../../../components/common/Input/Input";
-import Message from "../../../components/common/Message/Message";
 import "../AuthStyles.css";
 
 const ResetPassword = () => {
@@ -43,7 +43,7 @@ const ResetPassword = () => {
 
   return (
     <>
-      <AuthFormWrapper title="Restablecer contraseña">
+      <AuthFormWrapper title="Restablecer contraseña" variant={"login"}>
         {error && <Message type="error" message={error} />}
         {message ? (
           <Message type="success" message={message} />

@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setLoading } from "../../../store/features/common";
 import { verifyAPI } from "../../../api/authentication";
-import Button from "../../../components/common/Buttons/Button";
-import Input from "../../../components/common/Input/Input";
-import Message from "../../../components/common/Message/Message";
+import Button from "../../../components/Buttons/Button";
+import Input from "../../../components/Input/Input";
+import Message from "../../../components/Message/Message";
 import "../AuthStyles.css";
 
 const VerifyCode = ({ email }) => {

@@ -19,22 +19,21 @@ public class Address {
     @GeneratedValue
     private UUID id;
 
-    private String name;
-
     @Column(nullable = false)
     private String street;
 
-    @Column(nullable = false)
-    private String city;
+    private String number;
+
+    private String reference;
 
     @Column(nullable = false)
-    private String state;
+    private String district;
 
     @Column(nullable = false)
-    private String zipCode;
+    private String province;
 
     @Column(nullable = false)
-    private String phoneNumber;
+    private String department;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

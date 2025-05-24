@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { NavLink, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../store/features/common";
 import { fetchUserDetails } from "../../../api/userInfo";
@@ -15,7 +15,9 @@ const Account = () => {
       .then((res) => {
         dispatch(loadUserInfo(res));
       })
-      .catch((err) => {})
+      .catch((err) => {
+        console.log(err);
+      })
       .finally(() => {
         dispatch(setLoading(false));
       });
