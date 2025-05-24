@@ -19,7 +19,7 @@ const CategoryList = () => {
       {categories.length === 0 ? (
         <p>No hay categorías disponibles.</p>
       ) : (
-        <table>
+        <table border="1" cellPadding="8" cellSpacing="0" width="100%">
           <thead>
             <tr>
               <th>Nombre</th>

@@ -18,6 +18,7 @@ import CategoryList from "./pages/Admin/CategoryList"; // Componente para la pá
 import CategoryForm from "./pages/Admin/CategoryForm"; // Componente para la página de formulario de categoría
 import ProductForm from "./pages/Admin/ProductForm"; // Componente para la página de formulario de producto
 import DiscountForm from "./pages/Admin/DiscountForm";
+import AdminProductSections from "./pages/Admin/AdminProductSections";
 
 /**
  * Definición del enrutador de la aplicación usando createBrowserRouter.
@@ -129,6 +130,10 @@ export const router = createBrowserRouter([
       {
         path: "discounts/edit/:id",
         element: <DiscountForm />,
+      },
+      {
+        path: "productSection",
+        element: <AdminProductSections />,
       },
 
       // Aquí puedes añadir más rutas protegidas para el administrador

@@ -25,7 +25,7 @@ export default function DiscountList() {
       <button onClick={() => navigate("/admin/discounts/new")}>
         Agregar Descuento
       </button>
-      <table>
+      <table border="1" cellPadding="8" cellSpacing="0" width="100%">
         <thead>
           <tr>
             <th>Nombre</th>

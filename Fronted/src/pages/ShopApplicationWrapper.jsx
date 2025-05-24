@@ -2,7 +2,8 @@ import { Outlet } from "react-router-dom"; // Componente para renderizar las rut
 import { useSelector } from "react-redux"; // Hook para acceder al estado global de Redux
 import Navigation from "../components/Navbar/Navbar"; // Componente de navegación superior
 import Footer from "../components/Footer/Footer"; // Componente de pie de página (footer)
-import Spinner from "../components/Spinner/Spinner"; // Componente Spinner para mostrar carga
+// import Spinner from "../components/Spinner/Spinner"; // Componente Spinner para mostrar carga
+import IconLoader from "../components/IconLoader/IconLoader";
 
 /**
  * Componente envolvente de la aplicación de la tienda.
@@ -29,7 +30,7 @@ const ShopApplicationWrapper = () => {
       <Footer />
 
       {/* Si hay un proceso de carga, muestra el Spinner con el mensaje adecuado */}
-      {isLoading && <Spinner text={loadingMessage || "Cargando..."} />}
+      {isLoading && <IconLoader text={loadingMessage || "Cargando..."} />}
     </div>
   );
 };

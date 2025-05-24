@@ -19,7 +19,7 @@ export default function ProductsList() {
       {products.length === 0 ? (
         <p>No hay productos disponibles.</p>
       ) : (
-        <table>
+        <table border="1" cellPadding="8" cellSpacing="0" width="100%">
           <thead>
             <tr>
               <th>Nombre</th>
