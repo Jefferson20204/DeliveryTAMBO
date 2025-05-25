@@ -2,6 +2,8 @@ package com.Login.Backend.auth.controllers;
 
 import com.Login.Backend.auth.dto.UserDetailsDto;
 import com.Login.Backend.auth.entities.User;
+import com.Login.Backend.dto.AddressDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,33 +21,45 @@ import java.security.Principal;
 @RequestMapping("/api/user")
 public class UserDetailController {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+        @Autowired
+        private UserDetailsService userDetailsService;
 
-    // Método GET que devuelve los detalles del usuario
-    @GetMapping("/profile")
-    public ResponseEntity<UserDetailsDto> getUserProfile(Principal principal) {
-        User user = (User) userDetailsService.loadUserByUsername(principal.getName());
+        // Método GET que devuelve los detalles del usuario
+        @GetMapping("/profile")
+        public ResponseEntity<UserDetailsDto> getUserProfile(Principal principal) {
+                User user = (User) userDetailsService.loadUserByUsername(principal.getName());
 
-        // Verificar si el usuario autenticado existe en el sistema
-        if (null == user) {
-            // responde con código HTTP 401 Unauthorized
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                // Verificar si el usuario autenticado existe en el sistema
+                if (null == user) {
+                        // responde con código HTTP 401 Unauthorized
+                        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                }
+
+                // Transforma la entidad User en un DTO (UserDetailsDto) para la respuesta
+                UserDetailsDto userDetailsDto = UserDetailsDto.builder()
+                                .firstName(user.getFirstName())
+                                .lastName(user.getLastName())
+                                .email(user.getEmail())
+                                .phoneNumber(user.getPhoneNumber())
+                                .addressList(user.getAddressList().stream()
+                                                .map(address -> AddressDTO.builder()
+                                                                .id(address.getId())
+                                                                .street(address.getStreet())
+                                                                .number(address.getNumber())
+                                                                .reference(address.getReference())
+                                                                .district(address.getDistrict())
+                                                                .province(address.getProvince())
+                                                                .department(address.getDepartment())
+                                                                .userId(address.getUser().getId()) // Obtener el ID del
+                                                                                                   // usuario asociado
+                                                                .build())
+                                                .toList())
+                                .authorityList(user.getAuthorities().stream()
+                                                .map(auth -> auth.getAuthority()).toList())
+                                .build();
+
+                // Retorna los datos con estado HTTP 200 (OK) si todo es correcto
+                return new ResponseEntity<>(userDetailsDto, HttpStatus.OK);
+
         }
-
-        // Transforma la entidad User en un DTO (UserDetailsDto) para la respuesta
-        UserDetailsDto userDetailsDto = UserDetailsDto.builder()
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .email(user.getEmail())
-                .phoneNumber(user.getPhoneNumber())
-                .addressList(user.getAddressList())
-                .authorityList(user.getAuthorities().stream()
-                        .map(auth -> auth.getAuthority()).toList())
-                .build();
-
-        // Retorna los datos con estado HTTP 200 (OK) si todo es correcto
-        return new ResponseEntity<>(userDetailsDto, HttpStatus.OK);
-
-    }
 }

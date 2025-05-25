@@ -7,9 +7,7 @@ import java.util.UUID;
 
 @Data
 @Builder
-public class ProductVariantDTO {
+public class BrandDTO {
     private UUID id;
-    private String color;
-    private String size;
-    private Integer stockQuantity;
+    private String name;
 }

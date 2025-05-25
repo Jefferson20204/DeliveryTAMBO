@@ -13,6 +13,8 @@ export default function AdminHome() {
         <span> | </span>
         <Link to="categories">Ver categorias</Link>
         <span> | </span>
+        <Link to="brands">Ver marcas</Link>
+        <span> | </span>
         <Link to="productSection">Ver Seccion de productos</Link>
       </nav>
       <Outlet />

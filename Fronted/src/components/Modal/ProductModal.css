@@ -40,7 +40,7 @@
 
 .modal-image {
   width: 100%;
-  height: 100%;
+  height: 90%;
   object-fit: cover;
 }
 
@@ -192,20 +192,26 @@
     border-radius: 0;
   }
 
+  .modal-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   .modal-left,
   .modal-right {
     width: 100%;
   }
 
   .modal-left {
-    height: 250px;
+    height: 600px;
   }
 
   .modal-right {
     flex: 1;
     overflow-y: auto;
     padding: 15px;
-    padding-bottom: 130px; /* espacio para el fixed bottom */
+    padding-bottom: 130px;
   }
 }
 
@@ -228,14 +234,14 @@
   }
 
   .modal-left {
-    height: 250px;
+    height: 350px;
   }
 
   .modal-right {
     flex: 1;
     overflow-y: auto;
     padding: 15px;
-    padding-bottom: 120px; /* espacio para el fixed bottom */
+    padding-bottom: 120px;
   }
 
   .modal-close {

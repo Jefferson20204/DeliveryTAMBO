@@ -13,12 +13,11 @@ public class ProductRequestDTO {
     private String description;
     private BigDecimal price;
     private Integer stock;
-    private String brand;
+    private UUID brandId;
     private Boolean isNewArrival;
     private Boolean isActive;
     private UUID categoryId;
     private UUID categoryTypeId;
-    private List<ProductVariantRequestDTO> productVariants;
     private List<ResourceRequestDTO> resources;
     private List<UUID> discountIds;
 }

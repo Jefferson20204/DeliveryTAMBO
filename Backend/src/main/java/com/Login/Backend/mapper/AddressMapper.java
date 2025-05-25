@@ -1,15 +1,15 @@
 package com.Login.Backend.mapper;
 
 import com.Login.Backend.auth.entities.User;
-import com.Login.Backend.dto.AddressDto;
+import com.Login.Backend.dto.AddressDTO;
 import com.Login.Backend.entities.Address;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AddressMapper {
 
-    public AddressDto toDto(Address address) {
-        return AddressDto.builder()
+    public AddressDTO toDto(Address address) {
+        return AddressDTO.builder()
                 .id(address.getId())
                 .street(address.getStreet())
                 .number(address.getNumber())
@@ -21,7 +21,7 @@ public class AddressMapper {
                 .build();
     }
 
-    public Address toEntity(AddressDto dto, User user) {
+    public Address toEntity(AddressDTO dto, User user) {
         return Address.builder()
                 .id(dto.getId())
                 .street(dto.getStreet())

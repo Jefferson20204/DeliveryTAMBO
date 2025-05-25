@@ -31,6 +31,7 @@ export default function ProductsList() {
               <th>Precio con descuento</th>
               <th>Porcentaje</th>
               <th>Stock</th>
+              <th>Marca</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -46,6 +47,7 @@ export default function ProductsList() {
                 <td>{product.discountedPrice.toFixed(2)}</td>
                 <td>{product.discountPercentage + "%"}</td>
                 <td>{product.stock}</td>
+                <td>{product.brand.name}</td>
                 <td>
                   <button
                     onClick={() =>

@@ -5,6 +5,7 @@ import {
   createProduct,
   updateProduct,
 } from "../../api/productApi";
+import { getAllBrands } from "../../api/brandsApi";
 import { getAllCategories } from "../../api/categoryApi";
 
 export default function ProductForm() {
@@ -12,7 +13,9 @@ export default function ProductForm() {
   const navigate = useNavigate();
   const isEdit = !!id;
 
-  const emptyVariant = { color: "", size: "", stockQuantity: 0 };
+  const [brands, setBrands] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [categoryTypes, setCategoryTypes] = useState([]);
   const emptyResource = { name: "", url: "", type: "image", isPrimary: false };
 
   const [formData, setFormData] = useState({
@@ -21,38 +24,26 @@ export default function ProductForm() {
     description: "",
     price: "",
     stock: "",
-    brand: "",
+    brandId: "",
     rating: 0,
     isNewArrival: false,
     isActive: true,
     categoryId: "",
     typeId: "",
-    productVariants: [],
     resources: [],
     discountIds: [],
   });
-
-  const [categories, setCategories] = useState([]);
-  const [categoryTypes, setCategoryTypes] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const cats = await getAllCategories();
       setCategories(cats);
 
+      const b = await getAllBrands();
+      setBrands(b);
+
       if (isEdit) {
         const p = await getProductById(id);
-
-        // Procesar variantes: solo incluir si alguna tiene datos válidos
-        const mappedVariants = p.productVariants.map((v) => ({
-          color: v.color,
-          size: v.size,
-          stockQuantity: v.stockQuantity,
-        }));
-
-        const hasValidVariants = mappedVariants.some(
-          (v) => v.color.trim() && v.size.trim() && v.stockQuantity > 0
-        );
 
         // Procesar recursos normalmente
         const mappedResources = p.resources.map((r) => ({
@@ -72,13 +63,12 @@ export default function ProductForm() {
           description: p.description || "",
           price: p.price,
           stock: p.stock,
-          brand: p.brand,
+          brandId: p.brand?.id || "", // asignar solo el ID
           rating: p.rating || 0,
           isNewArrival: p.isNewArrival,
           isActive: p.isActive,
           categoryId: p.category.id,
           typeId: p.categoryType?.id || "",
-          productVariants: hasValidVariants ? mappedVariants : [],
           resources: hasValidResources ? mappedResources : [],
           discountIds: p.discounts.map((d) => d.id),
         });
@@ -101,28 +91,6 @@ export default function ProductForm() {
     setFormData({
       ...formData,
       [name]: type === "checkbox" ? checked : value,
-    });
-  };
-
-  const handleVariantChange = (idx, e) => {
-    const updated = [...formData.productVariants];
-    const { name, value } = e.target;
-    updated[idx][name] = name === "stockQuantity" ? Number(value) : value;
-    setFormData({ ...formData, productVariants: updated });
-  };
-
-  const removeVariant = (idx) => {
-    const updated = formData.productVariants.filter((_, i) => i !== idx);
-    setFormData({
-      ...formData,
-      productVariants: updated,
-    });
-  };
-
-  const addVariant = () => {
-    setFormData({
-      ...formData,
-      productVariants: [...formData.productVariants, emptyVariant],
     });
   };
 
@@ -154,7 +122,6 @@ export default function ProductForm() {
       ...formData,
       categoryId: formData.categoryId,
       categoryTypeId: formData.typeId,
-      productVariants: formData.productVariants,
       resources: formData.resources,
       discountIds: formData.discountIds,
     };
@@ -207,12 +174,22 @@ export default function ProductForm() {
           value={formData.stock}
           onChange={handleChange}
         />
-        <input
-          name="brand"
-          placeholder="Marca"
-          value={formData.brand}
+        {/* Marcas */}
+        <label>Marca</label>
+        <select
+          name="brandId"
+          value={formData.brandId}
           onChange={handleChange}
-        />
+          required
+        >
+          <option value="">Selecciona una marca</option>
+          {brands.map((b) => (
+            <option key={b.id} value={b.id}>
+              {b.name}
+            </option>
+          ))}
+        </select>
+        {/* Valoracion */}
         <input
           name="rating"
           type="number"
@@ -222,7 +199,6 @@ export default function ProductForm() {
           value={formData.rating}
           onChange={handleChange}
         />
-
         {/* Categorías */}
         <label>Categoría</label>
         <select
@@ -238,7 +214,7 @@ export default function ProductForm() {
             </option>
           ))}
         </select>
-
+        {/* Sub categorias */}
         <label>Sub categoría</label>
         <select name="typeId" value={formData.typeId} onChange={handleChange}>
           <option value="">Selecciona un tipo</option>
@@ -248,8 +224,7 @@ export default function ProductForm() {
             </option>
           ))}
         </select>
-
-        {/* Flags */}
+        {/* Nuevo producto */}
         <label>
           <input
             type="checkbox"
@@ -259,6 +234,7 @@ export default function ProductForm() {
           />{" "}
           ¿Es nuevo?
         </label>
+        {/* Producto Activo */}
         <label>
           <input
             type="checkbox"
@@ -268,46 +244,7 @@ export default function ProductForm() {
           />{" "}
           Activo
         </label>
-
-        {/* Variantes */}
-        <h3>Variantes</h3>
-        {formData.productVariants.map((v, idx) => (
-          <div
-            key={idx}
-            style={{ display: "flex", gap: "8px", alignItems: "center" }}
-          >
-            <input
-              name="color"
-              placeholder="Color"
-              value={v.color}
-              onChange={(e) => handleVariantChange(idx, e)}
-              required
-            />
-            <input
-              name="size"
-              placeholder="Tamaño"
-              value={v.size}
-              onChange={(e) => handleVariantChange(idx, e)}
-              required
-            />
-            <input
-              name="stockQuantity"
-              type="number"
-              placeholder="Stock"
-              value={v.stockQuantity}
-              onChange={(e) => handleVariantChange(idx, e)}
-              required
-            />
-            <button type="button" onClick={() => removeVariant(idx)}>
-              Eliminar
-            </button>
-          </div>
-        ))}
-        <button type="button" onClick={addVariant}>
-          Agregar variante
-        </button>
-
-        {/* Recursos */}
+        {/* Recursos - Imagenes*/}
         <h3>Recursos</h3>
         {formData.resources.map((r, idx) => (
           <div

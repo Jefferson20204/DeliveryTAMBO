@@ -1,7 +1,7 @@
 package com.Login.Backend.services;
 
 import com.Login.Backend.auth.entities.User;
-import com.Login.Backend.dto.AddressDto;
+import com.Login.Backend.dto.AddressDTO;
 import com.Login.Backend.entities.Address;
 import com.Login.Backend.mapper.AddressMapper;
 import com.Login.Backend.repositories.AddressRepository;
@@ -27,14 +27,14 @@ public class AddressService {
     private AddressMapper addressMapper;
 
     // Crear una nueva dirección
-    public Address createAddress(AddressDto addressRequest, Principal principal) {
+    public AddressDTO createAddress(AddressDTO addressRequest, Principal principal) {
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
         Address address = addressMapper.toEntity(addressRequest, user);
-        return addressRepository.save(address);
+        return addressMapper.toDto(addressRepository.save(address));
     }
 
     // Obtener todas las direcciones del usuario
-    public List<AddressDto> getUserAddresses(Principal principal) {
+    public List<AddressDTO> getUserAddresses(Principal principal) {
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
         return addressRepository.findByUser(user)
                 .stream()

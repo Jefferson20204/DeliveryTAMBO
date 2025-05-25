@@ -18,6 +18,9 @@ import CategoryList from "./pages/Admin/CategoryList"; // Componente para la pá
 import CategoryForm from "./pages/Admin/CategoryForm"; // Componente para la página de formulario de categoría
 import ProductForm from "./pages/Admin/ProductForm"; // Componente para la página de formulario de producto
 import DiscountForm from "./pages/Admin/DiscountForm";
+import Cart from "./pages/Public/CartPage";
+import BrandsList from "./pages/Admin/BrandsList";
+import BrandForm from "./pages/Admin/BrandForm";
 import AdminProductSections from "./pages/Admin/AdminProductSections";
 
 /**
@@ -51,6 +54,10 @@ export const router = createBrowserRouter([
             element: <Settings />,
           },
         ],
+      },
+      {
+        path: "/cart",
+        element: <Cart />, // Carrito
       },
       // Aquí puedes añadir más rutas protegidas o públicas
     ],
@@ -130,6 +137,18 @@ export const router = createBrowserRouter([
       {
         path: "discounts/edit/:id",
         element: <DiscountForm />,
+      },
+      {
+        path: "brands",
+        element: <BrandsList />,
+      },
+      {
+        path: "brands/new",
+        element: <BrandForm />,
+      },
+      {
+        path: "brands/edit/:id",
+        element: <BrandForm />,
       },
       {
         path: "productSection",

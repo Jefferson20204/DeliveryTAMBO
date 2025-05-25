@@ -1,11 +1,17 @@
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import QuantityInput from "../Quantity/QuantityInput";
 import Button from "../Buttons/Button";
 import "./ProductModal.css";
 
-const ProductModal = ({ product, onClose }) => {
+const ProductModal = ({ product, onClose, initialQuantity }) => {
+  const dispatch = useDispatch(); // TEMPORAL
   const [isClosing, setIsClosing] = useState(false);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(initialQuantity || 0);
+
+  useEffect(() => {
+    setQuantity(initialQuantity || 0);
+  }, [initialQuantity]);
 
   const hasDiscount = product.discountPercentage > 0;
   const discountedPrice = hasDiscount
@@ -84,10 +90,13 @@ const ProductModal = ({ product, onClose }) => {
 
         <div className="bottom-bar">
           <QuantityInput
+            className="modal-version"
             value={quantity}
             onChange={setQuantity}
             min={1}
-            max={product.stock || 10} // Usa la propiedad correcta que tengas como stock
+            max={product.stock}
+            product={product}
+            dispatch={dispatch}
           />
 
           <Button>Agregar - ${subtotal}</Button>

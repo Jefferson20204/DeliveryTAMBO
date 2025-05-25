@@ -20,7 +20,7 @@ public class ProductDTO {
     private BigDecimal discountPercentage;
     private BigDecimal discountedPrice;
     private Integer stock;
-    private String brand;
+    private BrandDTO brand;
     private Float rating;
     private Boolean isNewArrival;
     private Boolean isActive;
@@ -28,7 +28,6 @@ public class ProductDTO {
     private Date updatedAt;
     private CategoryDTO category;
     private CategoryTypeDTO categoryType;
-    private List<ProductVariantDTO> productVariants;
     private List<ResourceDTO> resources;
     private List<DiscountDTO> discounts;
 }
