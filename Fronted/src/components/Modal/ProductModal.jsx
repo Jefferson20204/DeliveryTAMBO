@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import QuantityInput from "../Quantity/QuantityInput";
 import Button from "../Buttons/Button";
+import CloseIcon from "../../common/CloseIcon";
 import "./ProductModal.css";
 
 const ProductModal = ({ product, onClose, initialQuantity }) => {
-  const dispatch = useDispatch(); // TEMPORAL
+  const dispatch = useDispatch();
   const [isClosing, setIsClosing] = useState(false);
   const [quantity, setQuantity] = useState(initialQuantity || 0);
 
@@ -57,7 +58,7 @@ const ProductModal = ({ product, onClose, initialQuantity }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <button className="modal-close" onClick={handleClose}>
-          ×
+          <CloseIcon />
         </button>
 
         <div className="modal-left">
@@ -78,10 +79,10 @@ const ProductModal = ({ product, onClose, initialQuantity }) => {
         <div className="modal-right">
           <h2>{product.name}</h2>
           <div className="price-info">
-            <span className="price">${discountedPrice.toFixed(2)}</span>
+            <span className="price">S/ {discountedPrice.toFixed(2)}</span>
             {hasDiscount && (
               <span className="original-price">
-                ${product.price.toFixed(2)}
+                S/ {product.price.toFixed(2)}
               </span>
             )}
           </div>
@@ -99,7 +100,7 @@ const ProductModal = ({ product, onClose, initialQuantity }) => {
             dispatch={dispatch}
           />
 
-          <Button>Agregar - ${subtotal}</Button>
+          <Button>Agregar - S/ {subtotal}</Button>
         </div>
       </div>
     </div>

@@ -1,4 +1,6 @@
-import trashIcon from "../../assets/img/Icons/delete-icon.svg";
+import DeleteIcon from "../../common/DeleteIcon";
+import AddIcon from "../../common/AddIcon";
+import RemoveIcon from "../../common/RemoveIcon";
 import {
   addItemToCartAction,
   updateItemToCartAction,
@@ -73,7 +75,7 @@ const QuantityInput = ({
           onClick={handleAddInitial}
           aria-label="Agregar al carrito"
         >
-          +
+          <AddIcon />
         </button>
       </div>
     );
@@ -87,18 +89,9 @@ const QuantityInput = ({
       <button
         className="quantity-btn"
         onClick={handleSubtract}
-        aria-label="Reducir cantidad"
+        aria-label={value === min ? "Eliminar" : "Reducir cantidad"}
       >
-        {value === min ? (
-          <img
-            src={trashIcon}
-            alt="Eliminar del carrito"
-            width={16}
-            height={16}
-          />
-        ) : (
-          "-"
-        )}
+        {value === min ? <DeleteIcon /> : <RemoveIcon />}
       </button>
       <span className="quantity-number" aria-live="polite">
         {value}
@@ -109,7 +102,7 @@ const QuantityInput = ({
         aria-label="Aumentar cantidad"
         disabled={value >= max}
       >
-        +
+        <AddIcon />
       </button>
     </div>
   );

@@ -71,7 +71,7 @@
 .hamburger {
   display: none; /* oculto en desktop */
   flex-direction: column;
-  gap: 5px;
+  gap: 4.5px;
   background: none;
   border: none;
   padding: 0;

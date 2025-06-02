@@ -48,10 +48,10 @@ const ProductCard = ({ product }) => {
           <h3 className="product-title">{product.name}</h3>
 
           <div className="price-section">
-            <span className="price">${discountedPrice.toFixed(2)}</span>
+            <span className="price">S/ {discountedPrice.toFixed(2)}</span>
             {hasDiscount && (
               <span className="original-price">
-                ${product.price.toFixed(2)}
+                S/ {product.price.toFixed(2)}
               </span>
             )}
           </div>
