@@ -3,8 +3,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 20px 20px;
-  margin: 0 100px;
+  padding: 20px 100px;
   background-color: var(--secondary-color);
   border-top: 1px solid #ccc;
   gap: 1rem;
@@ -31,7 +30,7 @@
 }
 /*Tamaño y diseño de letra Tambo Express*/
 .footer-copy {
-  font-size: 20px;
+  font-size: 0.8rem;
   color: var(--main-color);
 }
 /*logo de footer*/
@@ -51,7 +50,7 @@
   }
 
   .footer-copy {
-    font-size: 10px;
+    font-size: 0.875rem;
     color: var(--main-color);
   }
 

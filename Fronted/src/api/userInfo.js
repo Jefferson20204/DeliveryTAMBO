@@ -27,6 +27,21 @@ export const fetchUserDetails = async () => {
   }
 };
 
+// Actualizar datos del usuario
+export const updateUser = async (user) => {
+  const url = API_BASE_URL + "/api/user/update";
+
+  try {
+    const response = await axios.put(url, user, {
+      headers: getHeaders(),
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error al actualizar la marca", error);
+    throw error;
+  }
+};
+
 export const fetchUserAddress = async () => {
   // Construye la URL del endpoint de perfil de usuario
   const url = API_BASE_URL + "/api/address";

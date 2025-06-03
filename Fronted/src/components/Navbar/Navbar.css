@@ -1,19 +1,58 @@
 .top-bar {
   width: 100%;
   background-color: var(--main-color, #b12a90);
-  color: white;
-  font-weight: bold;
   text-align: center;
   padding: 8px 0;
-  font-size: 14px;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
   user-select: none;
+}
+
+/* Estilos para el avatar */
+.avatar-image {
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.avatar-initial {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 500;
+  line-height: 1.25rem;
+  text-transform: uppercase;
+}
+
+/* Ajustes para el contenedor del usuario */
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.nav-user:hover {
+  opacity: 0.8;
+}
+
+/* Asegúrate que el icono de usuario y avatar tengan el mismo tamaño */
+.nav-user svg,
+.nav-user .avatar-image,
+.nav-user .avatar-initial {
+  width: 32px;
+  height: 32px;
 }
 
 /* Contenedor principal */
 .navigation {
   width: 100%;
   height: 70px;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -56,7 +95,7 @@
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 700;
   color: #333;
   transition: color 0.3s;
 }
@@ -149,14 +188,14 @@
   font-weight: bold;
   color: #333;
   transition: color 0.3s;
-  position: relative; /* 👈 Añade esto */
+  position: relative;
 }
 
 .cart-count {
   position: absolute;
   top: -6px;
   right: -6px;
-  background-color: #b12a90;
+  background-color: var(--main-color);
   color: white;
   border-radius: 50%;
   padding: 2px 6px;

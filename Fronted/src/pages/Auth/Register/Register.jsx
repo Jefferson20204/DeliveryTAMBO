@@ -79,7 +79,7 @@ const Register = () => {
         {!enableVerify ? (
           <>
             {" "}
-            <form onSubmit={onSubmit} className="form">
+            <form onSubmit={onSubmit} className="auth form">
               <Input
                 type="text"
                 name="firstName"

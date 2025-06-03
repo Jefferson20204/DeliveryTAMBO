@@ -8,6 +8,7 @@ const Input = ({
   placeholder,
   autoComplete,
   required,
+  disabled,
 }) => {
   return (
     <input
@@ -19,6 +20,7 @@ const Input = ({
       className="input"
       autoComplete={autoComplete}
       required={required}
+      disabled={disabled}
     />
   );
 };

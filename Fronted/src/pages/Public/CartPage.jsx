@@ -293,8 +293,6 @@ const CartPage = () => {
         </div>
 
         <Button>Pagar ahora</Button>
-
-        {/* Próximamente: dirección y método de pago */}
       </div>
     </>
   );

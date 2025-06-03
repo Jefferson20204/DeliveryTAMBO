@@ -48,7 +48,7 @@ const ResetPassword = () => {
         {message ? (
           <Message type="success" message={message} />
         ) : (
-          <form onSubmit={onSubmit} className="form">
+          <form onSubmit={onSubmit} className="auth form">
             <Input
               type="password"
               placeholder="Nueva contraseña"

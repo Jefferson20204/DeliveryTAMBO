@@ -5,14 +5,26 @@
 .btn {
   padding: 12px;
   border-radius: 20px;
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 0.875rem;
+  font-weight: 500;
   font-family: "Inter", sans-serif;
   text-align: center;
   cursor: pointer;
-  width: 100%;
   text-decoration: none; /* Para enlaces como <a> */
   display: inline-block;
+  transition: all 0.3s;
+  box-sizing: border-box;
+}
+
+/* Control de ancho */
+.btn-full-width {
+  width: 100%;
+}
+
+.btn-auto-width {
+  width: auto;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 /* Botón principal */
@@ -29,10 +41,9 @@
   border: 1px solid var(--main-color);
 }
 
-/* Opcional: efecto hover */
+/* Efecto hover */
 .btn:hover {
   background-color: var(--shadowColor);
-  transition: all 0.3s;
 }
 
 /* Link */
@@ -40,4 +51,34 @@
   display: block;
   width: 100%;
   text-decoration: none;
+}
+
+/* Estilos específicos para Google */
+.btn-google-signin {
+  display: flex;
+  padding: 12px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+
+.btn-google-signin:hover {
+  background-color: #f1f1f1;
+}
+
+.google-signin-logo {
+  width: 15px;
+  height: 15px;
+}
+
+.google-signin-text {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+  color: #555;
 }

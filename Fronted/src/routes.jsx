@@ -22,6 +22,7 @@ import Cart from "./pages/Public/CartPage";
 import BrandsList from "./pages/Admin/BrandsList";
 import BrandForm from "./pages/Admin/BrandForm";
 import AdminProductSections from "./pages/Admin/AdminProductSections";
+import Address from "./pages/Auth/Account/Address";
 
 /**
  * Definición del enrutador de la aplicación usando createBrowserRouter.
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
           {
             path: "profile",
             element: <Profile />,
+          },
+          {
+            path: "address",
+            element: <Address />,
           },
           {
             path: "settings",

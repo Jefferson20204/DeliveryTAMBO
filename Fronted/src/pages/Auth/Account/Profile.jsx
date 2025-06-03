@@ -1,7 +1,6 @@
-import { useCallback, useState } from "react";
-import { Link } from "react-router-dom";
+import { useCallback, useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import AddAddress from "./AddAddress";
 import { deleteAddressAPI } from "../../../api/userInfo";
 import {
   removeAddress,
@@ -9,33 +8,144 @@ import {
   selectIsUserAdmin,
 } from "../../../store/features/user";
 import { setLoading } from "../../../store/features/common";
+import Card from "../../../components/Card/Card";
+import Button from "../../../components/Buttons/Button";
+import Input from "../../../components/Input/Input";
+import { fetchUserDetails, updateUser } from "../../../api/userInfo";
 
 const Profile = () => {
   const userInfo = useSelector(selectUserInfo);
   const isUserAdmin = useSelector(selectIsUserAdmin);
-  const [addAddress, setAddAddress] = useState(false);
-
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
-  const onDeleteAddress = useCallback(
-    (id) => {
-      dispatch(setLoading(true));
-      deleteAddressAPI(id)
-        .then((res) => {
-          dispatch(removeAddress(id));
-        })
-        .catch((err) => {})
-        .finally(() => {
-          dispatch(setLoading(false));
+  const [values, setValues] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+  });
+
+  useEffect(() => {
+    dispatch(setLoading(true));
+    fetchUserDetails()
+      .then((user) => {
+        setValues({
+          firstName: user.firstName || "",
+          lastName: user.lastName || "",
+          email: user.email || "",
+          phoneNumber: user.phoneNumber || "",
         });
-    },
-    [dispatch]
-  );
+      })
+      .catch((err) => {
+        setError("Error al cargar los datos del usuario");
+      })
+      .finally(() => {
+        dispatch(setLoading(false));
+      });
+  }, [dispatch]);
+
+  const handleOnChange = useCallback((e) => {
+    e.persist();
+    setValues((values) => ({
+      ...values,
+      [e.target.name]: e.target?.value,
+    }));
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(null);
+    dispatch(setLoading(true));
+
+    try {
+      const payload = { ...values, phoneNumber: values.phoneNumber || null };
+      const result = await updateUser(payload);
+
+      if (result) {
+        navigate("/account-details/profile");
+      } else {
+        setError("Error al actualizar los datos del usuario");
+      }
+    } catch (err) {
+      setError("Error al actualizar los datos del usuario");
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
 
   return (
     <>
-      <h1>Información</h1>
-      <div>
+      {/* Perfil */}
+      <Card
+        type="form"
+        title={"Perfil"}
+        buttons={
+          <Button
+            type="submit"
+            fullWidth={false}
+            variant="primary"
+            form="userProfile"
+          >
+            Guardar
+          </Button>
+        }
+      >
+        <div>
+          <form onSubmit={handleSubmit} id="userProfile">
+            <p>Nombre</p>
+            <Input
+              type="text"
+              name="firstName"
+              value={values.firstName}
+              onChange={handleOnChange}
+              placeholder="Ingrese su nombre"
+              className="input"
+              required
+            />
+            <p>Apellido</p>
+            <Input
+              type="text"
+              name="lastName"
+              value={values.lastName}
+              onChange={handleOnChange}
+              placeholder="Ingrese su apellido"
+              className="input"
+              required
+            />
+            <p>Número de teléfono</p>
+            <Input
+              type="text"
+              name="phoneNumber"
+              value={values.phoneNumber}
+              onChange={handleOnChange}
+              placeholder="Ingrese su número de teléfono"
+              className="input"
+              required
+            />
+            <p>Correo electrónico</p>
+            <Input
+              type="email"
+              name="email"
+              value={values.email}
+              placeholder="Ingrese su número de teléfono"
+              className="input"
+              autoComplete="email"
+              disabled
+              required
+            />
+          </form>
+        </div>
+      </Card>
+
+      {/* Roles */}
+      <Card type="info" title={"Roles"}>
+        <ul>
+          {userInfo?.authorityList?.map((role, index) => (
+            <li key={index}>{role}</li>
+          ))}
+        </ul>
         {isUserAdmin && (
           <div className="text-right">
             <Link to={"/admin/products"} className="link">
@@ -43,44 +153,7 @@ const Profile = () => {
             </Link>
           </div>
         )}
-        <div>
-          <h2>Detalles de contacto</h2>
-        </div>
-        <div>
-          <p>Nombre</p>
-          <p>
-            {userInfo?.firstName} {userInfo?.lastName}
-          </p>
-          <p>Número telefónico</p>
-          <p>{userInfo?.phoneNumber ?? "None"}</p>
-          <p>Email</p>
-          <p>{userInfo?.email}</p>
-          <p>Roles</p>
-          <ul>
-            {userInfo?.authorityList?.map((role, index) => (
-              <li key={index}>{role}</li>
-            ))}
-          </ul>
-          <p>Ubicaciones</p>
-          <button onClick={() => setAddAddress(true)}>Add New</button>
-          {!addAddress && (
-            <ul>
-              {userInfo?.addressList?.map((address, index) => (
-                <li key={index}>
-                  {address.street} - {address.district}
-                  <button
-                    onClick={() => onDeleteAddress(address?.id)}
-                    className="underline text-blue-900"
-                  >
-                    Remove
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-          {addAddress && <AddAddress onCancel={() => setAddAddress(false)} />}
-        </div>
-      </div>
+      </Card>
     </>
   );
 };

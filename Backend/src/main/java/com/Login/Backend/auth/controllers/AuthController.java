@@ -3,10 +3,10 @@ package com.Login.Backend.auth.controllers;
 import com.Login.Backend.auth.dto.LoginRequest;
 import com.Login.Backend.auth.dto.LoginResponse;
 import com.Login.Backend.auth.dto.RegistrationRequest;
-import com.Login.Backend.auth.dto.RegistrationResponse;
+import com.Login.Backend.auth.dto.UserResponseDto;
 import com.Login.Backend.auth.entities.User;
 import com.Login.Backend.auth.services.LoginService;
-import com.Login.Backend.auth.services.RegistrationService;
+import com.Login.Backend.auth.services.UserService;
 import com.Login.Backend.auth.services.ResetPasswordService;
 
 import jakarta.validation.Valid;
@@ -28,7 +28,7 @@ public class AuthController {
     LoginService loginService;
 
     @Autowired
-    RegistrationService registrationService;
+    UserService registrationService;
 
     @Autowired
     UserDetailsService userDetailsService;
@@ -53,8 +53,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<RegistrationResponse> register(@RequestBody RegistrationRequest request) {
-        RegistrationResponse registrationResponse = registrationService.createUser(request);
+    public ResponseEntity<UserResponseDto> register(@RequestBody RegistrationRequest request) {
+        UserResponseDto registrationResponse = registrationService.createUser(request);
 
         return new ResponseEntity<>(registrationResponse,
                 registrationResponse.getCode() == 200 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
