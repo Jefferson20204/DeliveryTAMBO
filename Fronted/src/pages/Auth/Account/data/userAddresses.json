@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "userId": 123,
+    "alias": "Casa",
+    "street": "Av. Los Alisos",
+    "number": "123",
+    "apartment": "401",
+    "reference": "Frente al parque",
+    "district": "Los Olivos",
+    "city": "Lima",
+    "country": "Perú",
+    "latitude": -11.9715,
+    "longitude": -77.095,
+    "mapAddress": "Av. Los Alisos 123, Dpto 401, Los Olivos",
+    "isPrimary": true,
+    "createdAt": "2023-05-15T10:00:00Z"
+  }
+]

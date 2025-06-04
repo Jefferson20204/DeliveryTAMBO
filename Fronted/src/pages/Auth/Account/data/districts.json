@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "Los Olivos",
+    "center": [-11.9714, -77.0946],
+    "radius": 2000,
+    "city": "Lima",
+    "country": "Perú"
+  },
+  {
+    "id": 2,
+    "name": "San Martín de Porres",
+    "center": [-11.9907, -77.0583],
+    "radius": 2500,
+    "city": "Lima",
+    "country": "Perú"
+  }
+]

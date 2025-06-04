@@ -1,9 +1,7 @@
 import { useCallback, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteAddressAPI } from "../../../api/userInfo";
 import {
-  removeAddress,
   selectUserInfo,
   selectIsUserAdmin,
 } from "../../../store/features/user";

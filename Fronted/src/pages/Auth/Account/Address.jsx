@@ -5,11 +5,15 @@ import AddAddress from "./AddAddress";
 import { deleteAddressAPI } from "../../../api/userInfo";
 import { removeAddress, selectUserInfo } from "../../../store/features/user";
 import { setLoading } from "../../../store/features/common";
+import Button from "../../../components/Buttons/Button";
+import AddAddressModal from "./AddAddressModal";
 
 const Address = () => {
   const [addAddress, setAddAddress] = useState(false);
   const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
+  const userId = 123; // ID del usuario de prueba
 
   // Eliminar direccion
   const onDeleteAddress = useCallback(
@@ -49,6 +53,15 @@ const Address = () => {
           </ul>
         )}
         {addAddress && <AddAddress onCancel={() => setAddAddress(false)} />}
+        <Button variant="primary" onClick={() => setShowModal(true)}>
+          Agregar nueva dirección
+        </Button>
+
+        <AddAddressModal
+          show={showModal}
+          onHide={() => setShowModal(false)}
+          userId={userId}
+        />
       </Card>
     </>
   );
