@@ -87,45 +87,49 @@ const Navigation = () => {
       <div className="top-bar">
         <a>¡Sobrin@ entregamos tu pedido en 30 minutos!</a>
       </div>
-      <nav className="navigation" ref={navRef}>
-        <div className="nav-left">
-          <a href="/" onClick={() => setMenuOpen(false)}>
-            <img src={Logo} alt="Logo" className="nav-logo" />
-          </a>
-        </div>
-
-        <button
-          className={`hamburger ${menuOpen ? "open" : ""}`}
-          aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-
-        <div className={`nav-right ${menuOpen ? "show" : ""}`}>
-          <div
-            className="nav-user"
-            onClick={() =>
-              handleNavigate(
-                isLoggedIn ? "/account-details/profile" : "/v1/login"
-              )
-            }
-          >
-            {isLoggedIn ? (
-              <Avatar user={userInfo} size={32} />
-            ) : (
-              <>
-                <UserIcon className={"nav-icon"} />
-                <span>Iniciar sesión</span>
-              </>
-            )}
+      <nav className="navigation-container" ref={navRef}>
+        <div className="navigation px-auto">
+          <div className="nav-left">
+            <a href="/" onClick={() => setMenuOpen(false)}>
+              <img src={Logo} alt="Logo" className="nav-logo" />
+            </a>
           </div>
 
-          <div className="nav-cart" onClick={() => handleNavigate("/cart")}>
-            <CartIcon className={"nav-icon"} />
-            {totalItems > 0 && <span className="cart-count">{totalItems}</span>}
+          <button
+            className={`hamburger ${menuOpen ? "open" : ""}`}
+            aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+
+          <div className={`nav-right ${menuOpen ? "show" : ""}`}>
+            <div
+              className="nav-user"
+              onClick={() =>
+                handleNavigate(
+                  isLoggedIn ? "/account-details/profile" : "/v1/login"
+                )
+              }
+            >
+              {isLoggedIn ? (
+                <Avatar user={userInfo} size={32} />
+              ) : (
+                <>
+                  <UserIcon className={"nav-icon"} />
+                  <span>Iniciar sesión</span>
+                </>
+              )}
+            </div>
+
+            <div className="nav-cart" onClick={() => handleNavigate("/cart")}>
+              <CartIcon className={"nav-icon"} />
+              {totalItems > 0 && (
+                <span className="cart-count">{totalItems}</span>
+              )}
+            </div>
           </div>
         </div>
       </nav>

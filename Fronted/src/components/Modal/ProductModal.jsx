@@ -48,7 +48,7 @@ const ProductModal = ({ product, onClose, initialQuantity }) => {
 
   return (
     <div
-      className={`modal-overlay ${
+      className={`modal-overlay2 ${
         isClosing ? "overlay-fade-out" : "overlay-fade-in"
       }`}
       onClick={handleClose}
@@ -57,37 +57,43 @@ const ProductModal = ({ product, onClose, initialQuantity }) => {
         className={`modal-product ${isClosing ? "fade-out" : "fade-in"}`}
         onClick={(e) => e.stopPropagation()}
       >
+        <div className="modal-content">
+          {" "}
+          <div className="modal-left">
+            <div className="modal-image-wrapper">
+              {hasDiscount && (
+                <div className="discount-badge">
+                  -{product.discountPercentage}%
+                </div>
+              )}
+              <img
+                src={product.thumbnail}
+                alt={product.name}
+                className="modal-image"
+              />
+            </div>
+          </div>
+          <div className="modal-right">
+            <h2>{product.name}</h2>
+            <div className="price-info">
+              <span className="price">S/ {discountedPrice.toFixed(2)}</span>
+              {hasDiscount && (
+                <span className="original-price">
+                  S/ {product.price.toFixed(2)}
+                </span>
+              )}
+            </div>
+            <div className="description">
+              {product.description.split("\n").map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+
         <button className="modal-close" onClick={handleClose}>
           <CloseIcon />
         </button>
-
-        <div className="modal-left">
-          <div className="modal-image-wrapper">
-            {hasDiscount && (
-              <div className="discount-badge">
-                -{product.discountPercentage}%
-              </div>
-            )}
-            <img
-              src={product.thumbnail}
-              alt={product.name}
-              className="modal-image"
-            />
-          </div>
-        </div>
-
-        <div className="modal-right">
-          <h2>{product.name}</h2>
-          <div className="price-info">
-            <span className="price">S/ {discountedPrice.toFixed(2)}</span>
-            {hasDiscount && (
-              <span className="original-price">
-                S/ {product.price.toFixed(2)}
-              </span>
-            )}
-          </div>
-          <p className="description">{product.description}</p>
-        </div>
 
         <div className="bottom-bar">
           <QuantityInput

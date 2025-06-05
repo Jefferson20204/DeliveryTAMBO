@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,12 +66,17 @@ public class AdminConfigController {
         return configService.getProductSections();
     }
 
-    @PostMapping("/product-sections")
+    @PostMapping("/product-sections/new")
     public ProductSectionDTO createProductSection(@RequestBody ProductSectionDTO dto) {
         return configService.saveProductSection(dto);
     }
 
-    @DeleteMapping("/product-sections/{id}")
+    @PutMapping("/product-sections/update/{id}")
+    public void updateProductSection(@PathVariable UUID id, @RequestBody ProductSectionDTO dto) {
+        configService.updateProductSection(id, dto);
+    }
+
+    @DeleteMapping("/product-sections/delete/{id}")
     public void deleteProductSection(@PathVariable UUID id) {
         configService.deleteProductSection(id);
     }

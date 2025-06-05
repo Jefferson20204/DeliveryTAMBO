@@ -13,27 +13,36 @@ export const getProductSectionsConfig = async () => {
 
 export const createProductSection = async (section) => {
   try {
-    const response = await axios.post(`${BASE_URL}/product-sections`, section, {
-      headers: getHeaders(),
-    });
+    const response = await axios.post(
+      `${BASE_URL}/product-sections/new`,
+      section,
+      {
+        headers: getHeaders(),
+      }
+    );
     return response.data;
   } catch (error) {
-    console.error("Error al crear la categoría", error);
+    console.error("Error al crear la sección de producto", error);
     throw error;
   }
 };
 
 export const updateProductSection = async (id, section) => {
-  const { data } = await axios.put(
-    `${BASE_URL}/product-sections/${id}`,
-    section,
-    { headers: getHeaders() }
-  );
-  return data;
+  try {
+    const response = await axios.put(
+      `${BASE_URL}/product-sections/update/${id}`,
+      section,
+      { headers: getHeaders() }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error al editar la sección de producto", error);
+    throw error;
+  }
 };
 
 export const deleteProductSection = async (id) => {
-  await axios.delete(`${BASE_URL}/product-sections/${id}`, {
+  await axios.delete(`${BASE_URL}/product-sections/delete/${id}`, {
     headers: getHeaders(),
   });
 };
