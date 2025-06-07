@@ -1,19 +1,40 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../../../components/Card/Card";
-import AddAddress from "./AddAddress";
 import { deleteAddressAPI } from "../../../api/userInfo";
-import { removeAddress, selectUserInfo } from "../../../store/features/user";
+import {
+  loadUserInfo,
+  removeAddress,
+  selectUserInfo,
+} from "../../../store/features/user";
 import { setLoading } from "../../../store/features/common";
 import Button from "../../../components/Buttons/Button";
 import AddAddressModal from "./AddAddressModal";
+import { fetchUserDetails, updateUser } from "../../../api/userInfo";
+import { Link, useNavigate } from "react-router-dom";
+import DeleteIcon from "../../../common/DeleteIcon";
+import "./Address.css";
 
 const Address = () => {
   const [addAddress, setAddAddress] = useState(false);
   const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-  const userId = 123; // ID del usuario de prueba
+
+  useEffect(() => {
+    dispatch(setLoading(true));
+    fetchUserDetails()
+      .then((user) => {
+        loadUserInfo(user);
+      })
+      .catch((err) => {
+        setError("Error al cargar los datos del usuario");
+      })
+      .finally(() => {
+        dispatch(setLoading(false));
+      });
+  }, [dispatch]);
 
   // Eliminar direccion
   const onDeleteAddress = useCallback(
@@ -22,6 +43,7 @@ const Address = () => {
       deleteAddressAPI(id)
         .then((res) => {
           dispatch(removeAddress(id));
+          // navigate("/account-details/address");
         })
         .catch((err) => {})
         .finally(() => {
@@ -33,35 +55,46 @@ const Address = () => {
 
   return (
     <>
-      {" "}
-      {/* Direcciones */}
-      <Card type="form" title={"Mis Direcciones"}>
-        <button onClick={() => setAddAddress(true)}>Add New</button>
-        {!addAddress && (
-          <ul>
+      <Card
+        type="form"
+        title={"Mis Direcciones"}
+        buttons={
+          <Button
+            variant="primary"
+            fullWidth={false}
+            onClick={() => setShowModal(true)}
+          >
+            Agregar nueva dirección
+          </Button>
+        }
+      >
+        {userInfo.addressList?.length > 0 ? (
+          <div className="addresses-container">
             {userInfo?.addressList?.map((address, index) => (
-              <li key={index}>
-                {address.street} - {address.district}
+              <div key={index} className="address-item">
+                <div className="address-content">
+                  <p className="address-text">{address.address}</p>
+                  {address.additionalDetails && (
+                    <p className="address-details">
+                      {address.additionalDetails}
+                    </p>
+                  )}
+                </div>
                 <button
                   onClick={() => onDeleteAddress(address?.id)}
-                  className="underline text-blue-900"
+                  className="delete-button"
+                  aria-label="Eliminar dirección"
                 >
-                  Remove
+                  <DeleteIcon size={20} className="delete-button" />
                 </button>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
+        ) : (
+          <p className="no-addresses">No tienes una dirección registrada.</p>
         )}
-        {addAddress && <AddAddress onCancel={() => setAddAddress(false)} />}
-        <Button variant="primary" onClick={() => setShowModal(true)}>
-          Agregar nueva dirección
-        </Button>
 
-        <AddAddressModal
-          show={showModal}
-          onHide={() => setShowModal(false)}
-          userId={userId}
-        />
+        <AddAddressModal show={showModal} onHide={() => setShowModal(false)} />
       </Card>
     </>
   );

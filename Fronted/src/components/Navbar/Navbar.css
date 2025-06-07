@@ -87,6 +87,7 @@
 
 /* Iconos */
 .nav-icon {
+  color: var(--main-color);
   height: 30px;
   width: 30px;
   object-fit: contain;
@@ -147,9 +148,13 @@
   gap: 8px;
   cursor: pointer;
   font-weight: bold;
-  color: #333;
+  color: var(--main-color);
   transition: color 0.3s;
   position: relative;
+}
+
+.nav-cart:hover {
+  color: var(--shadowColor);
 }
 
 .cart-count {
@@ -162,50 +167,4 @@
   padding: 2px 6px;
   font-size: 12px;
   font-weight: bold;
-}
-
-/* Tablet */
-@media (max-width: 1024px) {
-  /* .navigation {
-    padding: 20px;
-  } */
-}
-
-/* Móvil */
-@media (max-width: 768px) {
-  /* .navigation {
-    padding: 15px 20px;
-  } */
-
-  /* Mostrar hamburger */
-  /* .hamburger {
-    display: flex;
-  } */
-
-  /* Menú oculto inicialmente, animado con scaleY */
-  /* .nav-right {
-    position: absolute;
-    top: 4rem;
-    right: 0;
-    width: 100%;
-    background: white;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 20px;
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 0.3s ease;
-    overflow: hidden;
-
-    border: 1px solid green;
-  } */
-
-  /* Cuando añadimos .show, escalamos en Y para desplegar */
-  /* .nav-right.show {
-    transform: scaleY(1);
-  } */
-
-  /* .nav-user span {
-    display: inline;
-  } */
 }

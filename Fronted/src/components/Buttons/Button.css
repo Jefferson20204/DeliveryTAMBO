@@ -10,7 +10,7 @@
   font-family: "Inter", sans-serif;
   text-align: center;
   cursor: pointer;
-  text-decoration: none; /* Para enlaces como <a> */
+  text-decoration: none;
   display: inline-block;
   transition: all 0.3s;
   box-sizing: border-box;
@@ -42,8 +42,15 @@
 }
 
 /* Efecto hover */
-.btn:hover {
+.btn:not(:disabled):hover {
   background-color: var(--shadowColor);
+}
+
+/* Estilo para botones deshabilitados */
+.btn:disabled {
+  background-color: var(--shadowColor);
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* Link */
@@ -81,4 +88,8 @@
   font-weight: 500;
   font-family: "Inter", sans-serif;
   color: #555;
+}
+
+.btn-google-signin:not(:disabled):hover {
+  background-color: #f1f1f1;
 }

@@ -4,7 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../store/features/common";
 import { fetchUserDetails } from "../../../api/userInfo";
 import { loadUserInfo, selectUserInfo } from "../../../store/features/user";
+import CloseIcon from "../../../common/CloseIcon";
+import MenuIcon from "../../../common/MenuIcon";
 import "./Account.css";
+import UserIcon from "../../../common/UserIcon";
+import AddressIcon from "../../../common/AddressIcon";
+import SettingsIcon from "../../../common/SettingsIcon";
 
 const Account = () => {
   const dispatch = useDispatch();
@@ -29,6 +34,22 @@ const Account = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const SidebarLink = ({ to, icon, children }) => {
+    return (
+      <li>
+        <NavLink
+          to={to}
+          className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+          end
+          onClick={toggleSidebar}
+        >
+          <span className="nav-icon-sidebar">{icon}</span>
+          {children}
+        </NavLink>
+      </li>
+    );
+  };
+
   if (!userInfo?.email) return null;
 
   return (
@@ -39,7 +60,7 @@ const Account = () => {
           <div className="sidebar-header">
             <h2>Mi Cuenta</h2>
             <button className="sidebar-close-btn" onClick={toggleSidebar}>
-              &times;
+              <CloseIcon />
             </button>
           </div>
 
@@ -50,41 +71,24 @@ const Account = () => {
 
           <nav className="sidebar-nav">
             <ul>
-              <li>
-                <NavLink
-                  to="/account-details/profile"
-                  className={({ isActive }) =>
-                    `nav-link ${isActive ? "active" : ""}`
-                  }
-                  end
-                >
-                  <span className="nav-icon-sidebar">👤</span>
-                  Perfil
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/account-details/address"
-                  className={({ isActive }) =>
-                    `nav-link ${isActive ? "active" : ""}`
-                  }
-                  end
-                >
-                  <span className="nav-icon-sidebar">👤</span>
-                  Direcciones
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/account-details/settings"
-                  className={({ isActive }) =>
-                    `nav-link ${isActive ? "active" : ""}`
-                  }
-                >
-                  <span className="nav-icon-sidebar">⚙️</span>
-                  Ajustes
-                </NavLink>
-              </li>
+              <SidebarLink
+                to="/account-details/profile"
+                icon={<UserIcon size={20} />}
+              >
+                Perfil
+              </SidebarLink>
+              <SidebarLink
+                to="/account-details/address"
+                icon={<AddressIcon size={20} />}
+              >
+                Direcciones
+              </SidebarLink>
+              <SidebarLink
+                to="/account-details/settings"
+                icon={<SettingsIcon size={20} />}
+              >
+                Ajustes
+              </SidebarLink>
             </ul>
           </nav>
         </div>
@@ -102,7 +106,7 @@ const Account = () => {
 
       {/* Botón de toggle para móvil */}
       <button className="menu-toggle-btn" onClick={toggleSidebar}>
-        ☰
+        <MenuIcon size={32} />
       </button>
     </div>
   );

@@ -30,7 +30,7 @@ public class Product {
     private String name;
 
     @Lob
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
     @Column(nullable = false)

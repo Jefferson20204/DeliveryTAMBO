@@ -11,7 +11,17 @@ import L from "leaflet";
 import { OpenStreetMapProvider } from "leaflet-geosearch";
 import "leaflet/dist/leaflet.css";
 import districtsData from "./data/districts.json";
+import { useDispatch, useSelector } from "react-redux";
 import "./AddAddressModal.css";
+import { addAddressAPI } from "../../../api/userInfo";
+import { fetchUserDetails, updateUser } from "../../../api/userInfo";
+import {
+  selectUserInfo,
+  selectIsUserAdmin,
+  loadUserInfo,
+  saveAddress,
+} from "../../../store/features/user";
+import { Link, useNavigate } from "react-router-dom";
 
 // Configurar íconos de marcador
 const defaultIcon = new L.Icon({
@@ -62,7 +72,7 @@ function MapEventsHandler({
   return null;
 }
 
-const AddAddressModal = ({ show, onHide, userId }) => {
+const AddAddressModal = ({ show, onHide }) => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -161,7 +171,8 @@ const AddAddressModal = ({ show, onHide, userId }) => {
     const isValid = validateLocation(result.y, result.x);
 
     setSelectedLocation({
-      coordinates: [result.y, result.x],
+      latitude: result.y,
+      longitude: result.x,
       address: result.label,
     });
     setManualPosition(coords);
@@ -188,13 +199,15 @@ const AddAddressModal = ({ show, onHide, userId }) => {
           const isValid = validateLocation(pos.lat, pos.lng);
 
           setSelectedLocation({
-            coordinates: [pos.lat, pos.lng],
+            latitude: pos.lat,
+            longitude: pos.lng,
             address: address,
           });
           setIsValidLocation(isValid);
         } else {
           setSelectedLocation({
-            coordinates: [pos.lat, pos.lng],
+            latitude: pos.lat,
+            longitude: pos.lng,
             address: "Ubicación seleccionada manualmente",
           });
           setIsValidLocation(validateLocation(pos.lat, pos.lng));
@@ -202,7 +215,8 @@ const AddAddressModal = ({ show, onHide, userId }) => {
       } catch (err) {
         console.error("Error al obtener dirección:", err);
         setSelectedLocation({
-          coordinates: [pos.lat, pos.lng],
+          latitude: pos.lat,
+          longitude: pos.lng,
           address: "Ubicación seleccionada manualmente",
         });
         setIsValidLocation(validateLocation(pos.lat, pos.lng));
@@ -224,29 +238,79 @@ const AddAddressModal = ({ show, onHide, userId }) => {
     }));
   };
 
-  // Guardar dirección
-  const saveAddress = () => {
-    if (!isValidLocation || !selectedLocation || isValidating) return;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  // Guardar dirección
+  // const saveAddress = () => {
+  //   if (!isValidLocation || !selectedLocation || isValidating) return;
+
+  //   setLoading(true);
+
+  //   setTimeout(() => {
+  //     const newAddress = {
+  //       ...selectedLocation,
+  //       district: selectedDistrict,
+  //       city: districtInfo.city,
+  //       country: districtInfo.country,
+  //       ...addressDetails,
+  //       isPrimary: false,
+  //     };
+
+  //     console.log("Dirección guardada:", newAddress);
+  //     addAddressAPI(newAddress).catch((err) => {
+  //       console.log("Address was not added.");
+  //     });
+  //     handleClose();
+
+  //     setLoading(false);
+  //   }, 5000);
+  //   navigate("/account-details/address");
+  // };
+
+  const saveAddressDate = async (e) => {
+    e.preventDefault();
+    setError(null);
     setLoading(true);
 
-    setTimeout(() => {
+    if (!isValidLocation || !selectedLocation || isValidating) {
+      setError("Por favor selecciona una ubicación válida");
+      setLoading(false);
+      return;
+    }
+
+    try {
       const newAddress = {
-        id: Date.now(),
-        userId,
         ...selectedLocation,
         district: selectedDistrict,
         city: districtInfo.city,
         country: districtInfo.country,
         ...addressDetails,
         isPrimary: false,
-        createdAt: new Date().toISOString(),
       };
 
-      console.log("Dirección guardada:", newAddress);
-      onHide();
+      const result = await addAddressAPI(newAddress);
+
+      if (result) {
+        // Actualizar los datos del usuario
+        // const user = await fetchUserDetails();
+        // dispatch(loadUserInfo(user));
+        dispatch(saveAddress(result));
+
+        // Cerrar el modal y redirigir
+        handleClose();
+        navigate("/account-details/address");
+      } else {
+        setError("No se pudo guardar la dirección. Inténtalo nuevamente.");
+      }
+    } catch (err) {
+      console.error("Error al guardar dirección:", err);
+      setError(
+        "Ocurrió un error al guardar la dirección. Por favor intenta nuevamente."
+      );
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   // Resetear modal al cerrar
@@ -313,9 +377,6 @@ const AddAddressModal = ({ show, onHide, userId }) => {
                         onChange={(e) => setAddressQuery(e.target.value)}
                         placeholder="Ej: Av. Los Alisos 123"
                         disabled={loading}
-                        onKeyPress={(e) =>
-                          e.key === "Enter" && searchAddresses()
-                        }
                       />
                       <button
                         className="search-button"
@@ -501,7 +562,7 @@ const AddAddressModal = ({ show, onHide, userId }) => {
           ) : (
             <button
               className="primary-button"
-              onClick={saveAddress}
+              onClick={saveAddressDate}
               disabled={
                 !isValidLocation || loading || isValidating || !selectedLocation
               }

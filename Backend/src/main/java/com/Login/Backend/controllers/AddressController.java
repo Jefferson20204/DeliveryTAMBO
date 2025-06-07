@@ -1,6 +1,7 @@
 package com.Login.Backend.controllers;
 
 import com.Login.Backend.dto.AddressDTO;
+import com.Login.Backend.dto.AddressRequestDTO;
 import com.Login.Backend.services.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,9 +20,17 @@ public class AddressController {
     @Autowired
     private AddressService addressService;
 
+    // Obtener todas las direcciones del usuario autenticado
+    @GetMapping
+    public ResponseEntity<List<AddressDTO>> getUserAddresses(Principal principal) {
+        List<AddressDTO> addresses = addressService.getUserAddresses(principal);
+        return ResponseEntity.ok(addresses);
+    }
+
     // Crear una nueva dirección
     @PostMapping
-    public ResponseEntity<AddressDTO> createAddress(@RequestBody AddressDTO addressRequest, Principal principal) {
+    public ResponseEntity<AddressDTO> createAddress(@RequestBody AddressRequestDTO addressRequest,
+            Principal principal) {
         AddressDTO address = addressService.createAddress(addressRequest, principal);
         return new ResponseEntity<>(address, HttpStatus.OK);
     }
@@ -33,10 +42,4 @@ public class AddressController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    // Obtener todas las direcciones del usuario autenticado
-    @GetMapping
-    public ResponseEntity<List<AddressDTO>> getUserAddresses(Principal principal) {
-        List<AddressDTO> addresses = addressService.getUserAddresses(principal);
-        return ResponseEntity.ok(addresses);
-    }
 }

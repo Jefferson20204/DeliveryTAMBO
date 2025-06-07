@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectUserInfo,
   selectIsUserAdmin,
+  loadUserInfo,
 } from "../../../store/features/user";
 import { setLoading } from "../../../store/features/common";
 import Card from "../../../components/Card/Card";
@@ -62,6 +63,13 @@ const Profile = () => {
       const result = await updateUser(payload);
 
       if (result) {
+        fetchUserDetails()
+          .then((user) => {
+            dispatch(loadUserInfo(user));
+          })
+          .catch((err) => {
+            setError("Error al cargar los datos del usuario");
+          });
         navigate("/account-details/profile");
       } else {
         setError("Error al actualizar los datos del usuario");
@@ -92,40 +100,39 @@ const Profile = () => {
       >
         <div>
           <form onSubmit={handleSubmit} id="userProfile">
-            <p>Nombre</p>
             <Input
               type="text"
               name="firstName"
+              label="Nombre"
               value={values.firstName}
               onChange={handleOnChange}
               placeholder="Ingrese su nombre"
               className="input"
               required
             />
-            <p>Apellido</p>
             <Input
               type="text"
               name="lastName"
+              label="Apellido"
               value={values.lastName}
               onChange={handleOnChange}
               placeholder="Ingrese su apellido"
               className="input"
               required
             />
-            <p>Número de teléfono</p>
             <Input
               type="text"
               name="phoneNumber"
+              label="Número de teléfono"
               value={values.phoneNumber}
               onChange={handleOnChange}
               placeholder="Ingrese su número de teléfono"
               className="input"
-              required
             />
-            <p>Correo electrónico</p>
             <Input
               type="email"
               name="email"
+              label="Correo electrónico"
               value={values.email}
               placeholder="Ingrese su número de teléfono"
               className="input"

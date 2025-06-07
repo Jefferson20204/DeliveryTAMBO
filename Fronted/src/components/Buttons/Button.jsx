@@ -7,8 +7,9 @@ const Button = ({
   type = "button",
   variant = "primary", // 'primary', 'outline', 'google'
   icon,
-  fullWidth = true, // Nueva prop para controlar el ancho
-  form = "",
+  fullWidth = true,
+  form,
+  disabled,
   ...props
 }) => {
   let baseClass = "btn";
@@ -25,6 +26,7 @@ const Button = ({
       className={`${baseClass} ${widthClass} ${className}`}
       type={type}
       form={form}
+      disabled={disabled}
       {...props}
     >
       {icon && <img src={icon} alt="icon" className="google-signin-logo" />}

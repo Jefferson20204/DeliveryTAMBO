@@ -1,6 +1,11 @@
-@import url("../../assets/Styles/variables.css");
-
 /* Input base */
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
 .input {
   font-size: 0.875rem;
   font-weight: 500;
@@ -14,7 +19,7 @@
 /* Placeholder del input */
 .input::placeholder {
   color: var(--shadowColor);
-  opacity: 1; /* que no se vea deslavado */
+  opacity: 1;
   font-size: 12px;
   font-weight: bold;
 }
@@ -23,4 +28,16 @@
 .input:focus {
   outline: none;
   border: 1px solid var(--main-color);
+}
+
+.input-label {
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  /* margin-bottom: 0.25rem; */
+}
+
+.required-asterisk {
+  color: red;
+  margin-left: 0.25rem;
 }
