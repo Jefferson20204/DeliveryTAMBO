@@ -29,7 +29,8 @@ public class Product {
     @Column(nullable = false)
     private String name;
 
-    @Column
+    @Lob
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
     @Column(nullable = false)
@@ -38,8 +39,10 @@ public class Product {
     @Column(nullable = false)
     private Integer stock;
 
-    @Column(nullable = false)
-    private String brand;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "brand_id", nullable = false)
+    @JsonIgnore
+    private Brand brand;
 
     @Column
     private Float rating;
@@ -58,9 +61,6 @@ public class Product {
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date updatedAt;
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductVariant> productVariants;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)

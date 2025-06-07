@@ -81,6 +81,17 @@ public class AppConfigService {
         return ProductSectionMapper.toDTO(sectionRepo.save(section));
     }
 
+    public void updateProductSection(UUID id, ProductSectionDTO dto) {
+        ProductSection existing = sectionRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product section not found"));
+
+        if (null != existing) {
+            ProductSection update = ProductSectionMapper.toEntity(dto);
+            sectionRepo.save(update);
+        }
+
+    }
+
     public void deleteProductSection(UUID id) {
         sectionRepo.deleteById(id);
     }

@@ -6,6 +6,8 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 /* Elimina margen y padding general */
@@ -14,7 +16,7 @@ html {
   margin: 0;
   padding: 0;
   font-family: "Inter", sans-serif;
-  background-color: #f0f0f0;
+  background-color: rgb(249, 250, 251);
 }
 
 /* Seccion para los botones */
@@ -33,7 +35,7 @@ html {
 .link {
   display: inline-block;
   margin-top: 0.75rem;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: var(--main-color);
   text-decoration: none;
   transition: color 0.2s ease, text-decoration 0.2s ease;
@@ -48,3 +50,53 @@ html {
 .m-1 {
   margin: 1rem;
 }
+
+/* Default Moviles */
+/* Paddin de derecha e izquierda */
+.px-auto {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 110rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Paddin de arriba y abajo */
+.py-auto {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+/* Padding en general */
+.p-auto {
+  padding: 1rem;
+}
+
+/* Pantallas de tablet */
+@media (min-width: 640px) {
+  .p-auto {
+    padding: 1.25rem;
+  }
+
+  .px-auto {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* Pantallas de escritorio */
+@media (min-width: 1024px) {
+  .p-auto {
+    padding: 1.5rem;
+  }
+
+  .px-auto {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* form {
+  border: 1px solid purple;
+} */

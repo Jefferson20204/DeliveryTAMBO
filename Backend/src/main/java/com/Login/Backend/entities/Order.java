@@ -35,33 +35,42 @@ public class Order {
     @JsonIgnore
     private Address address;
 
+    // monto total
     @Column(nullable = false)
     private Double totalAmount;
 
+    // estado de pedido
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OrderStatus orderStatus;
 
+    // metodo de pago
     @Column(nullable = false)
     private PaymentMethod paymentMethod;
 
+    // Número de seguimiento del envío
     @Column(nullable = true)
     private String shipmentTrackingNumber;
 
+    // Fecha de entrega esperada
     @Column(nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date expectedDeliveryDate;
 
+    // lista de artículos de pedido
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<OrderItem> orderItemList;
 
+    // descuento
     private Double discount;
 
+    // metodo depago
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
     @ToString.Exclude
     private Payment payment;
 
+    // tipo de facturacion
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ReceiptType receiptType;

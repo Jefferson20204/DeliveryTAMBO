@@ -31,10 +31,33 @@ export const userSlice = createSlice({
         userInfo: {},
       };
     },
+    saveAddress: (state, action) => {
+      const addresses = [...state?.userInfo?.addressList] ?? [];
+      addresses.push(action?.payload);
+      return {
+        ...state,
+        userInfo: {
+          ...state?.userInfo,
+          addressList: addresses,
+        },
+      };
+    },
+    removeAddress: (state, action) => {
+      return {
+        ...state,
+        userInfo: {
+          ...state?.userInfo,
+          addressList: state?.userInfo?.addressList?.filter(
+            (address) => address?.id !== action?.payload
+          ),
+        },
+      };
+    },
   },
 });
 
-export const { loadUserInfo, clearUserInfo } = userSlice.actions;
+export const { loadUserInfo, clearUserInfo, saveAddress, removeAddress } =
+  userSlice.actions;
 
 export const selectUserInfo = (state) => state?.userState?.userInfo ?? {};
 

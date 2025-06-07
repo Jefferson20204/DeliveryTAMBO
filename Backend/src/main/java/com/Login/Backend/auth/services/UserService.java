@@ -1,7 +1,8 @@
 package com.Login.Backend.auth.services;
 
 import com.Login.Backend.auth.dto.RegistrationRequest;
-import com.Login.Backend.auth.dto.RegistrationResponse;
+import com.Login.Backend.auth.dto.UserResponseDto;
+import com.Login.Backend.auth.dto.UserUpdateDto;
 import com.Login.Backend.auth.entities.User;
 import com.Login.Backend.auth.helper.VerificationCodeGenerator;
 import com.Login.Backend.auth.repositories.UserDetailRepository;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ServerErrorException;
 
 @Service
-public class RegistrationService {
+public class UserService {
 
     @Autowired
     private UserDetailRepository userDetailRepository;
@@ -26,13 +27,13 @@ public class RegistrationService {
     private EmailService emailService;
 
     // Registro de usuarios
-    public RegistrationResponse createUser(RegistrationRequest request) {
+    public UserResponseDto createUser(RegistrationRequest request) {
 
         try {
             // Validar el nombre
             String firstName = request.getFirstName();
             if (firstName == null || firstName.isEmpty()) {
-                return RegistrationResponse.builder()
+                return UserResponseDto.builder()
                         .code(400)
                         .message("Ingrese el nombre.")
                         .build();
@@ -41,7 +42,7 @@ public class RegistrationService {
             // Validar el apellido
             String lastName = request.getLastName();
             if (lastName == null || lastName.isEmpty()) {
-                return RegistrationResponse.builder()
+                return UserResponseDto.builder()
                         .code(400)
                         .message("Ingrese el apellido.")
                         .build();
@@ -50,7 +51,7 @@ public class RegistrationService {
             // Validar el email
             String email = request.getEmail();
             if (email == null || email.isEmpty()) {
-                return RegistrationResponse.builder()
+                return UserResponseDto.builder()
                         .code(400)
                         .message("Ingrese el email.")
                         .build();
@@ -59,7 +60,7 @@ public class RegistrationService {
             // Validar la contraseña
             String password = request.getPassword().toString();
             if (password == null || password.isEmpty()) {
-                return RegistrationResponse.builder()
+                return UserResponseDto.builder()
                         .code(400)
                         .message("Ingrese la contraseña.")
                         .build();
@@ -68,7 +69,7 @@ public class RegistrationService {
             // Validar el número telefónico
             String phoneNumber = request.getPhoneNumber();
             if (phoneNumber == null || phoneNumber.isEmpty()) {
-                return RegistrationResponse.builder()
+                return UserResponseDto.builder()
                         .code(400)
                         .message("Ingrese el número telefónico.")
                         .build();
@@ -76,7 +77,7 @@ public class RegistrationService {
 
             // Validar que el número telefónico tenga 9 digitos
             if (phoneNumber == null || !phoneNumber.matches("\\d{9}")) {
-                return RegistrationResponse.builder()
+                return UserResponseDto.builder()
                         .code(400)
                         .message("El número telefónico debe tener exactamente 9 dígitos.")
                         .build();
@@ -87,7 +88,7 @@ public class RegistrationService {
             if (existing != null) {
                 if (existing.isEnabled()) {
                     // Usuario ya verificado
-                    return RegistrationResponse.builder()
+                    return UserResponseDto.builder()
                             .code(400)
                             .message("El correo electrónico ingresado ya está registrado y verificado.")
                             .build();
@@ -104,7 +105,7 @@ public class RegistrationService {
                     userDetailRepository.save(existing);
                     emailService.sendEmail(existing);
 
-                    return RegistrationResponse.builder()
+                    return UserResponseDto.builder()
                             .code(200)
                             .message("Ya habías iniciado el registro. Se ha reenviado el código de verificación.")
                             .build();
@@ -114,6 +115,7 @@ public class RegistrationService {
             User user = new User();
             user.setFirstName(request.getFirstName());
             user.setLastName(request.getLastName());
+            user.setProfileImageUrl(null);
             user.setPhoneNumber(request.getPhoneNumber());
             user.setEmail(request.getEmail());
             user.setEnabled(false);
@@ -129,7 +131,7 @@ public class RegistrationService {
             userDetailRepository.save(user);
             emailService.sendEmail(user);
 
-            return RegistrationResponse.builder()
+            return UserResponseDto.builder()
                     .code(200)
                     .message("Usuario creado!")
                     .build();
@@ -146,5 +148,41 @@ public class RegistrationService {
         // Activa cuentas al verificar el código (cambia enabled a true)
         user.setEnabled(true);
         userDetailRepository.save(user);
+    }
+
+    // Actualizar usuario
+    public UserResponseDto updateUser(UserUpdateDto request) {
+        User existing = userDetailRepository.findByEmail(request.getEmail());
+
+        if (existing == null) {
+            return UserResponseDto.builder()
+                    .code(404)
+                    .message("Usuario no encontrado")
+                    .build();
+        }
+
+        try {
+            // Actualizar solo los campos permitidos
+            existing.setFirstName(request.getFirstName());
+            existing.setLastName(request.getLastName());
+
+            // Validar y actualizar teléfono si es diferente
+            if (request.getPhoneNumber() != null &&
+                    !request.getPhoneNumber().equals(existing.getPhoneNumber())) {
+                existing.setPhoneNumber(request.getPhoneNumber());
+            }
+
+            userDetailRepository.save(existing);
+
+            return UserResponseDto.builder()
+                    .code(200)
+                    .message("Usuario actualizado correctamente")
+                    .build();
+        } catch (Exception e) {
+            return UserResponseDto.builder()
+                    .code(500)
+                    .message("Error al actualizar usuario: " + e.getMessage())
+                    .build();
+        }
     }
 }

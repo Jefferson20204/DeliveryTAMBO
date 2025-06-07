@@ -31,6 +31,9 @@ public class User implements UserDetails {
 
     private String lastName;
 
+    @Column(name = "profile_image_url")
+    private String profileImageUrl;
+
     @JsonIgnore
     private String password;
 

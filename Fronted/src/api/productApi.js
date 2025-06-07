@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getHeaders } from "./constant";
 
 const BASE_URL = "http://localhost:9090/api/products";
 
@@ -34,7 +35,9 @@ export const createProduct = async (productData) => {
 
   try {
     console.log(productData);
-    const response = await axios.post(BASE_URL, productData);
+    const response = await axios.post(BASE_URL, productData, {
+      headers: getHeaders(),
+    });
     return response.data;
   } catch (error) {
     console.error("Error al crear producto", error);
@@ -58,7 +61,9 @@ export const updateProduct = async (id, productData) => {
   console.log(productData);
 
   try {
-    const res = await axios.put(`${BASE_URL}/${id}`, productData);
+    const res = await axios.put(`${BASE_URL}/${id}`, productData, {
+      headers: getHeaders(),
+    });
     return res.data;
   } catch (error) {
     console.error(
@@ -78,6 +83,7 @@ export const getAllProductsAdmin = async (categoryId, typeId) => {
 
     const response = await axios.get("http://localhost:9090/admin/products", {
       params,
+      headers: getHeaders(),
     });
     return response.data;
   } catch (error) {

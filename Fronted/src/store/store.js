@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import commonReducer from "./features/common"; // Reducer para estado global (como loading)
 import userReducer from "./features/user"; // Reducer para manejar datos del usuario
+import cartReducer from "./features/cart"; // Reducerpara manejar el carrito de compras
 
 // Combina múltiples reducers en uno solo (estructura del store)
 const rootReducer = combineReducers({
   commonState: commonReducer, // Accedido como state.commonState
   userState: userReducer, // Accedido como state.userState
+  cartState: cartReducer, // Accedido como state.cartState
 });
 
 // Configura el store de Redux con el reducer combinado

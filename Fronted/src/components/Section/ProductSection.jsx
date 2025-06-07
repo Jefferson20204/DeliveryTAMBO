@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import ProductCard from "../Card/ProductCard";
 import "./ProductSection.css";
+import ArrowIcon from "../../common/ArrowIcon";
 
 const ProductSection = ({ title, products, onSeeMore }) => {
   const scrollRef = useRef();
@@ -26,7 +27,7 @@ const ProductSection = ({ title, products, onSeeMore }) => {
 
       <div className="carousel-container">
         <button className="scroll-button left" onClick={() => scroll(-300)}>
-          &lt;
+          <ArrowIcon direction="left" size={24} />
         </button>
 
         <div className="product-carousel" ref={scrollRef}>
@@ -36,7 +37,7 @@ const ProductSection = ({ title, products, onSeeMore }) => {
         </div>
 
         <button className="scroll-button right" onClick={() => scroll(300)}>
-          &gt;
+          <ArrowIcon direction="right" size={24} />
         </button>
       </div>
     </div>

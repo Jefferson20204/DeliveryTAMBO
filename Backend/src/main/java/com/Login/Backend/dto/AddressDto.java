@@ -11,15 +11,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AddressDto {
+public class AddressDTO {
 
     private UUID id;
-    private String street;
-    private String number;
-    private String reference;
+    private String alias;
+    private String address;
     private String district;
-    private String province;
-    private String department;
+    private String city;
+    private String country;
+    private Double latitude;
+    private Double longitude;
+    private String floor;
+    private String office;
+    private String apartment;
+    private String reference;
+    private boolean isPrimary;
     private UUID userId;
 
 }

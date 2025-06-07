@@ -1,0 +1,70 @@
+/* Contenedor principal de direcciones */
+.addresses-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Cada item de dirección */
+.address-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.address-item:hover {
+  background-color: #f1f3f5;
+}
+
+/* Contenido de la dirección */
+.address-content {
+  flex: 1;
+}
+
+.address-text {
+  margin: 0;
+  color: #212529;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.address-details {
+  margin: 4px 0 0 0;
+  color: #6c757d;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* Botón de eliminar */
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  /* padding: 8px; */
+  margin-left: 12px;
+  color: #dc3545;
+  transition: color 0.2s ease;
+}
+
+.delete-button:hover {
+  color: #bb2d3b;
+}
+
+.delete-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Mensaje cuando no hay direcciones */
+.no-addresses {
+  color: #6c757d;
+  text-align: center;
+  margin: 16px 0;
+  font-size: 14px;
+}

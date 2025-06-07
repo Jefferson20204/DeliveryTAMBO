@@ -1,15 +1,71 @@
-/* Contenedor principal */
-.navigation {
+.top-bar {
   width: 100%;
-  height: 70px;
-  background-color: white;
+  background-color: var(--main-color, #b12a90);
+  text-align: center;
+  padding: 8px 0;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  user-select: none;
+}
+
+/* Estilos para el avatar */
+.avatar-image {
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.avatar-initial {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 500;
+  line-height: 1.25rem;
+  text-transform: uppercase;
+}
+
+/* Ajustes para el contenedor del usuario */
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.nav-user:hover {
+  opacity: 0.8;
+}
+
+/* Asegúrate que el icono de usuario y avatar tengan el mismo tamaño */
+.nav-user svg,
+.nav-user .avatar-image,
+.nav-user .avatar-initial {
+  width: 32px;
+  height: 32px;
+}
+
+/* Contenedor principal */
+.navigation-container {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 10px 27px var(--shadowColor);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.navigation {
+  /* width: 100%; */
+  height: 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 120px;
-  box-shadow: 0 10px 27px var(--shadowColor);
-  position: relative;
-  z-index: 998;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
 /* Logo a la izquierda */
@@ -31,6 +87,7 @@
 
 /* Iconos */
 .nav-icon {
+  color: var(--main-color);
   height: 30px;
   width: 30px;
   object-fit: contain;
@@ -44,7 +101,7 @@
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 700;
   color: #333;
   transition: color 0.3s;
 }
@@ -59,7 +116,7 @@
 .hamburger {
   display: none; /* oculto en desktop */
   flex-direction: column;
-  gap: 5px;
+  gap: 4.5px;
   background: none;
   border: none;
   padding: 0;
@@ -85,46 +142,29 @@
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Tablet */
-@media (max-width: 1024px) {
-  .navigation {
-    padding: 20px;
-  }
+.nav-cart {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  color: var(--main-color);
+  transition: color 0.3s;
+  position: relative;
 }
 
-/* Móvil */
-@media (max-width: 768px) {
-  .navigation {
-    padding: 15px 20px;
-  }
+.nav-cart:hover {
+  color: var(--shadowColor);
+}
 
-  /* Mostrar hamburger */
-  .hamburger {
-    display: flex;
-  }
-
-  /* Menú oculto inicialmente, animado con scaleY */
-  .nav-right {
-    position: absolute;
-    top: 70px;
-    right: 0;
-    width: 100%;
-    background: white;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 20px;
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 0.3s ease;
-    overflow: hidden;
-  }
-
-  /* Cuando añadimos .show, escalamos en Y para desplegar */
-  .nav-right.show {
-    transform: scaleY(1);
-  }
-
-  .nav-user span {
-    display: inline;
-  }
+.cart-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: var(--main-color);
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
 }

@@ -72,7 +72,7 @@ const ResetPasswordPage = () => {
       <AuthFormWrapper title="Restablecer contraseña" variant={"login"}>
         {message && <Message type="success" message={message} />}
         {apiError && <Message type="error" message={apiError.message} />}
-        <form onSubmit={handleSubmit} className="form">
+        <form onSubmit={handleSubmit} className="auth form">
           <Input
             type="email"
             name="email"

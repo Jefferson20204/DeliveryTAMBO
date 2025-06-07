@@ -10,5 +10,10 @@ import java.util.UUID;
 
 @Repository
 public interface AddressRepository extends JpaRepository<Address, UUID> {
-    List<Address> findByUser(User user);
+    List<Address> findByUserOrderByUpdatedAtDesc(User user); // Más reciente primero
+
+    List<Address> findByUserOrderByUpdatedAtAsc(User user); // Más antiguo primero
+
+    List<Address> findByUserOrderByIsPrimaryDescUpdatedAtDesc(User user); // primero las direcciones primarias y luego
+                                                                          // por fecha
 }

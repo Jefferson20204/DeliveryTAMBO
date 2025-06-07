@@ -55,20 +55,21 @@ public class WebSecurityConfig {
                                                                 "/swagger-ui/**", "/test/**")
                                                 .permitAll()
                                                 .requestMatchers(HttpMethod.GET, "/api/products/**", "/api/category/**",
-                                                                "/api/discounts/**",
-                                                                "/admin/**", "/api/admin/config/**")
+                                                                "/api/discounts/**", "api/brands/**",
+                                                                "/admin/**", "/api/admin/config/**", "/api/address/**")
                                                 .permitAll()
                                                 .requestMatchers(HttpMethod.POST, "/api/products", "/api/category",
-                                                                "/api/discounts",
-                                                                "/api/admin/config/**")
+                                                                "/api/discounts", "api/brands",
+                                                                "/api/admin/config/**", "/api/address/**")
                                                 .permitAll()
                                                 .requestMatchers(HttpMethod.DELETE, "/api/products/**",
                                                                 "/api/category/**", "/api/discounts/**",
-                                                                "/api/admin/config/**")
+                                                                "api/brands/**",
+                                                                "/api/admin/config/**", "/api/address/**")
                                                 .permitAll()
                                                 .requestMatchers(HttpMethod.PUT, "/api/products/**", "/api/category/**",
-                                                                "/api/discounts/**",
-                                                                "/api/admin/config/**")
+                                                                "/api/discounts/**", "api/brands/**",
+                                                                "/api/admin/config/**", "/api/address/**")
                                                 .permitAll()
                                                 .requestMatchers("/oauth2/success").permitAll()
                                                 .anyRequest().authenticated())
