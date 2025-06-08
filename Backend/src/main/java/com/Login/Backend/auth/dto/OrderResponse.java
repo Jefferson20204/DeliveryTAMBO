@@ -1,7 +1,8 @@
 package com.Login.Backend.auth.dto;
 
-import java.util.Map;
 import java.util.UUID;
+
+import com.Login.Backend.entities.PaymentMethod;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class OrderResponse {
 
     private UUID orderId;
-    private Map<String, String> credentials;
-    private String paymentMethod;
+    // private Map<String, String> credentials;
+    private PaymentMethod paymentMethod;
 
 }

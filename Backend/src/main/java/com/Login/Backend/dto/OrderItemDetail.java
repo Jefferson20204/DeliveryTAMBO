@@ -16,7 +16,6 @@ public class OrderItemDetail {
 
     private UUID id;
     private Product product;
-    private UUID productVariantId;
     private Integer quantity;
     private Double itemPrice;
 }

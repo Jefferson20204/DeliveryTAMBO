@@ -57,7 +57,7 @@ const Avatar = ({ user, size = 32 }) => {
   );
 };
 
-const Navigation = () => {
+const Navigation = ({ type = "shop" }) => {
   const userInfo = useSelector(selectUserInfo);
   const navigate = useNavigate();
   const isLoggedIn = isTokenValid();
@@ -84,9 +84,12 @@ const Navigation = () => {
 
   return (
     <>
-      <div className="top-bar">
-        <a>¡Sobrin@ entregamos tu pedido en 30 minutos!</a>
-      </div>
+      {type === "shop" && (
+        <div className="top-bar">
+          <a>¡Sobrin@ entregamos tu pedido en 30 minutos!</a>
+        </div>
+      )}
+
       <nav className="navigation-container" ref={navRef}>
         <div className="navigation px-auto">
           <div className="nav-left">
@@ -95,42 +98,34 @@ const Navigation = () => {
             </a>
           </div>
 
-          <button
-            className={`hamburger ${menuOpen ? "open" : ""}`}
-            aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
+          {type === "shop" && (
+            <div className={`nav-right ${menuOpen ? "show" : ""}`}>
+              <div
+                className="nav-user"
+                onClick={() =>
+                  handleNavigate(
+                    isLoggedIn ? "/account-details/profile" : "/v1/login"
+                  )
+                }
+              >
+                {isLoggedIn ? (
+                  <Avatar user={userInfo} size={32} />
+                ) : (
+                  <>
+                    <UserIcon className={"nav-icon"} />
+                    <span>Iniciar sesión</span>
+                  </>
+                )}
+              </div>
 
-          <div className={`nav-right ${menuOpen ? "show" : ""}`}>
-            <div
-              className="nav-user"
-              onClick={() =>
-                handleNavigate(
-                  isLoggedIn ? "/account-details/profile" : "/v1/login"
-                )
-              }
-            >
-              {isLoggedIn ? (
-                <Avatar user={userInfo} size={32} />
-              ) : (
-                <>
-                  <UserIcon className={"nav-icon"} />
-                  <span>Iniciar sesión</span>
-                </>
-              )}
+              <div className="nav-cart" onClick={() => handleNavigate("/cart")}>
+                <CartIcon className={"nav-icon"} />
+                {totalItems > 0 && (
+                  <span className="cart-count">{totalItems}</span>
+                )}
+              </div>
             </div>
-
-            <div className="nav-cart" onClick={() => handleNavigate("/cart")}>
-              <CartIcon className={"nav-icon"} />
-              {totalItems > 0 && (
-                <span className="cart-count">{totalItems}</span>
-              )}
-            </div>
-          </div>
+          )}
         </div>
       </nav>
     </>

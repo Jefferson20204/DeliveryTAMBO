@@ -35,7 +35,7 @@ const ResetPassword = () => {
           setError("Error al restablecer la contraseña.");
         })
         .finally(() => {
-          dispatch(setLoading(false));
+          dispatch(setLoading({ loading: false, message: "" }));
         });
     },
     [token, password, dispatch, navigate]

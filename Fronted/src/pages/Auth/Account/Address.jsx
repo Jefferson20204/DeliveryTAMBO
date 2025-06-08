@@ -10,30 +10,41 @@ import {
 import { setLoading } from "../../../store/features/common";
 import Button from "../../../components/Buttons/Button";
 import AddAddressModal from "./AddAddressModal";
-import { fetchUserDetails, updateUser } from "../../../api/userInfo";
-import { Link, useNavigate } from "react-router-dom";
+import { fetchUserDetails } from "../../../api/userInfo";
 import DeleteIcon from "../../../common/DeleteIcon";
 import "./Address.css";
 
 const Address = () => {
-  const [addAddress, setAddAddress] = useState(false);
   const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    dispatch(setLoading(true));
-    fetchUserDetails()
-      .then((user) => {
-        loadUserInfo(user);
+    dispatch(
+      setLoading({
+        loading: true,
+        message: "Cargando direcciones...",
+      })
+    );
+
+    const fetchData = fetchUserDetails()
+      .then((res) => {
+        dispatch(loadUserInfo(res));
       })
       .catch((err) => {
-        setError("Error al cargar los datos del usuario");
-      })
-      .finally(() => {
-        dispatch(setLoading(false));
+        console.log(err);
       });
+
+    const minDelay = new Promise((resolve) => setTimeout(resolve, 500));
+
+    Promise.all([fetchData, minDelay]).finally(() => {
+      dispatch(
+        setLoading({
+          loading: false,
+          message: "",
+        })
+      );
+    });
   }, [dispatch]);
 
   // Eliminar direccion
@@ -43,7 +54,6 @@ const Address = () => {
       deleteAddressAPI(id)
         .then((res) => {
           dispatch(removeAddress(id));
-          // navigate("/account-details/address");
         })
         .catch((err) => {})
         .finally(() => {

@@ -17,16 +17,18 @@ import com.Login.Backend.entities.ReceiptType;
 @AllArgsConstructor
 @Builder
 public class OrderRequest {
-    private UUID userId;
-    private Date orderDate;
-    private UUID addressId;
-    private List<OrderItemRequest> orderItemRequests;
-    private Double totalAmount;
-    private Double discount;
-    private PaymentMethod paymentMethod;
-    private Date expectedDeliveryDate;
-    private ReceiptType receiptType;
-    private String ruc;
-    private String razonSocial;
+    // private UUID userId;
+    private Date orderDate; // fecha de creacion del pedido
+    private UUID addressId; // id dela direccion
+    private List<OrderItemRequest> orderItemRequests; // productos del carrito
+    private Double totalAmount; // monto total a pagar
+    private Double discount; // descuento
+    private PaymentMethod paymentMethod; // Metodo de pago
+    private Date expectedDeliveryDate; // Fecha de entrega esperada
+    private ReceiptType receiptType; // tipo de facturacion
+    private String docType; // tipo de documento de identidad
+    private int docNumber; // numero del documento de identidad
+    private String billingAddress; // ruc
+    private String businessName; // Razon social
 
 }

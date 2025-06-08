@@ -6,10 +6,11 @@ import { fetchUserDetails } from "../../../api/userInfo";
 import { loadUserInfo, selectUserInfo } from "../../../store/features/user";
 import CloseIcon from "../../../common/CloseIcon";
 import MenuIcon from "../../../common/MenuIcon";
-import "./Account.css";
 import UserIcon from "../../../common/UserIcon";
 import AddressIcon from "../../../common/AddressIcon";
 import SettingsIcon from "../../../common/SettingsIcon";
+import ShoppingBagIcon from "../../../common/ShoppingBagIcon";
+import "./Account.css";
 
 const Account = () => {
   const dispatch = useDispatch();
@@ -17,17 +18,31 @@ const Account = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
-    dispatch(setLoading(true));
-    fetchUserDetails()
+    dispatch(
+      setLoading({
+        loading: true,
+        message: "Cargando información...",
+      })
+    );
+
+    const fetchData = fetchUserDetails()
       .then((res) => {
         dispatch(loadUserInfo(res));
       })
       .catch((err) => {
         console.log(err);
-      })
-      .finally(() => {
-        dispatch(setLoading(false));
       });
+
+    const minDelay = new Promise((resolve) => setTimeout(resolve, 500));
+
+    Promise.all([fetchData, minDelay]).finally(() => {
+      dispatch(
+        setLoading({
+          loading: false,
+          message: "",
+        })
+      );
+    });
   }, [dispatch]);
 
   const toggleSidebar = () => {
@@ -69,7 +84,7 @@ const Account = () => {
             <p className="welcome-text">Bienvenido a tu cuenta</p>
           </div>
 
-          <nav className="sidebar-nav">
+          <nav className="account-sidebar-nav">
             <ul>
               <SidebarLink
                 to="/account-details/profile"
@@ -82,6 +97,12 @@ const Account = () => {
                 icon={<AddressIcon size={20} />}
               >
                 Direcciones
+              </SidebarLink>
+              <SidebarLink
+                to="/account-details/orders"
+                icon={<ShoppingBagIcon size={20} />}
+              >
+                Pedidos
               </SidebarLink>
               <SidebarLink
                 to="/account-details/settings"

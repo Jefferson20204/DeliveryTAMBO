@@ -27,8 +27,14 @@ const Profile = () => {
   });
 
   useEffect(() => {
-    dispatch(setLoading(true));
-    fetchUserDetails()
+    dispatch(
+      setLoading({
+        loading: true,
+        message: "Cargando perfil...",
+      })
+    );
+
+    const fetchData = fetchUserDetails()
       .then((user) => {
         setValues({
           firstName: user.firstName || "",
@@ -38,11 +44,20 @@ const Profile = () => {
         });
       })
       .catch((err) => {
+        console.log(err);
         setError("Error al cargar los datos del usuario");
-      })
-      .finally(() => {
-        dispatch(setLoading(false));
       });
+
+    const minDelay = new Promise((resolve) => setTimeout(resolve, 500));
+
+    Promise.all([fetchData, minDelay]).finally(() => {
+      dispatch(
+        setLoading({
+          loading: false,
+          message: "",
+        })
+      );
+    });
   }, [dispatch]);
 
   const handleOnChange = useCallback((e) => {

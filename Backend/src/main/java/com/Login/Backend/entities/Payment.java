@@ -32,6 +32,9 @@ public class Payment {
     @Column(nullable = false)
     private Double amount;
 
+    @Column(nullable = true)
+    private String transactionId;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PaymentMethod paymentMethod;

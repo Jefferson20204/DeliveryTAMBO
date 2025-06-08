@@ -1,30 +1,48 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { getAllProducts } from "../../api/productApi";
 import { getProductSectionsConfig } from "../../api/configApi";
 import Slider from "../../components/Slider/MainSlider";
 import ProductSection from "../../components/Section/ProductSection";
+import { setLoading } from "../../store/features/common";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [sectionsConfig, setSectionsConfig] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    // 1) Carga todos los productos
-    getAllProducts().then(setProducts);
+    dispatch(
+      setLoading({
+        loading: true,
+        message: "Cargando productos...",
+      })
+    );
 
-    // 2) Carga la configuración de secciones
-    getProductSectionsConfig().then((sections) => {
+    getAllProducts().then(setProducts); // Obtener todos los productos
+
+    const fetchData = getProductSectionsConfig().then((sections) => {
       // opcional: ordenar por position
       sections.sort((a, b) => a.position - b.position);
       setSectionsConfig(sections);
     });
-  }, []);
+
+    const minDelay = new Promise((resolve) => setTimeout(resolve, 500));
+
+    Promise.all([fetchData, minDelay]).finally(() => {
+      dispatch(
+        setLoading({
+          loading: false,
+          message: "",
+        })
+      );
+    });
+  }, [dispatch]);
 
   return (
     <>
       <main>
         <Slider />
-        {/* Esto tiene queir en Product section */}
         <div className="px-auto ">
           <div className="py-auto">
             {sectionsConfig.map((section) => {

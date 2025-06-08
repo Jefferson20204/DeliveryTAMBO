@@ -6,22 +6,16 @@ import {
   Popup,
   Circle,
   useMapEvents,
-} from "react-leaflet";
-import L from "leaflet";
+} from "react-leaflet"; // Libreria para mapas
+import L from "leaflet"; // importa toda la librería Leaflet
 import { OpenStreetMapProvider } from "leaflet-geosearch";
 import "leaflet/dist/leaflet.css";
 import districtsData from "./data/districts.json";
-import { useDispatch, useSelector } from "react-redux";
-import "./AddAddressModal.css";
+import { useDispatch } from "react-redux";
 import { addAddressAPI } from "../../../api/userInfo";
-import { fetchUserDetails, updateUser } from "../../../api/userInfo";
-import {
-  selectUserInfo,
-  selectIsUserAdmin,
-  loadUserInfo,
-  saveAddress,
-} from "../../../store/features/user";
-import { Link, useNavigate } from "react-router-dom";
+import { saveAddress } from "../../../store/features/user";
+import { useNavigate } from "react-router-dom";
+import "./AddAddressModal.css";
 
 // Configurar íconos de marcador
 const defaultIcon = new L.Icon({
@@ -242,32 +236,6 @@ const AddAddressModal = ({ show, onHide }) => {
   const navigate = useNavigate();
 
   // Guardar dirección
-  // const saveAddress = () => {
-  //   if (!isValidLocation || !selectedLocation || isValidating) return;
-
-  //   setLoading(true);
-
-  //   setTimeout(() => {
-  //     const newAddress = {
-  //       ...selectedLocation,
-  //       district: selectedDistrict,
-  //       city: districtInfo.city,
-  //       country: districtInfo.country,
-  //       ...addressDetails,
-  //       isPrimary: false,
-  //     };
-
-  //     console.log("Dirección guardada:", newAddress);
-  //     addAddressAPI(newAddress).catch((err) => {
-  //       console.log("Address was not added.");
-  //     });
-  //     handleClose();
-
-  //     setLoading(false);
-  //   }, 5000);
-  //   navigate("/account-details/address");
-  // };
-
   const saveAddressDate = async (e) => {
     e.preventDefault();
     setError(null);
@@ -292,14 +260,10 @@ const AddAddressModal = ({ show, onHide }) => {
       const result = await addAddressAPI(newAddress);
 
       if (result) {
-        // Actualizar los datos del usuario
-        // const user = await fetchUserDetails();
-        // dispatch(loadUserInfo(user));
         dispatch(saveAddress(result));
 
         // Cerrar el modal y redirigir
         handleClose();
-        navigate("/account-details/address");
       } else {
         setError("No se pudo guardar la dirección. Inténtalo nuevamente.");
       }

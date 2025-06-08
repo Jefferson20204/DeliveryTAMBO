@@ -1,6 +1,5 @@
 package com.Login.Backend.dto;
 
-import com.Login.Backend.entities.Address;
 import com.Login.Backend.entities.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +18,7 @@ public class OrderDetails {
 
     private UUID id;
     private Date orderDate;
-    private Address address;
+    private AddressDTO address;
     private Double totalAmount;
     private OrderStatus orderStatus;
     private String shipmentNumber;

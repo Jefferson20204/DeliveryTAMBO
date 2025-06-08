@@ -23,6 +23,8 @@ import BrandsList from "./pages/Admin/BrandsList"; //  Página de lista de marca
 import BrandForm from "./pages/Admin/BrandForm"; //  Página de crear/editar marcas
 import AdminProductSections from "./pages/Admin/AdminProductSections"; //  Página de la configuracion deladministrador
 import Address from "./pages/Auth/Account/Address"; //  Página de direcciones del usuario
+import Checkout from "./pages/Public/Checkout";
+import Orders from "./pages/Auth/Account/Orders";
 
 /**
  * Definición del enrutador de la aplicación usando createBrowserRouter.
@@ -32,7 +34,7 @@ export const router = createBrowserRouter([
   // Ruta principal de la tienda
   {
     path: "/",
-    element: <ShopApplicationWrapper />, // Componente envolvente para la tienda
+    element: <ShopApplicationWrapper type="shop" />, // Componente envolvente para la tienda
     children: [
       {
         index: true, // Define esta ruta como la ruta raíz
@@ -55,6 +57,10 @@ export const router = createBrowserRouter([
             element: <Address />,
           },
           {
+            path: "orders",
+            element: <Orders />,
+          },
+          {
             path: "settings",
             element: <Settings />,
           },
@@ -64,6 +70,10 @@ export const router = createBrowserRouter([
         path: "/cart",
         element: <Cart />, // Carrito
       },
+      {
+        path: "/checkout",
+        element: <Checkout />, // Carrito
+      },
       // Aquí puedes añadir más rutas protegidas o públicas
     ],
   },
@@ -71,7 +81,7 @@ export const router = createBrowserRouter([
   // Rutas relacionadas con la autenticación (login, registro, etc.)
   {
     path: "/v1/", // Prefijo de ruta para todas las páginas de autenticación
-    element: <ShopApplicationWrapper />,
+    element: <ShopApplicationWrapper type="login" />,
     children: [
       {
         path: "login",

@@ -2,6 +2,7 @@ package com.Login.Backend.services;
 
 import com.Login.Backend.dto.ProductDTO;
 import com.Login.Backend.dto.ProductRequestDTO;
+import com.Login.Backend.entities.Product;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,6 +18,8 @@ public interface ProductService {
     ProductDTO getProductBySlug(String slug);
 
     ProductDTO getProductById(UUID id);
+
+    Product getProductEntityById(UUID id);
 
     ProductDTO updateProduct(UUID id, ProductRequestDTO productDto);
 

@@ -52,24 +52,29 @@ public class WebSecurityConfig {
                                 .csrf(AbstractHttpConfigurer::disable)
                                 .authorizeHttpRequests((authorize) -> authorize
                                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui.html",
-                                                                "/swagger-ui/**", "/test/**")
+                                                                "/swagger-ui/**", "/test/**",
+                                                                "/api/payment/paypal/confirm-payment", "/api/export/**")
                                                 .permitAll()
                                                 .requestMatchers(HttpMethod.GET, "/api/products/**", "/api/category/**",
                                                                 "/api/discounts/**", "api/brands/**",
-                                                                "/admin/**", "/api/admin/config/**", "/api/address/**")
+                                                                "/admin/**", "/api/admin/config/**", "/api/address/**",
+                                                                "/api/order/**", "/api/payment/**", "/api/export/**")
                                                 .permitAll()
                                                 .requestMatchers(HttpMethod.POST, "/api/products", "/api/category",
                                                                 "/api/discounts", "api/brands",
-                                                                "/api/admin/config/**", "/api/address/**")
+                                                                "/api/admin/config/**", "/api/address/**",
+                                                                "/api/order/**", "/api/payment/**", "/api/export/**")
                                                 .permitAll()
                                                 .requestMatchers(HttpMethod.DELETE, "/api/products/**",
                                                                 "/api/category/**", "/api/discounts/**",
                                                                 "api/brands/**",
-                                                                "/api/admin/config/**", "/api/address/**")
+                                                                "/api/admin/config/**", "/api/address/**",
+                                                                "/api/order/**", "/api/payment/**", "/api/export/**")
                                                 .permitAll()
                                                 .requestMatchers(HttpMethod.PUT, "/api/products/**", "/api/category/**",
                                                                 "/api/discounts/**", "api/brands/**",
-                                                                "/api/admin/config/**", "/api/address/**")
+                                                                "/api/admin/config/**", "/api/address/**",
+                                                                "/api/order/**", "/api/payment/**", "/api/export/**")
                                                 .permitAll()
                                                 .requestMatchers("/oauth2/success").permitAll()
                                                 .anyRequest().authenticated())

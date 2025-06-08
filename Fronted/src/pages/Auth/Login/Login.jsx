@@ -36,7 +36,7 @@ const Login = () => {
     } catch (error) {
       console.error("Error al cargar detalles del usuario:", error);
     } finally {
-      dispatch(setLoading(false));
+      dispatch(setLoading({ loading: false, message: "" }));
     }
   }, [dispatch]);
 
@@ -70,7 +70,9 @@ const Login = () => {
           code: err.response?.status || 500,
         });
       } finally {
-        dispatch(setLoading(false));
+        dispatch(
+          setLoading({ loading: true, message: "Validando credenciales..." })
+        );
       }
     },
     [dispatch, navigate, values, fetchAndStoreUserDetails]
