@@ -37,7 +37,7 @@ const VerifyCode = ({ email }) => {
           );
         })
         .finally(() => {
-          dispatch(setLoading(false));
+          dispatch(setLoading({ loading: false, message: "" }));
         });
     },
     [dispatch, values]

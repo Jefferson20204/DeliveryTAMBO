@@ -35,7 +35,7 @@ const ResetPasswordPage = () => {
           error?.message || "Error al enviar el correo de recuperación.";
         setApiError(errorMsg);
       } finally {
-        dispatch(setLoading(false));
+        dispatch(setLoading({ loading: false, message: "" }));
       }
     },
     [dispatch, email]

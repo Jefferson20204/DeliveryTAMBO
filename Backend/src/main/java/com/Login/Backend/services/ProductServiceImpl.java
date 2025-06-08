@@ -94,13 +94,22 @@ public class ProductServiceImpl implements ProductService {
                 return ProductMapper.toDTO(product);
         }
 
-        // Obtener un producto por ID
+        // Obtener un producto Dto por ID
         @Override
         @Transactional(readOnly = true)
         public ProductDTO getProductById(UUID id) {
                 Product product = productRepository.findById(id)
                                 .orElseThrow(() -> new ResourceNotFoundEx("Product Not Found!"));
                 return ProductMapper.toDTO(product);
+        }
+
+        // Obtener un producto Dto por ID
+        @Override
+        @Transactional(readOnly = true)
+        public Product getProductEntityById(UUID id) {
+                Product product = productRepository.findById(id)
+                                .orElseThrow(() -> new ResourceNotFoundEx("Product Not Found!"));
+                return product;
         }
 
         // Actualizar un producto por ID

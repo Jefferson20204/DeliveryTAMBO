@@ -23,7 +23,7 @@ export const updateItemToCartAction = (productItem) => {
 
 export const delteItemFromCartAction = (payload) => {
   return (dispatch, getState) => {
-    dispatch(removeFromCart(payload)); // payload: { productId: ... }
+    dispatch(removeFromCart(payload));
     updateLocalStorage(getState);
   };
 };

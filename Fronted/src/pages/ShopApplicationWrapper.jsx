@@ -8,7 +8,7 @@ import IconLoader from "../components/IconLoader/IconLoader";
  * Componente envolvente de la aplicación de la tienda.
  * Este componente tiene la lógica básica de la estructura de la página, como la navegación, el contenido y el pie de página.
  */
-const ShopApplicationWrapper = () => {
+const ShopApplicationWrapper = ({ type }) => {
   // Obtiene el estado de carga desde Redux (si está cargando algún recurso)
   const isLoading = useSelector((state) => state.commonState.loading);
 
@@ -18,9 +18,9 @@ const ShopApplicationWrapper = () => {
   );
 
   return (
-    <div>
+    <>
       {/* Barra de navegación superior */}
-      <Navigation />
+      <Navigation type={type} />
 
       {/* Rutas anidadas se renderizan aquí (dependiendo de la ruta actual) */}
       <Outlet />
@@ -30,7 +30,7 @@ const ShopApplicationWrapper = () => {
 
       {/* Si hay un proceso de carga, muestra el Spinner con el mensaje adecuado */}
       {isLoading && <IconLoader text={loadingMessage || "Cargando..."} />}
-    </div>
+    </>
   );
 };
 

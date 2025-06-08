@@ -30,7 +30,7 @@ public class Order {
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "address_id", nullable = false)
+    @JoinColumn(name = "address_id", nullable = true)
     @ToString.Exclude
     @JsonIgnore
     private Address address;
@@ -45,6 +45,7 @@ public class Order {
     private OrderStatus orderStatus;
 
     // metodo de pago
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PaymentMethod paymentMethod;
 
@@ -74,6 +75,12 @@ public class Order {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ReceiptType receiptType;
+
+    @Column(nullable = false)
+    private String docType;
+
+    @Column(nullable = false)
+    private int docNumber;
 
     @Column(nullable = true)
     private String ruc;

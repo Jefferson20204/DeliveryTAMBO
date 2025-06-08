@@ -45,7 +45,7 @@ const OAuth2LoginCallback = () => {
         console.error("Error en OAuth callback:", error);
         navigate("/v1/login?error=oauth_failed");
       } finally {
-        dispatch(setLoading(false));
+        dispatch(setLoading({ loading: false, message: "" }));
       }
     };
 

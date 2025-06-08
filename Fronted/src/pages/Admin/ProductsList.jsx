@@ -11,8 +11,8 @@ export default function ProductsList() {
   }, []);
 
   return (
-    <div className="m-1">
-      <div>
+    <div className="py-auto">
+      <div className="py-auto">
         <h2>Lista de productos</h2>
         <Link to="/admin/products/new">Agregar producto</Link>
       </div>

@@ -80,13 +80,13 @@
   margin: 0;
 }
 
-.sidebar-nav ul {
+.account-sidebar-nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.sidebar-nav li {
+.account-sidebar-nav li {
   margin-bottom: 6px;
 }
 
@@ -106,7 +106,6 @@
 }
 
 .nav-link.active {
-  /* background-color: var(--shadowColor); */
   font-weight: 600;
 }
 
@@ -128,7 +127,33 @@
   flex: 1;
   margin-left: 0;
   min-height: calc(100vh - 80px);
-  /* border: 1px solid black; */
+}
+
+/* Menu toggle button styles */
+.menu-toggle-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #fff;
+  color: #555;
+  border: 1px solid #e0e0e0;
+  cursor: pointer;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-toggle-btn:hover {
+  background: #f9f9f9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 /* Mobile styles */
@@ -181,46 +206,7 @@
   .sidebar-close-btn {
     display: none;
   }
-}
 
-/* Menu toggle button styles - Minimalista */
-:root {
-  --menu-btn-size: 48px;
-  --menu-btn-bg: #fff;
-  --menu-btn-color: #555;
-  --menu-btn-border: #e0e0e0;
-  --menu-btn-hover-bg: #f9f9f9;
-  --menu-btn-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  --menu-btn-hover-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-}
-
-.menu-toggle-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: var(--menu-btn-size);
-  height: var(--menu-btn-size);
-  border-radius: 50%;
-  background: var(--menu-btn-bg);
-  color: var(--menu-btn-color);
-  border: 1px solid var(--menu-btn-border);
-  cursor: pointer;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--menu-btn-shadow);
-  transition: all 0.2s ease;
-  padding: 0; /* Elimina padding por defecto */
-  margin: 0; /* Elimina margen por defecto */
-}
-
-.menu-toggle-btn:hover {
-  background: var(--menu-btn-hover-bg);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-}
-
-@media (min-width: 769px) {
   .menu-toggle-btn {
     display: none;
   }
