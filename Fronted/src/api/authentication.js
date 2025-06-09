@@ -13,13 +13,17 @@ export const loginAPI = async (body) => {
       method: "POST",
       data: body,
     });
+    console.log("response", response);
+
     return response?.data;
   } catch (err) {
     // Si el backend devuelve un mensaje de error, lo lanzamos
     if (err.response && err.response.data) {
+      console.log("error", err.response.data);
       throw err.response.data;
     } else {
       // Sino, lanzamos el error general
+      console.log("err", err);
       throw err;
     }
   }

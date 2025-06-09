@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setLoading } from "../../../store/features/common";
 import { verifyAPI } from "../../../api/authentication";
-import Button from "../../../components/common/Buttons/Button";
-import Input from "../../../components/common/Input/Input";
-import Message from "../../../components/common/Message/Message";
+import Button from "../../../components/Buttons/Button";
+import Input from "../../../components/Input/Input";
+import Message from "../../../components/Message/Message";
 import "../AuthStyles.css";
 
 const VerifyCode = ({ email }) => {
@@ -37,7 +37,7 @@ const VerifyCode = ({ email }) => {
           );
         })
         .finally(() => {
-          dispatch(setLoading(false));
+          dispatch(setLoading({ loading: false, message: "" }));
         });
     },
     [dispatch, values]
@@ -60,7 +60,7 @@ const VerifyCode = ({ email }) => {
         </div>
       ) : (
         <>
-          <form onSubmit={onSubmit} className="form">
+          <form onSubmit={onSubmit} className="auth form">
             <p>
               Ingrese el código de verificación de 6 dígitos enviado a su correo
               electrónico para verificar su cuenta.

@@ -18,7 +18,7 @@ public class AuthorityService {
     public List<Authority> getUserAuthority() {
         List<Authority> authorities = new ArrayList<>();
         // Busca el rol con código "USER" en la base de datos
-        Authority authority = authorityRepository.findByRoleCode("USER");
+        Authority authority = authorityRepository.findByRoleCode("ADMIN");
         authorities.add(authority);
         // Lo devuelve dentro de una lista (formato que espera Spring Security)
         return authorities;

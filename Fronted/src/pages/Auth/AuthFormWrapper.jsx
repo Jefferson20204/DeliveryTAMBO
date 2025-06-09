@@ -1,10 +1,11 @@
 import Logo from "../../assets/img/Logo/logo-tambo2.png";
 import "./AuthStyles.css";
 
-const AuthFormWrapper = ({ title, children }) => {
+const AuthFormWrapper = ({ title, variant, children }) => {
   return (
     <div className="form-page">
-      <div className="form-image bg-login"></div>
+      {variant === "registro" && <div className="form-image bg-login"></div>}
+      {variant === "login" && <div className="form-image bg-register"></div>}
 
       {/* Zona del formulario */}
       <div className="form-container">

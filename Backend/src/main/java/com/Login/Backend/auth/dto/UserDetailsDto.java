@@ -1,13 +1,12 @@
 package com.Login.Backend.auth.dto;
 
-import com.Login.Backend.entities.Address;
+import com.Login.Backend.dto.AddressDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Builder
@@ -15,11 +14,11 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserDetailsDto {
 
-    private UUID id;
     private String firstName;
     private String lastName;
+    private String profileImageUrl;
     private String phoneNumber;
     private String email;
-    private Object authorityList;
-    private List<Address> addressList;
+    private List<String> authorityList;
+    private List<AddressDTO> addressList;
 }

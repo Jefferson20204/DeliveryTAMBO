@@ -1,15 +1,15 @@
-import React, { useCallback, useState } from "react";
-import GoogleSignIn from "../../../components/common/Buttons/GoogleSignIn";
+import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
-import { setLoading } from "../../../store/features/common";
 import { useDispatch } from "react-redux";
+import { setLoading } from "../../../store/features/common";
 import { registerAPI } from "../../../api/authentication";
-import VerifyCode from "./VerifyCode";
-import Divider from "../../../components/common/Divider/Divider";
-import Button from "../../../components/common/Buttons/Button";
+import GoogleSignIn from "../../../components/Buttons/GoogleSignIn";
+import Divider from "../../../components/Divider/Divider";
+import Button from "../../../components/Buttons/Button";
 import AuthFormWrapper from "../AuthFormWrapper";
-import Input from "../../../components/common/Input/Input";
-import Message from "../../../components/common/Message/Message";
+import Input from "../../../components/Input/Input";
+import Message from "../../../components/Message/Message";
+import VerifyCode from "./VerifyCode";
 import "../AuthStyles.css";
 
 const Register = () => {
@@ -56,7 +56,7 @@ const Register = () => {
           });
         })
         .finally(() => {
-          dispatch(setLoading(false));
+          dispatch(setLoading({ loading: false, message: "" }));
         });
     },
     [dispatch, values]
@@ -72,14 +72,14 @@ const Register = () => {
 
   return (
     <>
-      <AuthFormWrapper title="Registro">
+      <AuthFormWrapper title="Registro" variant={"registro"}>
         {apiError.message && (
           <Message type="error" message={apiError.message} />
         )}
         {!enableVerify ? (
           <>
             {" "}
-            <form onSubmit={onSubmit} className="form">
+            <form onSubmit={onSubmit} className="auth form">
               <Input
                 type="text"
                 name="firstName"

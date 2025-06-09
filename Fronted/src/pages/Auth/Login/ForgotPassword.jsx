@@ -1,12 +1,12 @@
-import React, { useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { setLoading } from "../../../store/features/common";
 import { sendResetPasswordEmailAPI } from "../../../api/authentication";
 import { Link } from "react-router-dom";
-import Button from "../../../components/common/Buttons/Button";
+import Button from "../../../components/Buttons/Button";
 import AuthFormWrapper from "../AuthFormWrapper";
-import Input from "../../../components/common/Input/Input";
-import Message from "../../../components/common/Message/Message";
+import Input from "../../../components/Input/Input";
+import Message from "../../../components/Message/Message";
 import "../AuthStyles.css";
 
 const ResetPasswordPage = () => {
@@ -35,7 +35,7 @@ const ResetPasswordPage = () => {
           error?.message || "Error al enviar el correo de recuperación.";
         setApiError(errorMsg);
       } finally {
-        dispatch(setLoading(false));
+        dispatch(setLoading({ loading: false, message: "" }));
       }
     },
     [dispatch, email]
@@ -69,10 +69,10 @@ const ResetPasswordPage = () => {
 
   return (
     <>
-      <AuthFormWrapper title="Restablecer contraseña">
+      <AuthFormWrapper title="Restablecer contraseña" variant={"login"}>
         {message && <Message type="success" message={message} />}
         {apiError && <Message type="error" message={apiError.message} />}
-        <form onSubmit={handleSubmit} className="form">
+        <form onSubmit={handleSubmit} className="auth form">
           <Input
             type="email"
             name="email"

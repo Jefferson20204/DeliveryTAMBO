@@ -3,15 +3,16 @@ package com.Login.Backend.auth.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ServerErrorException;
 
-import com.Login.Backend.auth.config.JWTTokenHelper;
 import com.Login.Backend.auth.dto.LoginRequest;
 import com.Login.Backend.auth.dto.LoginResponse;
 import com.Login.Backend.auth.entities.User;
+import com.Login.Backend.auth.helper.JWTTokenHelper;
 import com.Login.Backend.auth.repositories.UserDetailRepository;
 
 @Service
@@ -30,23 +31,6 @@ public class LoginService {
 
         String userName = request.getUserName();
         String password = request.getPassword();
-
-        if (userName == null || userName.isEmpty()) {
-            return LoginResponse.builder()
-                    .code(400)
-                    .message("Ingrese el email.")
-                    .token(null)
-                    .build();
-        }
-
-        // Validar el password
-        if (password == null || password.isEmpty()) {
-            return LoginResponse.builder()
-                    .code(400)
-                    .message("Ingrese la contraseña.")
-                    .token(null)
-                    .build();
-        }
 
         try {
             Authentication authentication = new UsernamePasswordAuthenticationToken(userName, password);
@@ -67,6 +51,13 @@ public class LoginService {
                     .code(200)
                     .message("Inicio de sesión exitoso.")
                     .token(token)
+                    .build();
+
+        } catch (DisabledException e) {
+            return LoginResponse.builder()
+                    .code(401)
+                    .message("El usuario está deshabilitado.")
+                    .token(null)
                     .build();
 
         } catch (BadCredentialsException e) {
