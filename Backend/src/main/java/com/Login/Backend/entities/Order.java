@@ -29,11 +29,11 @@ public class Order {
     @JsonIgnore
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "address_id", nullable = true)
-    @ToString.Exclude
-    @JsonIgnore
-    private Address address;
+    @Column(name = "latitude", nullable = true)
+    private Double latitude;
+
+    @Column(name = "longitude", nullable = true)
+    private Double longitude;
 
     // monto total
     @Enumerated(EnumType.STRING)

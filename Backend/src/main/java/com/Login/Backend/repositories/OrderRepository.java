@@ -21,7 +21,6 @@ public interface OrderRepository extends JpaRepository<Order, UUID> {
 
     @Query("SELECT DISTINCT o FROM Order o " +
             "LEFT JOIN FETCH o.orderItemList items " +
-            "LEFT JOIN FETCH o.address " +
             "WHERE o.user = :user " +
             "ORDER BY o.orderDate DESC")
     List<Order> findByUserWithItemsAndAddress(@Param("user") User user);

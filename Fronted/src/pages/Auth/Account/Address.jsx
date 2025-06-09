@@ -1,25 +1,20 @@
 import { useCallback, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Card from "../../../components/Card/Card";
 import { deleteAddressAPI } from "../../../api/userInfo";
-import {
-  loadUserInfo,
-  removeAddress,
-  selectUserInfo,
-} from "../../../store/features/user";
 import { setLoading } from "../../../store/features/common";
 import Button from "../../../components/Buttons/Button";
 import AddAddressModal from "./AddAddressModal";
-import { fetchUserDetails } from "../../../api/userInfo";
+import { fetchUserAddress } from "../../../api/userInfo";
 import DeleteIcon from "../../../common/DeleteIcon";
 import "./Address.css";
 
 const Address = () => {
-  const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const [addresses, setAddresses] = useState([]);
 
-  useEffect(() => {
+  const fetchAddresses = useCallback(() => {
     dispatch(
       setLoading({
         loading: true,
@@ -27,13 +22,9 @@ const Address = () => {
       })
     );
 
-    const fetchData = fetchUserDetails()
-      .then((res) => {
-        dispatch(loadUserInfo(res));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const fetchData = fetchUserAddress().then((res) => {
+      setAddresses(res);
+    });
 
     const minDelay = new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -47,20 +38,27 @@ const Address = () => {
     });
   }, [dispatch]);
 
+  useEffect(() => {
+    fetchAddresses();
+  }, [fetchAddresses]);
+
   // Eliminar direccion
   const onDeleteAddress = useCallback(
     (id) => {
       dispatch(setLoading(true));
       deleteAddressAPI(id)
         .then((res) => {
-          dispatch(removeAddress(id));
+          // Actualizar las direcciones después de eliminar
+          fetchAddresses();
         })
-        .catch((err) => {})
+        .catch((err) => {
+          console.error("Error al eliminar dirección:", err);
+        })
         .finally(() => {
           dispatch(setLoading(false));
         });
     },
-    [dispatch]
+    [dispatch, fetchAddresses]
   );
 
   return (
@@ -78,16 +76,14 @@ const Address = () => {
           </Button>
         }
       >
-        {userInfo.addressList?.length > 0 ? (
+        {addresses?.length > 0 ? (
           <div className="addresses-container">
-            {userInfo?.addressList?.map((address, index) => (
+            {addresses?.map((address, index) => (
               <div key={index} className="address-item">
                 <div className="address-content">
                   <p className="address-text">{address.address}</p>
-                  {address.additionalDetails && (
-                    <p className="address-details">
-                      {address.additionalDetails}
-                    </p>
+                  {address.id && (
+                    <p className="address-details">{address.id}</p>
                   )}
                 </div>
                 <button
@@ -104,7 +100,11 @@ const Address = () => {
           <p className="no-addresses">No tienes una dirección registrada.</p>
         )}
 
-        <AddAddressModal show={showModal} onHide={() => setShowModal(false)} />
+        <AddAddressModal
+          show={showModal}
+          onHide={() => setShowModal(false)}
+          onSuccess={fetchAddresses}
+        />
       </Card>
     </>
   );

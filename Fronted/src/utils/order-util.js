@@ -2,7 +2,8 @@ export const createOrderRequest = (
   cartItems,
   deliveryMethod,
   totalToPay,
-  addressId,
+  latitude,
+  longitude,
   paymentMethod,
   totalDiscount,
   invoiceType,
@@ -13,7 +14,8 @@ export const createOrderRequest = (
 ) => {
   let request = {};
   request.orderDate = new Date().toISOString();
-  request.addressId = addressId;
+  request.latitude = latitude;
+  request.longitude = longitude;
 
   let orderItems = [];
   cartItems?.map((item) => {

@@ -4,8 +4,11 @@ import "./AuthStyles.css";
 const AuthFormWrapper = ({ title, variant, children }) => {
   return (
     <div className="form-page">
-      {variant === "registro" && <div className="form-image bg-login"></div>}
-      {variant === "login" && <div className="form-image bg-register"></div>}
+      <div
+        className={`form-image ${
+          variant === "registro" ? "bg-login" : "bg-register"
+        }`}
+      ></div>
 
       {/* Zona del formulario */}
       <div className="form-container">

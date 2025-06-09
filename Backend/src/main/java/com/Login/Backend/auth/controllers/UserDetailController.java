@@ -6,6 +6,7 @@ import com.Login.Backend.auth.dto.UserUpdateDto;
 import com.Login.Backend.auth.entities.User;
 import com.Login.Backend.auth.services.UserService;
 import com.Login.Backend.dto.AddressDTO;
+import com.Login.Backend.services.AddressService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.List;
 
 // Proporcionar un endpoint seguro para que los usuarios autenticados obtengan su información de perfil
 @RestController
@@ -30,7 +32,10 @@ public class UserDetailController {
         private UserDetailsService userDetailsService;
 
         @Autowired
-        UserService userService;
+        private UserService userService;
+
+        @Autowired
+        private AddressService addressService;
 
         // Método GET que devuelve los detalles del usuario
         @GetMapping("/profile")
@@ -50,24 +55,6 @@ public class UserDetailController {
                                 .profileImageUrl(user.getProfileImageUrl())
                                 .email(user.getEmail())
                                 .phoneNumber(user.getPhoneNumber())
-                                .addressList(user.getAddressList().stream()
-                                                .map(address -> AddressDTO.builder()
-                                                                .id(address.getId())
-                                                                .alias(address.getAlias())
-                                                                .address(address.getAddress())
-                                                                .district(address.getDistrict())
-                                                                .city(address.getCity())
-                                                                .country(address.getCountry())
-                                                                .latitude(address.getLatitude())
-                                                                .longitude(address.getLongitude())
-                                                                .floor(address.getFloor())
-                                                                .office(address.getOffice())
-                                                                .apartment(address.getApartment())
-                                                                .reference(address.getReference())
-                                                                .isPrimary(address.getIsPrimary())
-                                                                .userId(address.getUser().getId())
-                                                                .build())
-                                                .toList())
                                 .authorityList(user.getAuthorities().stream()
                                                 .map(auth -> auth.getAuthority()).toList())
                                 .build();
@@ -90,5 +77,12 @@ public class UserDetailController {
                         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
                 }
 
+        }
+
+        // Obtener todas las direcciones del usuario autenticado
+        @GetMapping("/getMyAddressses")
+        public ResponseEntity<List<AddressDTO>> getUserAddresses(Principal principal) {
+                List<AddressDTO> addresses = addressService.getUserAddresses(principal);
+                return ResponseEntity.ok(addresses);
         }
 }

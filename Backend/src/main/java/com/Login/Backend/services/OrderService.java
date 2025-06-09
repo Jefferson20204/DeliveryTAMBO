@@ -15,11 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.Login.Backend.auth.dto.OrderResponse;
 import com.Login.Backend.auth.entities.User;
-import com.Login.Backend.dto.AddressDTO;
 import com.Login.Backend.dto.OrderDetails;
 import com.Login.Backend.dto.OrderItemDetail;
 import com.Login.Backend.dto.OrderRequest;
-import com.Login.Backend.entities.Address;
 import com.Login.Backend.entities.Order;
 import com.Login.Backend.entities.OrderItem;
 import com.Login.Backend.entities.OrderStatus;
@@ -53,14 +51,17 @@ public class OrderService {
     public OrderResponse createOrder(OrderRequest orderRequest, Principal principal) throws Exception {
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
 
-        Address address = user.getAddressList().stream()
-                .filter(address1 -> orderRequest.getAddressId().equals(address1.getId())).findFirst().orElse(null);
+        // Address address = user.getAddressList().stream()
+        // .filter(address1 ->
+        // orderRequest.getAddressId().equals(address1.getId())).findFirst().orElse(null);
         // .orElseThrow(BadRequestException::new);
 
         Order order = Order.builder()
                 .orderDate(orderRequest.getOrderDate())
                 .user(user)
-                .address(address != null ? address : null)
+                // .address(address != null ? address : null)
+                .latitude(orderRequest.getLatitude())
+                .longitude(orderRequest.getLongitude())
                 .deliveryMethod(orderRequest.getDeliveryMethod())
                 .totalAmount(orderRequest.getTotalAmount())
                 .orderStatus(OrderStatus.PENDING)
@@ -174,25 +175,12 @@ public class OrderService {
                 .orderDate(order.getOrderDate())
                 .orderStatus(order.getOrderStatus())
                 .shipmentNumber(order.getShipmentTrackingNumber())
-                .address(convertToAddressDto(order.getAddress()))
+                .latitude(order.getLatitude())
+                .longitude(order.getLongitude())
+                // .address(convertToAddressDto(order.getAddress()))
                 .totalAmount(order.getTotalAmount())
                 .orderItemList(convertToItemDetails(order.getOrderItemList()))
                 .expectedDeliveryDate(order.getExpectedDeliveryDate())
-                .build();
-    }
-
-    private AddressDTO convertToAddressDto(Address address) {
-        if (address == null)
-            return null;
-
-        return AddressDTO.builder()
-                .id(address.getId())
-                .alias(address.getAlias())
-                .address(address.getFullAddress())
-                .district(address.getDistrict())
-                .city(address.getCity())
-                .country(address.getCountry())
-                .isPrimary(address.getIsPrimary())
                 .build();
     }
 

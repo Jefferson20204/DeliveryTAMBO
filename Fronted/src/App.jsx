@@ -1,14 +1,9 @@
-import React from "react";
-import { RouterProvider } from "react-router-dom"; // Proveedor de rutas para navegación en la app
-import { router } from "./routes"; // Configuración de rutas definida externamente
-import { Provider } from "react-redux"; // Proveedor de Redux para compartir el estado global
-import store from "./store/store"; // Store de Redux
-import ShopApplicationWrapper from "./pages/ShopApplicationWrapper"; // Componente de alto nivel de la app
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes";
+import { Provider } from "react-redux";
+import store from "./store/store";
+import ShopApplicationWrapper from "./pages/ShopApplicationWrapper";
 
-/**
- * Componente principal de la aplicación.
- * Configura Redux y React Router para toda la aplicación.
- */
 function App() {
   return (
     <>
@@ -16,7 +11,6 @@ function App() {
       <Provider store={store}>
         {/* Proveedor de rutas: habilita la navegación en la app */}
         <RouterProvider router={router}>
-          {/* Componente raíz que puede contener lógica global, layout o contextos adicionales */}
           <ShopApplicationWrapper />
         </RouterProvider>
       </Provider>

@@ -6,7 +6,6 @@
   justify-content: center;
   align-items: center;
   z-index: 999;
-  /* border: 3px solid red; */
 }
 
 .modal-product {
@@ -20,7 +19,6 @@
   border-radius: 20px;
   overflow: hidden;
   position: relative;
-  /* border: 3px solid blue; */
 }
 
 .modal-content {
@@ -28,13 +26,11 @@
   inset: 0;
   display: flex;
   justify-content: center;
-  /* border: 3px solid green; */
 }
 
 .modal-left {
   flex: 1;
   position: relative;
-  /* border: 3px solid skyblue; */
 }
 
 .modal-right {
@@ -46,7 +42,6 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  /* border: 3px solid fuchsia; */
 }
 
 .modal-image-wrapper {

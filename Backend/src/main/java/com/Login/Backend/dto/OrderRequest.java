@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import com.Login.Backend.entities.DeliveryMethod;
 import com.Login.Backend.entities.PaymentMethod;
@@ -20,7 +19,8 @@ import com.Login.Backend.entities.ReceiptType;
 public class OrderRequest {
     // private UUID userId;
     private Date orderDate; // fecha de creacion del pedido
-    private UUID addressId; // id dela direccion
+    private Double latitude;
+    private Double longitude;
     private List<OrderItemRequest> orderItemRequests; // productos del carrito
     private DeliveryMethod deliveryMethod; // metodo de entrega
     private Double totalAmount; // monto total a pagar

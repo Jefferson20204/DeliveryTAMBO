@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectUserInfo, loadUserInfo } from "../../store/features/user";
-import "./CartPage.css";
 import Button from "../../components/Buttons/Button";
 import Card from "../../components/Card/Card";
 import AddAddressModal from "../Auth/Account/AddAddressModal";
@@ -13,6 +12,8 @@ import { setLoading } from "../../store/features/common";
 import { fetchUserDetails } from "../../api/userInfo";
 import AddressIcon from "../../common/AddressIcon";
 import { logOut } from "../../utils/jwt-helper";
+import { fetchUserAddress } from "../../api/userInfo";
+import "./CartPage.css";
 
 const DELIVERY_FEE = 5.0;
 
@@ -24,13 +25,33 @@ const CartPage = () => {
   const totalItems = useSelector(countCartItems);
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  // DATOS DEL PEDIDO
+  const [paymentMethod, setPaymentMethod] = useState(""); // "paypal" o "yape"
+  const [invoiceType, setInvoiceType] = useState("boleta"); // "boleta" o "factura"
+  const [docType, setDocType] = useState("DNI");
+  const [docNumber, setDocNumber] = useState("");
+  const [businessName, setBusinessName] = useState(""); // solo factura
+  const [billingAddress, setBillingAddress] = useState(""); // solo factura
+  const [tipOption, setTipOption] = useState("none"); // none, percent, manual
+  const [tipPercent, setTipPercent] = useState(10);
+  const [tipManual, setTipManual] = useState(1);
+  const [deliveryMethod, setDeliveryMethod] = useState("delivery"); // "store" o "delivery"
+  const [selectedStore, setSelectedStore] = useState("Tienda Central");
+  const [deliveryAddress, setDeliveryAddress] = useState(null);
+
+  const [errors, setErrors] = useState({}); // Mensaje de errores
+
+  const fetchAddresses = useCallback(() => {
     dispatch(
       setLoading({
         loading: true,
         message: "Cargando carrito...",
       })
     );
+
+    fetchUserAddress().then((res) => {
+      setDeliveryAddress(res[0] || null);
+    });
 
     const fetchData = fetchUserDetails()
       .then((res) => {
@@ -39,7 +60,6 @@ const CartPage = () => {
       .catch((err) => {
         console.log(err);
         logOut(); // borramos usuarios del local storage
-        // dispatch(clearUserInfo());
       });
 
     const minDelay = new Promise((resolve) => setTimeout(resolve, 500));
@@ -54,23 +74,9 @@ const CartPage = () => {
     });
   }, [dispatch]);
 
-  // DATOS DEL PEDIDO
-  const [paymentMethod, setPaymentMethod] = useState(""); // "paypal" o "yape"
-  const [invoiceType, setInvoiceType] = useState("boleta"); // "boleta" o "factura"
-  const [docType, setDocType] = useState("DNI");
-  const [docNumber, setDocNumber] = useState("");
-  const [businessName, setBusinessName] = useState(""); // solo factura
-  const [billingAddress, setBillingAddress] = useState(""); // solo factura
-  const [tipOption, setTipOption] = useState("none"); // none, percent, manual
-  const [tipPercent, setTipPercent] = useState(10);
-  const [tipManual, setTipManual] = useState(1);
-  const [deliveryMethod, setDeliveryMethod] = useState("delivery"); // "store" o "delivery"
-  const [selectedStore, setSelectedStore] = useState("Tienda Central");
-  const [deliveryAddress, setDeliveryAddress] = useState(
-    userInfo?.addressList?.[0] || null
-  );
-  // Mensaje de errores
-  const [errors, setErrors] = useState({});
+  useEffect(() => {
+    fetchAddresses();
+  }, [fetchAddresses]);
 
   // Validación de campos obligatorios
   const validateForm = () => {
@@ -134,7 +140,8 @@ const CartPage = () => {
         cartItems,
         deliveryMethod,
         totalToPay,
-        deliveryMethod === "delivery" ? deliveryAddress.id : null,
+        deliveryMethod === "delivery" ? deliveryAddress.latitude : null,
+        deliveryMethod === "delivery" ? deliveryAddress.longitude : null,
         paymentMethod,
         totalDiscount,
         invoiceType,
@@ -163,21 +170,6 @@ const CartPage = () => {
       });
     } catch (error) {
       console.error("Error creating order:", error);
-
-      // Manejo específico de diferentes tipos de errores
-      if (error.response) {
-        // Error de la API (4xx, 5xx)
-        console.error("API Error:", error.response.data);
-        // Mostrar mensaje de error al usuario según el código de error
-      } else if (error.request) {
-        // La petición fue hecha pero no hubo respuesta
-        console.error("No response received:", error.request);
-      } else {
-        // Error al configurar la petición
-        console.error("Request setup error:", error.message);
-      }
-
-      // Podrías mostrar un mensaje de error al usuario
     } finally {
       dispatch(
         setLoading({
@@ -279,7 +271,6 @@ const CartPage = () => {
                         }}
                       />
                       <img
-                        // src={paypalLogo}
                         src="https://www.paypalobjects.com/marketing/web/logos/paypal-mark-color_new.svg"
                         alt="PayPal"
                         className="payment-logo"
@@ -310,7 +301,6 @@ const CartPage = () => {
                         }}
                       />
                       <img
-                        // src={yapeLogo}
                         src="https://www.tambo.pe/images/payment-methods/yape.png"
                         alt="Yape"
                         className="payment-logo"
@@ -501,7 +491,7 @@ const CartPage = () => {
                     )}
                     {deliveryMethod === "delivery" && (
                       <>
-                        {userInfo.addressList?.length > 0 ? (
+                        {deliveryAddress ? (
                           <div className="address-container">
                             <div className="address-content">
                               <div className="address-icon">
@@ -512,7 +502,7 @@ const CartPage = () => {
                                   Dirección de entrega
                                 </p>
                                 <p className="address-text">
-                                  {deliveryAddress?.address}
+                                  {deliveryAddress.address}
                                 </p>
                               </div>
                             </div>
@@ -544,6 +534,7 @@ const CartPage = () => {
                 <AddAddressModal
                   show={showModal}
                   onHide={() => setShowModal(false)}
+                  onSuccess={fetchAddresses}
                 />
 
                 {deliveryMethod === "delivery" && (

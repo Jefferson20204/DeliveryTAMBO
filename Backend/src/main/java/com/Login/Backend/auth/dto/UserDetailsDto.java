@@ -20,5 +20,5 @@ public class UserDetailsDto {
     private String phoneNumber;
     private String email;
     private List<String> authorityList;
-    private List<AddressDTO> addressList;
+    // private List<AddressDTO> addressList;
 }

@@ -26,6 +26,6 @@ public class AddressDTO {
     private String apartment;
     private String reference;
     private boolean isPrimary;
-    private UUID userId;
+    // private UUID userId;
 
 }
