@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllCategories } from "../../api/categoryApi";
+import "./Css/CategoryList.css";
 
 const CategoryList = () => {
   const [categories, setCategories] = useState([]);
@@ -11,15 +12,15 @@ const CategoryList = () => {
   }, []);
 
   return (
-    <div>
-      <div>
-        <h2>Categorías</h2>
-        <Link to="/admin/categories/new">Nueva categoría</Link>
+    <div className="category-container">
+      <div className="category-header">
+        <h2 className="category-title">Categorías</h2>
+        <Link to="/admin/categories/new" className="new-category-button">Nueva categoría</Link>
       </div>
       {categories.length === 0 ? (
-        <p>No hay categorías disponibles.</p>
+        <p className="no-categories-text">No hay categorías disponibles.</p>
       ) : (
-        <table border="1" cellPadding="8" cellSpacing="0" width="100%">
+        <table className="category-table" border="1" cellPadding="8" cellSpacing="0" width="100%">
           <thead>
             <tr>
               <th>Nombre</th>
@@ -36,6 +37,7 @@ const CategoryList = () => {
                 <td>{cat.description}</td>
                 <td>
                   <button
+                    className="edit-button"
                     onClick={() => navigate(`/admin/categories/edit/${cat.id}`)}
                   >
                     Editar

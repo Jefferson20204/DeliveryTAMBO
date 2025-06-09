@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllBrands } from "../../api/brandsApi";
+import "./Css/BrandsList.css";
 
 const BrandsList = () => {
   const [brands, setBrands] = useState([]);
@@ -11,17 +12,17 @@ const BrandsList = () => {
   }, []);
 
   return (
-    <div>
-      <div>
-        <h2>Marcas</h2>
-        <button onClick={() => navigate("/admin/brands/new")}>
+    <div className="brands-container">
+      <div className="brands-header">
+        <h2 className="brands-title">Marcas</h2>
+        <button className="brands-add-button" onClick={() => navigate("/admin/brands/new")}>
           Agregar Marca
         </button>
       </div>
       {brands.length === 0 ? (
-        <p>No hay marcas disponibles.</p>
+        <p className="no-brands-msg">No hay marcas disponibles.</p>
       ) : (
-        <table border="1" cellPadding="8" cellSpacing="0" width="100%">
+        <table className="brands-table">
           <thead>
             <tr>
               <th>Nombre</th>

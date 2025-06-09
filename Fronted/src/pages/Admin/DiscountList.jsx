@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllDiscounts } from "../../api/discountApi";
+import "./Css/DiscountList.css"
 
 export default function DiscountList() {
   const [discounts, setDiscounts] = useState([]);
@@ -20,12 +21,12 @@ export default function DiscountList() {
   };
 
   return (
-    <div>
-      <h2>Listado de Descuentos</h2>
-      <button onClick={() => navigate("/admin/discounts/new")}>
+    <div className="discount-list-container">
+      <h2 className="discount-list-title">Listado de Descuentos</h2>
+      <button className="discount-list-button" onClick={() => navigate("/admin/discounts/new")}>
         Agregar Descuento
       </button>
-      <table border="1" cellPadding="8" cellSpacing="0" width="100%">
+      <table className="discount-list-table" border="1" cellPadding="8" cellSpacing="0" width="100%">
         <thead>
           <tr>
             <th>Nombre</th>
@@ -48,6 +49,7 @@ export default function DiscountList() {
               <td>{d.products.length}</td>
               <td>
                 <button
+                  className="discount-list-edit-btn"
                   onClick={() => navigate(`/admin/discounts/edit/${d.id}`)}
                 >
                   Editar

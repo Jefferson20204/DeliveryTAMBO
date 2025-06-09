@@ -1,0 +1,136 @@
+.product-form-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 24px 20px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.product-form-title {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #333;
+}
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.product-form-input,
+.product-form-textarea,
+.product-form-select {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 1.8px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.product-form-textarea {
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+}
+
+.product-form-input:focus,
+.product-form-textarea:focus,
+.product-form-select:focus {
+  border-color: black;
+  outline: none;
+  box-shadow: 0 0 6px #3b3c3c;
+}
+
+.product-form-label {
+  font-weight: 600;
+  margin-top: 12px;
+  color: #444;
+}
+
+.product-form-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  margin-top: 10px;
+  cursor: pointer;
+  user-select: none;
+  color: #555;
+}
+
+.product-form-subtitle {
+  margin-top: 28px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #222;
+  border-bottom: 2px solid #b12a90;
+  padding-bottom: 4px;
+}
+
+.product-form-resource-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.resource-input {
+  flex: 1 1 200px;
+  min-width: 150px;
+}
+
+.product-form-remove-resource-btn {
+  background: #e53935;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.product-form-remove-resource-btn:hover {
+  background: #b71c1c;
+}
+
+.product-form-add-resource-btn {
+  margin-top: 8px;
+  align-self: flex-start;
+  background: #b12a90;
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.product-form-add-resource-btn:hover {
+  background: #741d5b;
+}
+
+.product-form-submit-btn {
+  margin-top: 22px;
+  background: #b12a90;
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-form-submit-btn:hover {
+  background: #741d5b;
+}

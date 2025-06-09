@@ -6,6 +6,7 @@ import {
   updateDiscount,
 } from "../../api/discountApi";
 import { getAllProducts } from "../../api/productApi";
+import "./Css/DiscountForm.css";
 
 export default function DiscountForm() {
   const { id } = useParams();
@@ -70,10 +71,11 @@ export default function DiscountForm() {
   };
 
   return (
-    <div>
-      <h2>{isEdit ? "Editar descuento" : "Agregar nuevo descuento"}</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="discount-form-container">
+      <h2 className="discount-form-title">{isEdit ? "Editar descuento" : "Agregar nuevo descuento"}</h2>
+      <form onSubmit={handleSubmit} className="discount-form">
         <input
+          className="discount-input"
           name="name"
           placeholder="Nombre"
           value={formData.name}
@@ -81,6 +83,7 @@ export default function DiscountForm() {
           required
         />
         <input
+          className="discount-input"
           name="percentage"
           type="number"
           step="0.01"
@@ -89,23 +92,25 @@ export default function DiscountForm() {
           onChange={handleChange}
           required
         />
-        <label>Fecha inicio</label>
+        <label className="discount-label">Fecha inicio</label>
         <input
+          className="discount-input"
           name="startDate"
           type="datetime-local"
           value={formData.startDate}
           onChange={handleChange}
           required
         />
-        <label>Fecha fin</label>
+        <label className="discount-label">Fecha fin</label>
         <input
+          className="discount-input"
           name="endDate"
           type="datetime-local"
           value={formData.endDate}
           onChange={handleChange}
           required
         />
-        <label>
+        <label className="discount-checkbox">
           <input
             type="checkbox"
             name="isActive"
@@ -114,8 +119,9 @@ export default function DiscountForm() {
           />{" "}
           Activo
         </label>
-        <label>Productos</label>
+        <label className="discount-label">Productos</label>
         <select
+          className="discount-select"
           name="productIds"
           multiple
           value={formData.productIds}
@@ -127,7 +133,7 @@ export default function DiscountForm() {
             </option>
           ))}
         </select>
-        <button type="submit">Guardar</button>
+        <button type="submit" className="discount-submit-button">Guardar</button>
       </form>
     </div>
   );
