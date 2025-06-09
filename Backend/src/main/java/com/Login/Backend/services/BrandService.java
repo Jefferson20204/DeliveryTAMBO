@@ -11,6 +11,8 @@ import com.google.common.collect.ImmutableList;
 
 import lombok.RequiredArgsConstructor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +23,8 @@ import java.util.concurrent.TimeUnit;
 @Service
 @RequiredArgsConstructor
 public class BrandService {
+
+    private static final Logger log = LoggerFactory.getLogger(BrandService.class);
 
     private final BrandRepository brandRepository;
 
@@ -50,33 +54,22 @@ public class BrandService {
             .expireAfterWrite(10, TimeUnit.MINUTES) // Expira después de 10 minutos
             .build();
 
-    // public BrandDTO getBrandById(UUID id) {
-    // Brand brand = brandRepository.findById(id)
-    // .orElseThrow(() -> new RuntimeException("Marca no encontrada"));
-    // return mapToDTO(brand);
-    // }
-
     public BrandDTO getBrandById(UUID id) {
+        log.debug("Buscando marca con ID: {}", id); // Solo visible si level=DEBUG
+
         try {
             // Primero intentamos obtener del caché
             return brandCache.get(id, () -> {
                 Brand brand = brandRepository.findById(id)
                         .orElseThrow(() -> new RuntimeException("Marca no encontrada"));
+                log.info("Marca encontrada: {}", brand.getName());
                 return mapToDTO(brand);
             });
         } catch (ExecutionException e) {
+            log.info("Marca no encontrada");
             throw new RuntimeException("Error al obtener la marca", e);
         }
     }
-
-    // public BrandDTO updateBrand(UUID id, BrandRequest request) {
-    // Brand brand = brandRepository.findById(id)
-    // .orElseThrow(() -> new RuntimeException("Marca no encontrada"));
-
-    // brand.setName(request.getName());
-    // Brand updated = brandRepository.save(brand);
-    // return mapToDTO(updated);
-    // }
 
     public BrandDTO updateBrand(UUID id, BrandRequest request) {
         Brand brand = brandRepository.findById(id)
@@ -91,12 +84,6 @@ public class BrandService {
 
         return updatedDTO;
     }
-
-    // public void deleteBrand(UUID id) {
-    // Brand brand = brandRepository.findById(id)
-    // .orElseThrow(() -> new RuntimeException("Marca no encontrada"));
-    // brandRepository.delete(brand);
-    // }
 
     public void deleteBrand(UUID id) {
         Brand brand = brandRepository.findById(id)
