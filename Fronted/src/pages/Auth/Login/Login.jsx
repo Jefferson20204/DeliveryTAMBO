@@ -70,9 +70,7 @@ const Login = () => {
           code: err.response?.status || 500,
         });
       } finally {
-        dispatch(
-          setLoading({ loading: true, message: "Validando credenciales..." })
-        );
+        dispatch(setLoading({ loading: false, message: "" }));
       }
     },
     [dispatch, navigate, values, fetchAndStoreUserDetails]

@@ -31,8 +31,6 @@ export const getProductBySlug = async (slug) => {
 
 // Crear un nuevo producto
 export const createProduct = async (productData) => {
-  console.log(productData);
-
   try {
     console.log(productData);
     const response = await axios.post(BASE_URL, productData, {
@@ -58,8 +56,6 @@ export const getProductById = async (id) => {
 
 // Actualizar un producto
 export const updateProduct = async (id, productData) => {
-  console.log(productData);
-
   try {
     const res = await axios.put(`${BASE_URL}/${id}`, productData, {
       headers: getHeaders(),
