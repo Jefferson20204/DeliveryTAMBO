@@ -22,13 +22,14 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
+import com.Login.Backend.dto.ProductDTO;
 import com.Login.Backend.entities.Order;
 import com.Login.Backend.entities.OrderStatus;
 
 @Service
 public class ExportService {
 
-    // 📊 Exportar a Excel
+    // Exportar TODOS los pedidos en Excel
     public byte[] exportAllOrdersToExcel(List<Order> orders) throws Exception {
         try (Workbook workbook = new XSSFWorkbook();
                 ByteArrayOutputStream out = new ByteArrayOutputStream()) {
@@ -43,7 +44,7 @@ public class ExportService {
             titleFont.setBold(true);
             titleFont.setColor(IndexedColors.WHITE.getIndex());
             titleStyle.setFont(titleFont);
-            titleStyle.setFillForegroundColor(IndexedColors.ORANGE.getIndex());
+            titleStyle.setFillForegroundColor(IndexedColors.VIOLET.getIndex());
             titleStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
             titleStyle.setAlignment(HorizontalAlignment.CENTER);
 
@@ -221,6 +222,156 @@ public class ExportService {
                 return "FALLIDO";
             default:
                 return status.name();
+        }
+    }
+
+    // Exportar TODOS los pedidos en Excel
+    public byte[] exportAllProductsExcel(List<ProductDTO> products) throws Exception {
+        try (Workbook workbook = new XSSFWorkbook();
+                ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+
+            Sheet sheet = workbook.createSheet("Reporte TAMBO");
+
+            // ===== ESTILOS =====
+            // Estilo para el título
+            CellStyle titleStyle = workbook.createCellStyle();
+            Font titleFont = workbook.createFont();
+            titleFont.setFontHeightInPoints((short) 16);
+            titleFont.setBold(true);
+            titleFont.setColor(IndexedColors.WHITE.getIndex());
+            titleStyle.setFont(titleFont);
+            titleStyle.setFillForegroundColor(IndexedColors.VIOLET.getIndex());
+            titleStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            titleStyle.setAlignment(HorizontalAlignment.CENTER);
+
+            // Estilo para cabeceras
+            CellStyle headerStyle = workbook.createCellStyle();
+            Font headerFont = workbook.createFont();
+            headerFont.setBold(true);
+            headerFont.setColor(IndexedColors.WHITE.getIndex());
+            headerStyle.setFont(headerFont);
+            headerStyle.setFillForegroundColor(IndexedColors.GREY_50_PERCENT.getIndex());
+            headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            headerStyle.setBorderBottom(BorderStyle.THIN);
+            headerStyle.setBorderTop(BorderStyle.THIN);
+            headerStyle.setBorderRight(BorderStyle.THIN);
+            headerStyle.setBorderLeft(BorderStyle.THIN);
+
+            // Estilo para datos
+            CellStyle dataStyle = workbook.createCellStyle();
+            dataStyle.setBorderBottom(BorderStyle.THIN);
+            dataStyle.setBorderTop(BorderStyle.THIN);
+            dataStyle.setBorderRight(BorderStyle.THIN);
+            dataStyle.setBorderLeft(BorderStyle.THIN);
+
+            // Estilo para salto de linea
+            CellStyle wrapStyle = workbook.createCellStyle();
+            wrapStyle.cloneStyleFrom(dataStyle);
+            wrapStyle.setWrapText(true); // Activar salto de línea automático
+
+            // Estilo para totales
+            CellStyle totalStyle = workbook.createCellStyle();
+            Font totalFont = workbook.createFont();
+            totalFont.setBold(true);
+            totalStyle.setFont(totalFont);
+            totalStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+            totalStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+            // ===== CONTENIDO =====
+            // Título
+            Row titleRow = sheet.createRow(0);
+            Cell titleCell = titleRow.createCell(0);
+            titleCell.setCellValue("REPORTE DE PRODUCTOS - TAMBO");
+            titleCell.setCellStyle(titleStyle);
+            sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 9));
+
+            // Subtítulo
+            Row subtitleRow = sheet.createRow(1);
+            Cell subtitleCell = subtitleRow.createCell(0);
+            subtitleCell
+                    .setCellValue("Generado el: " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 6));
+
+            // Cabeceras
+            Row headerRow = sheet.createRow(3);
+            String[] headers = { "ID PRODUCTO", "SLUG", "NOMBRE", "DESCRIPCIÓN", "PRECIO", "DESCUENTO",
+                    "PRECIO CON DESCUENTO",
+                    "STOCK", "ESTADO", "CATEGORIA" };
+
+            for (int i = 0; i < headers.length; i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(headers[i]);
+                cell.setCellStyle(headerStyle);
+                sheet.autoSizeColumn(i);
+            }
+
+            // Datos
+            int rowNum = 4;
+
+            for (ProductDTO product : products) {
+                Row row = sheet.createRow(rowNum++);
+
+                // ID
+                Cell idCell = row.createCell(0);
+                idCell.setCellValue(product.getId().toString().substring(0, 9));
+                idCell.setCellStyle(dataStyle);
+
+                // Slug
+                Cell slugCell = row.createCell(1);
+                slugCell.setCellValue(product.getSlug());
+                slugCell.setCellStyle(dataStyle);
+
+                // Nombre
+                Cell nameCell = row.createCell(2);
+                nameCell.setCellValue(product.getName());
+                nameCell.setCellStyle(dataStyle);
+
+                // Descripcion
+                Cell descriptionCell = row.createCell(3);
+                descriptionCell.setCellValue(product.getDescription());
+                descriptionCell.setCellStyle(dataStyle);
+
+                // Precio
+                Cell priceCell = row.createCell(4);
+                priceCell.setCellValue(product.getPrice().toString());
+                priceCell.setCellStyle(dataStyle);
+
+                // Descuento
+                Cell discountCell = row.createCell(5);
+                discountCell.setCellValue(product.getDiscountPercentage().toString().concat("%"));
+                discountCell.setCellStyle(dataStyle);
+
+                // Precio con Descuento
+                Cell discountPriceCell = row.createCell(6);
+                discountPriceCell.setCellValue(product.getDiscountedPrice().toString());
+                discountPriceCell.setCellStyle(dataStyle);
+
+                // Stock
+                Cell stockCell = row.createCell(7);
+                stockCell.setCellValue(product.getStock().toString());
+                stockCell.setCellStyle(dataStyle);
+
+                // Estado
+                Cell statusCell = row.createCell(8);
+                statusCell.setCellValue(product.getIsActive() ? "ACTIVO" : "INACTIVO");
+                statusCell.setCellStyle(dataStyle);
+
+                // Categoria
+                Cell categoryCell = row.createCell(9);
+                categoryCell.setCellValue(product.getCategory().getName());
+                categoryCell.setCellStyle(dataStyle);
+            }
+
+            // Autoajustar columnas
+            for (int i = 0; i < headers.length; i++) {
+                sheet.autoSizeColumn(i);
+            }
+
+            // Congelar cabeceras
+            sheet.createFreezePane(0, 4);
+
+            workbook.write(out);
+            return out.toByteArray();
         }
     }
 
