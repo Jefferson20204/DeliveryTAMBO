@@ -3,6 +3,8 @@ package com.Login.Backend.controllers;
 import com.Login.Backend.dto.BrandDTO;
 import com.Login.Backend.dto.BrandRequest;
 import com.Login.Backend.services.BrandService;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,16 +22,20 @@ public class BrandController {
 
     @PostMapping
     public ResponseEntity<BrandDTO> create(@RequestBody BrandRequest request) {
+        Preconditions.checkNotNull(request, "La solicitud no puede ser nula");
         return ResponseEntity.ok(brandService.createBrand(request));
     }
 
     @GetMapping
     public ResponseEntity<List<BrandDTO>> getAll() {
-        return ResponseEntity.ok(brandService.getAllBrands());
+        List<BrandDTO> brands = brandService.getAllBrands();
+        return ResponseEntity.ok(
+                brands.isEmpty() ? ImmutableList.of() : brands);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<BrandDTO> getById(@PathVariable UUID id) {
+        Preconditions.checkNotNull(id, "El ID no puede ser nulo");
         return ResponseEntity.ok(brandService.getBrandById(id));
     }
 
