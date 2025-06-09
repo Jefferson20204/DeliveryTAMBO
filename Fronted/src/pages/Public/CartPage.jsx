@@ -132,9 +132,11 @@ const CartPage = () => {
       // objeto con los datos del pedido
       const orderRequest = createOrderRequest(
         cartItems,
+        deliveryMethod,
         totalToPay,
         deliveryMethod === "delivery" ? deliveryAddress.id : null,
         paymentMethod,
+        totalDiscount,
         invoiceType,
         docType,
         docNumber,
@@ -527,10 +529,12 @@ const CartPage = () => {
                             )}
                           </div>
                         ) : (
-                          <p>
-                            No tienes una dirección registrada. Añádela desde tu
-                            perfil.
-                          </p>
+                          <button
+                            className="change-address-btn"
+                            onClick={() => setShowModal(true)}
+                          >
+                            Agregar dirección
+                          </button>
                         )}
                       </>
                     )}

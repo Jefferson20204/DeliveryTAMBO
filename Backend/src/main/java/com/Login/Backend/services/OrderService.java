@@ -61,6 +61,7 @@ public class OrderService {
                 .orderDate(orderRequest.getOrderDate())
                 .user(user)
                 .address(address != null ? address : null)
+                .deliveryMethod(orderRequest.getDeliveryMethod())
                 .totalAmount(orderRequest.getTotalAmount())
                 .orderStatus(OrderStatus.PENDING)
                 .paymentMethod(orderRequest.getPaymentMethod())

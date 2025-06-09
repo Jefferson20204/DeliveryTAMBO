@@ -43,7 +43,7 @@ public class ExportService {
             titleFont.setBold(true);
             titleFont.setColor(IndexedColors.WHITE.getIndex());
             titleStyle.setFont(titleFont);
-            titleStyle.setFillForegroundColor(IndexedColors.RED.getIndex()); // Rojo TAMBO
+            titleStyle.setFillForegroundColor(IndexedColors.ORANGE.getIndex());
             titleStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
             titleStyle.setAlignment(HorizontalAlignment.CENTER);
 
@@ -144,7 +144,7 @@ public class ExportService {
                 // Montos
                 // Subtotal
                 Cell subtotalCell = row.createCell(4);
-                subtotalCell.setCellValue(order.getTotalAmount() / 1.18); // IGV desglosado
+                subtotalCell.setCellValue(order.getTotalAmount() / 1.18);
                 subtotalCell.setCellStyle(dataStyle);
 
                 // Descuento

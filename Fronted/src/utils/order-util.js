@@ -1,8 +1,10 @@
 export const createOrderRequest = (
   cartItems,
+  deliveryMethod,
   totalToPay,
   addressId,
   paymentMethod,
+  totalDiscount,
   invoiceType,
   docType,
   docNumber,
@@ -22,8 +24,9 @@ export const createOrderRequest = (
     });
   });
   request.orderItemRequests = orderItems;
+  request.deliveryMethod = deliveryMethod.toUpperCase();
   request.totalAmount = totalToPay?.toFixed(2);
-  request.discount = 0;
+  request.discount = totalDiscount.toFixed(2);
   request.paymentMethod = paymentMethod.toUpperCase();
   request.expectedDeliveryDate = "2025-10-05T21:11:46.202Z";
   //   request.currency = "usd";

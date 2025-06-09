@@ -36,6 +36,11 @@ public class Order {
     private Address address;
 
     // monto total
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private DeliveryMethod deliveryMethod;
+
+    // monto total
     @Column(nullable = false)
     private Double totalAmount;
 
