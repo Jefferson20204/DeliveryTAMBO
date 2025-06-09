@@ -37,8 +37,10 @@ const AdminProductSections = () => {
     e.preventDefault();
     if (editing) {
       await updateProductSection(form.id, form);
+      console.log(form);
     } else {
       await createProductSection(form);
+      console.log(form);
     }
     // refrescar lista
     const updated = await getProductSectionsConfig();
@@ -57,6 +59,7 @@ const AdminProductSections = () => {
       position: sec.position,
     });
     setEditing(true);
+    // console.log(sec);
   };
 
   // Borrar sección

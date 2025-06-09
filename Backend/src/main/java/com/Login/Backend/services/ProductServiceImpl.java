@@ -2,10 +2,10 @@ package com.Login.Backend.services;
 
 import com.Login.Backend.dto.ProductDTO;
 import com.Login.Backend.dto.ProductRequestDTO;
-import com.Login.Backend.dto.ProductVariantRequestDTO;
 import com.Login.Backend.entities.*;
 import com.Login.Backend.exceptions.ResourceNotFoundEx;
 import com.Login.Backend.mapper.ProductMapper;
+import com.Login.Backend.repositories.BrandRepository;
 import com.Login.Backend.repositories.CategoryRepository;
 import com.Login.Backend.repositories.CategoryTypeRepositoty;
 import com.Login.Backend.repositories.DiscountRepository;
@@ -33,6 +33,7 @@ public class ProductServiceImpl implements ProductService {
         private final CategoryRepository categoryRepository;
         private final CategoryTypeRepositoty categoryTypeRepository;
         private final DiscountRepository discountRepository;
+        private final BrandRepository brandRepository;
 
         // Agregar un nuevo producto
         @Override
@@ -41,11 +42,13 @@ public class ProductServiceImpl implements ProductService {
                 CategoryType categoryType = dto.getCategoryTypeId() != null
                                 ? categoryTypeRepository.findById(dto.getCategoryTypeId()).orElse(null)
                                 : null;
+                Brand brand = brandRepository.findById(dto.getBrandId())
+                                .orElseThrow(() -> new RuntimeException("Marca no encontrada"));
                 List<Discount> discounts = dto.getDiscountIds() != null
                                 ? discountRepository.findAllById(dto.getDiscountIds())
                                 : List.of();
 
-                Product product = ProductMapper.toEntity(dto, category, categoryType, discounts);
+                Product product = ProductMapper.toEntity(dto, category, categoryType, brand, discounts);
                 Product saved = productRepository.save(product);
                 return ProductMapper.toDTO(saved);
         }
@@ -91,13 +94,22 @@ public class ProductServiceImpl implements ProductService {
                 return ProductMapper.toDTO(product);
         }
 
-        // Obtener un producto por ID
+        // Obtener un producto Dto por ID
         @Override
         @Transactional(readOnly = true)
         public ProductDTO getProductById(UUID id) {
                 Product product = productRepository.findById(id)
                                 .orElseThrow(() -> new ResourceNotFoundEx("Product Not Found!"));
                 return ProductMapper.toDTO(product);
+        }
+
+        // Obtener un producto Dto por ID
+        @Override
+        @Transactional(readOnly = true)
+        public Product getProductEntityById(UUID id) {
+                Product product = productRepository.findById(id)
+                                .orElseThrow(() -> new ResourceNotFoundEx("Product Not Found!"));
+                return product;
         }
 
         // Actualizar un producto por ID
@@ -108,9 +120,12 @@ public class ProductServiceImpl implements ProductService {
                 existing.setName(dto.getName());
                 existing.setDescription(dto.getDescription());
                 existing.setPrice(dto.getPrice());
-                existing.setBrand(dto.getBrand());
                 existing.setNewArrival(dto.getIsNewArrival());
                 existing.setActive(dto.getIsActive());
+
+                Brand brand = brandRepository.findById(dto.getBrandId())
+                                .orElseThrow(() -> new RuntimeException("Marca no encontrada"));
+                existing.setBrand(brand);
 
                 Category category = categoryRepository.findById(dto.getCategoryId()).orElseThrow();
                 existing.setCategory(category);
@@ -123,20 +138,6 @@ public class ProductServiceImpl implements ProductService {
                                 ? discountRepository.findAllById(dto.getDiscountIds())
                                 : List.of();
                 existing.setDiscounts(discounts);
-
-                // Eliminar variantes antiguas
-                existing.getProductVariants().clear();
-
-                // Agregar nuevas variantes
-                existing.getProductVariants().addAll(
-                                dto.getProductVariants().stream()
-                                                .map(rv -> ProductVariant.builder()
-                                                                .color(rv.getColor())
-                                                                .size(rv.getSize())
-                                                                .stockQuantity(rv.getStockQuantity())
-                                                                .product(existing)
-                                                                .build())
-                                                .collect(Collectors.toList()));
 
                 // Eliminar recursos antiguos
                 existing.getResources().clear();
@@ -152,14 +153,6 @@ public class ProductServiceImpl implements ProductService {
                                                                 .product(existing)
                                                                 .build())
                                                 .collect(Collectors.toList()));
-
-                // Calcular el stock total:
-                int totalStock = dto.getProductVariants() != null && !dto.getProductVariants().isEmpty()
-                                ? dto.getProductVariants().stream()
-                                                .mapToInt(ProductVariantRequestDTO::getStockQuantity)
-                                                .sum()
-                                : dto.getStock();
-                existing.setStock(totalStock);
 
                 Product updated = productRepository.save(existing);
                 return ProductMapper.toDTO(updated);

@@ -10,12 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@paypal/react-paypal-js": "^8.8.3",
     "@reduxjs/toolkit": "^2.7.0",
     "axios": "^1.9.0",
     "date-fns": "^4.1.0",
     "jwt-decode": "^4.0.0",
+    "leaflet": "^1.9.4",
+    "leaflet-geosearch": "^4.2.0",
+    "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-leaflet": "^5.0.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.5.2",
     "swiper": "^11.2.6"

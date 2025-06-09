@@ -26,6 +26,10 @@ public class OAuth2Service {
         String firstName = oAuth2User.getAttribute("given_name");
         String lastName = oAuth2User.getAttribute("family_name");
         String email = oAuth2User.getAttribute("email");
+
+        // Obtener la URL de la imagen de perfil de Google
+        String pictureUrl = oAuth2User.getAttribute("picture");
+
         User user = User.builder()
                 .firstName(firstName)
                 .lastName(lastName)
@@ -33,6 +37,7 @@ public class OAuth2Service {
                 .provider(provider)
                 .enabled(true)
                 .authorities(authorityService.getUserAuthority())
+                .profileImageUrl(pictureUrl) // Asegúrate de tener este campo en tu entidad User
                 .build();
         return userDetailRepository.save(user);
     }

@@ -1,10 +1,9 @@
 package com.Login.Backend.mapper;
 
+import com.Login.Backend.dto.BrandDTO;
 import com.Login.Backend.dto.DiscountDTO;
 import com.Login.Backend.dto.ProductDTO;
 import com.Login.Backend.dto.ProductRequestDTO;
-import com.Login.Backend.dto.ProductVariantDTO;
-import com.Login.Backend.dto.ProductVariantRequestDTO;
 import com.Login.Backend.dto.ResourceDTO;
 import com.Login.Backend.entities.*;
 
@@ -31,7 +30,10 @@ public class ProductMapper {
                                 .discountPercentage(getPercentageDiscount(product))
                                 .discountedPrice(calculateDiscountedPrice(product))
                                 .stock(product.getStock())
-                                .brand(product.getBrand())
+                                .brand(BrandDTO.builder()
+                                                .id(product.getBrand().getId())
+                                                .name(product.getBrand().getName())
+                                                .build())
                                 .rating(product.getRating())
                                 .isNewArrival(product.isNewArrival())
                                 .isActive(product.isActive())
@@ -42,14 +44,6 @@ public class ProductMapper {
                                                 product.getCategoryType() != null
                                                                 ? CategoryTypeMapper.toDTO(product.getCategoryType())
                                                                 : null)
-                                .productVariants(product.getProductVariants().stream()
-                                                .map(v -> ProductVariantDTO.builder()
-                                                                .id(v.getId())
-                                                                .color(v.getColor())
-                                                                .size(v.getSize())
-                                                                .stockQuantity(v.getStockQuantity())
-                                                                .build())
-                                                .collect(Collectors.toList()))
                                 .resources(product.getResources().stream()
                                                 .map(r -> ResourceDTO.builder()
                                                                 .id(r.getId())
@@ -69,7 +63,7 @@ public class ProductMapper {
                                 .build();
         }
 
-        public static Product toEntity(ProductRequestDTO dto, Category category, CategoryType categoryType,
+        public static Product toEntity(ProductRequestDTO dto, Category category, CategoryType categoryType, Brand brand,
                         List<Discount> discounts) {
                 Product product = Product.builder()
                                 .slug(dto.getSlug())
@@ -77,23 +71,13 @@ public class ProductMapper {
                                 .description(dto.getDescription())
                                 .price(dto.getPrice())
                                 .stock(dto.getStock())
-                                .brand(dto.getBrand())
+                                .brand(brand)
                                 .isNewArrival(dto.getIsNewArrival())
                                 .isActive(dto.getIsActive())
                                 .category(category)
                                 .categoryType(categoryType)
                                 .discounts(discounts)
                                 .build();
-
-                var variants = dto.getProductVariants().stream()
-                                .map(rv -> ProductVariant.builder()
-                                                .color(rv.getColor())
-                                                .size(rv.getSize())
-                                                .stockQuantity(rv.getStockQuantity())
-                                                .product(product)
-                                                .build())
-                                .collect(Collectors.toList());
-                product.setProductVariants(variants);
 
                 var resources = dto.getResources().stream()
                                 .map(rr -> Resources.builder()
@@ -107,27 +91,6 @@ public class ProductMapper {
                 product.setResources(resources);
 
                 return product;
-        }
-
-        // Calcular el stock total al DTO
-        public static int getTotalStockDto(Product product) {
-
-                if (product.getProductVariants() != null && !product.getProductVariants().isEmpty()) {
-                        return product.getProductVariants().stream().mapToInt(ProductVariant::getStockQuantity).sum();
-                }
-                return product.getStock();
-        }
-
-        // Calcular el stock total al Entity
-        public static int getTotalStockEntity(ProductRequestDTO productDto) {
-                if (productDto.getProductVariants() != null && !productDto.getProductVariants().isEmpty()) {
-                        System.out.println("Si hay variantes");
-                        return productDto.getProductVariants().stream()
-                                        .mapToInt(ProductVariantRequestDTO::getStockQuantity)
-                                        .sum();
-                }
-                System.out.println("No hay variantes: " + productDto.getStock());
-                return productDto.getStock();
         }
 
         // Obtener la miniatura del producto

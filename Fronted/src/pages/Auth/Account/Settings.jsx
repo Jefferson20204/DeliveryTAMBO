@@ -3,6 +3,8 @@ import { logOut } from "../../../utils/jwt-helper";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { clearUserInfo } from "../../../store/features/user";
+import Button from "../../../components/Buttons/Button";
+import Card from "../../../components/Card/Card";
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -15,11 +17,13 @@ const Settings = () => {
   }, [navigate, dispatch]);
 
   return (
-    <div>
-      <button className="btn btn-outline" onClick={onLogOut}>
-        Cerrar sesión
-      </button>
-    </div>
+    <>
+      <Card title={"Ajustes"}>
+        <Button variant="outline" onClick={onLogOut}>
+          Cerrar sesión
+        </Button>
+      </Card>
+    </>
   );
 };
 

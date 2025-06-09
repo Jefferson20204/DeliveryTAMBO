@@ -6,12 +6,9 @@ import { selectIsUserAdmin } from "../../store/features/user";
 
 /**
  * Componente de ruta protegida para administradores
- * Verifica si el token JWT es válido y si el usuario tieneel rol de administrador
- * Si el token no es válido, redirige al login
+ * Verifica si el token JWT es válido y si el usuario tiene el rol de administrador
+ * Si el token no es válido, redirige a la página de inicio
  * Si el usuario no es valido, redirige a la página de inicio
- *
- * @param {Object} props - Props con los componentes hijos (children)
- * @returns {JSX.Element} - Los hijos si el usuario es administrador, redirección en caso contrario
  */
 const AdminRoute = ({ children }) => {
   const navigate = useNavigate();
@@ -19,8 +16,10 @@ const AdminRoute = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log(isAdmin);
+
     if (!isTokenValid()) {
-      navigate("/v1/login");
+      navigate("/");
       return;
     }
 

@@ -37,7 +37,7 @@ const VerifyCode = ({ email }) => {
           );
         })
         .finally(() => {
-          dispatch(setLoading(false));
+          dispatch(setLoading({ loading: false, message: "" }));
         });
     },
     [dispatch, values]
@@ -60,7 +60,7 @@ const VerifyCode = ({ email }) => {
         </div>
       ) : (
         <>
-          <form onSubmit={onSubmit} className="form">
+          <form onSubmit={onSubmit} className="auth form">
             <p>
               Ingrese el código de verificación de 6 dígitos enviado a su correo
               electrónico para verificar su cuenta.

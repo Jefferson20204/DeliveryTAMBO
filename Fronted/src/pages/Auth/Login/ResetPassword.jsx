@@ -35,7 +35,7 @@ const ResetPassword = () => {
           setError("Error al restablecer la contraseña.");
         })
         .finally(() => {
-          dispatch(setLoading(false));
+          dispatch(setLoading({ loading: false, message: "" }));
         });
     },
     [token, password, dispatch, navigate]
@@ -48,7 +48,7 @@ const ResetPassword = () => {
         {message ? (
           <Message type="success" message={message} />
         ) : (
-          <form onSubmit={onSubmit} className="form">
+          <form onSubmit={onSubmit} className="auth form">
             <Input
               type="password"
               placeholder="Nueva contraseña"

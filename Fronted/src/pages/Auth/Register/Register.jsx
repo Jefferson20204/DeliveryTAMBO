@@ -56,7 +56,7 @@ const Register = () => {
           });
         })
         .finally(() => {
-          dispatch(setLoading(false));
+          dispatch(setLoading({ loading: false, message: "" }));
         });
     },
     [dispatch, values]
@@ -79,7 +79,7 @@ const Register = () => {
         {!enableVerify ? (
           <>
             {" "}
-            <form onSubmit={onSubmit} className="form">
+            <form onSubmit={onSubmit} className="auth form">
               <Input
                 type="text"
                 name="firstName"

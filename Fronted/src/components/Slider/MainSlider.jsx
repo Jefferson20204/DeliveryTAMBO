@@ -23,61 +23,62 @@ import banner8Desktop from "../../assets/img/Slider/banner-08-desktop.webp";
 import banner8Mobile from "../../assets/img/Slider/banner-08-mobile.webp";
 import banner9Desktop from "../../assets/img/Slider/banner-09-desktop.webp";
 import banner9Mobile from "../../assets/img/Slider/banner-09-mobile.webp";
+import ArrowIcon from "../../common/ArrowIcon";
 
 const slides = [
   {
     desktop: banner1Desktop,
     mobile: banner1Mobile,
     alt: "Oferta 1",
-    link: "/ofertas/Oferta-1",
+    link: "#",
   },
   {
     desktop: banner2Desktop,
     mobile: banner2Mobile,
     alt: "Oferta 2",
-    link: "/ofertas/Oferta-2",
+    link: "#",
   },
   {
     desktop: banner3Desktop,
     mobile: banner3Mobile,
     alt: "Oferta 3",
-    link: "/ofertas/Oferta-3",
+    link: "#",
   },
   {
     desktop: banner4Desktop,
     mobile: banner4Mobile,
     alt: "Oferta 4",
-    link: "/ofertas/Oferta-4",
+    link: "#",
   },
   {
     desktop: banner5Desktop,
     mobile: banner5Mobile,
     alt: "Oferta 5",
-    link: "/ofertas/Oferta-5",
+    link: "#",
   },
   {
     desktop: banner6Desktop,
     mobile: banner6Mobile,
     alt: "Oferta 6",
-    link: "/ofertas/Oferta-6",
+    link: "#",
   },
   {
     desktop: banner7Desktop,
     mobile: banner7Mobile,
     alt: "Oferta 7",
-    link: "/ofertas/Oferta-7",
+    link: "#",
   },
   {
     desktop: banner8Desktop,
     mobile: banner8Mobile,
     alt: "Oferta 8",
-    link: "/ofertas/Oferta-8",
+    link: "#",
   },
   {
     desktop: banner9Desktop,
     mobile: banner9Mobile,
     alt: "Oferta 9",
-    link: "/ofertas/Oferta-9",
+    link: "#",
   },
 ];
 
@@ -127,14 +128,14 @@ export default function MainSlider() {
           className="custom-button prev-button"
           aria-label="Anterior"
         >
-          ‹
+          <ArrowIcon direction="left" size={32} />
         </div>
         <div
           ref={nextRef}
           className="custom-button next-button"
           aria-label="Siguiente"
         >
-          ›
+          <ArrowIcon direction="right" size={32} />
         </div>
       </Swiper>
     </div>

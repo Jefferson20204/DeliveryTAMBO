@@ -30,41 +30,62 @@ public class Order {
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "address_id", nullable = false)
+    @JoinColumn(name = "address_id", nullable = true)
     @ToString.Exclude
     @JsonIgnore
     private Address address;
 
+    // monto total
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private DeliveryMethod deliveryMethod;
+
+    // monto total
     @Column(nullable = false)
     private Double totalAmount;
 
+    // estado de pedido
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OrderStatus orderStatus;
 
+    // metodo de pago
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PaymentMethod paymentMethod;
 
+    // Número de seguimiento del envío
     @Column(nullable = true)
     private String shipmentTrackingNumber;
 
+    // Fecha de entrega esperada
     @Column(nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date expectedDeliveryDate;
 
+    // lista de artículos de pedido
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<OrderItem> orderItemList;
 
+    // descuento
     private Double discount;
 
+    // metodo depago
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
     @ToString.Exclude
     private Payment payment;
 
+    // tipo de facturacion
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ReceiptType receiptType;
+
+    @Column(nullable = false)
+    private String docType;
+
+    @Column(nullable = false)
+    private int docNumber;
 
     @Column(nullable = true)
     private String ruc;

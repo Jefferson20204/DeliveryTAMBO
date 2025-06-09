@@ -1,42 +1,37 @@
-/* Diseño de espacio*/
-.footer-container {
+.bg-footer {
+  background-color: var(--secondary-color);
+  border-top: 1px solid #ccc;
+}
+
+.footer-section-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 20px 20px;
-  margin: 0 100px;
-  background-color: var(--secondary-color);
-  border-top: 1px solid #ccc;
-  gap: 1rem;
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+  gap: 1.25rem;
 }
-/* Distribución del espacio*/
+
 .footer-section {
   flex: 1 1 200px;
 }
-/*Diseño de encabezado de cada columna*/
+
 .footer-title {
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
   color: var(--main-color);
 }
-/* bloque de diseño de cada subtitulo con link*/
+
 .footer-links {
   list-style: none;
-  padding: 5px;
-  margin: 10px;
 }
-/* espaciado de cada subtitulo (link)*/
+
 .footer-links li {
   margin-bottom: 0.5rem;
 }
-/*Tamaño y diseño de letra Tambo Express*/
-.footer-copy {
-  font-size: 20px;
-  color: var(--main-color);
-}
-/*logo de footer*/
+
 .logo {
-  height: 80px;
+  height: 5rem;
   width: auto;
   margin-block-start: 1.67em;
   margin-block-end: 0.67em;
@@ -44,26 +39,19 @@
   margin-inline-end: 0px;
 }
 
-/* Tablet */
-@media (max-width: 1024px) {
-  .logo {
-    height: 50px;
-  }
-
-  .footer-copy {
-    font-size: 10px;
-    color: var(--main-color);
-  }
-
-  .footer-container {
-    padding: 20px;
-    margin: 0;
-  }
+.copyright-footer {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 3.5rem;
 }
 
-/* Móvil */
-@media (max-width: 768px) {
-  .footer-container {
-    padding: 20px;
-  }
+.copyright-link {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--main-color);
 }
