@@ -98,7 +98,7 @@ const Orders = () => {
                 order?.status === selectedFilter && (
                   <div key={index} className="address-item">
                     <div className="address-content">
-                      <p className="address-text">{order.id}</p>
+                      <p className="address-text">COD: {order.id}</p>
                       <p className="address-details">
                         {""}
                         {(() => {

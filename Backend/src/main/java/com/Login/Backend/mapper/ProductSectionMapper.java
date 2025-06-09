@@ -1,5 +1,4 @@
 package com.Login.Backend.mapper;
-// com.Login.Backend.mapper.ProductSectionMapper
 
 import com.Login.Backend.entities.ProductSection;
 import com.Login.Backend.dto.ProductSectionDTO;

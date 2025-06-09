@@ -5,7 +5,11 @@ import com.Login.Backend.auth.dto.UserResponseDto;
 import com.Login.Backend.auth.dto.UserUpdateDto;
 import com.Login.Backend.auth.entities.User;
 import com.Login.Backend.auth.helper.VerificationCodeGenerator;
+import com.Login.Backend.auth.repositories.AuthorityRepository;
 import com.Login.Backend.auth.repositories.UserDetailRepository;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +29,9 @@ public class UserService {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private AuthorityRepository authorityRepository;
 
     // Registro de usuarios
     public UserResponseDto createUser(RegistrationRequest request) {
@@ -185,4 +192,13 @@ public class UserService {
                     .build();
         }
     }
+
+    public List<User> getAllUsers() {
+        return userDetailRepository.findAll();
+    }
+
+    public User getUserFindByEmail(String email) {
+        return userDetailRepository.findByEmail(email);
+    }
+
 }

@@ -25,6 +25,8 @@
 /* Contenido de la dirección */
 .address-content {
   flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .address-text {
