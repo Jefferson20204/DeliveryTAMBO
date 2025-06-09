@@ -24,13 +24,11 @@ public class AddressMapper {
                 .apartment(address.getApartment())
                 .reference(address.getReference())
                 .isPrimary(address.getIsPrimary())
-                // .userId(address.getUser().getId())
                 .build();
     }
 
     public Address toEntity(AddressRequestDTO dto, User user) {
         return Address.builder()
-                // .id(dto.getId())
                 .alias(dto.getAlias())
                 .address(dto.getAddress())
                 .district(dto.getDistrict())

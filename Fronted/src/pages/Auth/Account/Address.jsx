@@ -83,7 +83,9 @@ const Address = () => {
                 <div className="address-content">
                   <p className="address-text">{address.address}</p>
                   {address.id && (
-                    <p className="address-details">{address.id}</p>
+                    <p className="address-details">
+                      {address.district}, {address.city}
+                    </p>
                   )}
                 </div>
                 <button
