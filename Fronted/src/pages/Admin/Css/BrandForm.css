@@ -1,0 +1,42 @@
+.brand-form-container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.brand-form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: #333;
+}
+
+.brand-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.brand-submit-btn {
+  padding: 10px;
+  background-color: #b12a90;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.brand-submit-btn:hover {
+  background-color: #741d5b;
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getBrandById, createBrand, updateBrand } from "../../api/brandsApi";
+import "./Css/BrandForm.css";
 
 const BrandForm = () => {
   const { id } = useParams();
@@ -45,17 +46,22 @@ const BrandForm = () => {
   };
 
   return (
-    <div>
-      <h2>{isEdit ? "Editar marca" : "Agregar nueva marca"}</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="brand-form-container">
+      <h2 className="brand-form-title">
+        {isEdit ? "Editar marca" : "Agregar nueva marca"}
+      </h2>
+      <form className="brand-form" onSubmit={handleSubmit}>
         <input
+          className="brand-input"
           name="name"
           placeholder="Nombre de la marca"
           value={formData.name}
           onChange={handleChange}
           required
         />
-        <button type="submit">Guardar</button>
+        <button className="brand-submit-btn" type="submit">
+          {isEdit ? "Actualizar" : "Guardar"}
+        </button>
       </form>
     </div>
   );

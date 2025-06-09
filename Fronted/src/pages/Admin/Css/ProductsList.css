@@ -1,0 +1,82 @@
+.products-list-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.products-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.products-list-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.products-list-add-btn {
+  background: #b12a90;
+  color: white;
+  padding: 10px 16px;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.products-list-add-btn:hover {
+  background: #741d5b;
+}
+
+.products-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+.products-table th,
+.products-table td {
+  padding: 12px 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.products-table th {
+  background-color: #f4f6f8;
+  font-weight: 600;
+  color: #333;
+}
+
+.products-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.products-edit-btn {
+  background: #1976d2;
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.products-edit-btn:hover {
+  background: #135ba1;
+}
+
+.products-empty-message {
+  text-align: center;
+  padding: 20px;
+  font-size: 1rem;
+  color: #555;
+}

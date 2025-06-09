@@ -1,9 +1,10 @@
 import { Outlet, Link, NavLink } from "react-router-dom";
 import ExportButtons from "../../components/Buttons/ExportButtons";
+import "./Css/AdminHome.css";
 
 export default function AdminHome() {
   return (
-    <div className="p-auto">
+    <div className="admin-home">
       <h1>Panel de administración</h1>
       <nav>
         <NavLink to={"/"}>Volver a la tienda</NavLink>

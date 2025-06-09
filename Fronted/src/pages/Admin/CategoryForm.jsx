@@ -5,6 +5,8 @@ import {
   updateCategory,
   getCategoryById,
 } from "../../api/categoryApi";
+import "./Css/CategoryForm.css";
+
 
 const CategoryForm = () => {
   const { id } = useParams();
@@ -65,7 +67,7 @@ const CategoryForm = () => {
   }, [id]);
 
   return (
-    <div>
+    <div className="category-form-container">
       <h2>{id ? "Editar Categoría" : "Crear Categoría"}</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -92,7 +94,7 @@ const CategoryForm = () => {
 
         <h3>Tipos de categoría</h3>
         {category.categoryTypes.map((type, index) => (
-          <div key={index}>
+          <div key={index} className="category-type-item">
             <input
               placeholder="Nombre"
               value={type.name}
@@ -119,11 +121,11 @@ const CategoryForm = () => {
           </div>
         ))}
 
-        <button type="button" onClick={addType}>
+        <button type="button" className="add-type-button" onClick={addType}>
           Agregar tipo
         </button>
 
-        <button type="submit">{id ? "Actualizar" : "Crear"}</button>
+        <button type="submit" className="submit-button">{id ? "Actualizar" : "Crear"}</button>
       </form>
     </div>
   );
