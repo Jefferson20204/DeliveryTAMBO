@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_BASE_URL } from "../../api/constant";
 
-const ExportButtons = () => {
+const ExportButtons = ({ className, type = "excel", urlApi = "" }) => {
   const handleExport = async ({ type, urlApi }) => {
     try {
       const response = await axios.get(
@@ -29,18 +29,12 @@ const ExportButtons = () => {
   };
 
   return (
-    <div>
-      <button
-        onClick={() => handleExport({ type: "excel", urlApi: "all-orders" })}
-      >
-        Exportar todos los pedidos en Excel
-      </button>
-      <button
-        onClick={() => handleExport({ type: "excel", urlApi: "all-products" })}
-      >
-        Exportar todos los productos en Excel
-      </button>
-    </div>
+    <a
+      className={className}
+      onClick={() => handleExport({ type: type, urlApi: urlApi })}
+    >
+      Exportar en {type}
+    </a>
   );
 };
 

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { getAllProductsAdmin } from "../../api/productApi";
 import { Link, useNavigate } from "react-router-dom";
-import "./Css/ProductsList.css"
+import ExportButtons from "../../components/Buttons/ExportButtons";
+import "./Css/ProductsList.css";
 
 export default function ProductsList() {
   const [products, setProducts] = useState([]);
@@ -15,7 +16,16 @@ export default function ProductsList() {
     <div className="products-list-container">
       <div className="products-list-header">
         <h2 className="products-list-title">Lista de productos</h2>
-        <Link className="products-list-add-btn" to="/admin/products/new">Agregar producto</Link>
+        <div className="products-list-buttons">
+          <ExportButtons
+            className={"products-list-add-btn"}
+            type="excel"
+            urlApi="all-products"
+          />
+          <Link className="products-list-add-btn" to="/admin/products/new">
+            Agregar producto
+          </Link>
+        </div>
       </div>
       {products.length === 0 ? (
         <p className="products-empty-message">No hay productos disponibles.</p>
