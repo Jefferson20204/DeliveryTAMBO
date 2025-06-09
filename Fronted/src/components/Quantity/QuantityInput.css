@@ -1,0 +1,134 @@
+/* Boton de + cuando la cantidad es 0 en la version de tarjeta*/
+.quantity-add-wrapper.card-version {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: var(--main-color);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.quantity-add-wrapper.card-version .quantity-add {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
+  transition: color 0.2s ease-in-out;
+}
+
+.quantity-add-wrapper.card-version .quantity-add:hover {
+  color: #ffffff79;
+}
+
+/* Container de cantidad para la version de tarjeta */
+.quantity-container.card-version {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  background-color: var(--main-color);
+  border-radius: 9999px;
+  overflow: hidden;
+  color: white;
+  height: 28px;
+  min-width: 70px;
+  z-index: 2;
+}
+
+.quantity-container.card-version .quantity-btn,
+.quantity-container.card-version .quantity-btn-disabled {
+  all: unset;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.quantity-container.card-version .quantity-btn:hover {
+  color: #ffffff79;
+}
+
+.quantity-container.card-version .quantity-btn-disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.quantity-container.card-version .quantity-number {
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Boton de + cuando la cantidad es 0 en la version de modal */
+.quantity-add-wrapper.modal-version {
+  /* flex: 1; */
+  display: flex;
+  justify-content: flex-start;
+}
+
+.quantity-add-wrapper.modal-version .quantity-add {
+  width: 127.47px;
+  height: 43px;
+  font-size: 1.2em;
+  background-color: #f8f8f8;
+  color: black;
+  border-radius: 10px;
+  padding: 8px 12px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Container de cantidad para la version de modal */
+.quantity-container.modal-version {
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2em;
+}
+
+.quantity-container.modal-version button {
+  padding: 8px 12px;
+  font-size: 1.2em;
+  background-color: var(--primary-color);
+  color: black;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.quantity-container.modal-version button:hover {
+  color: #979797;
+}
+
+.quantity-container.modal-version button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.quantity-container.modal-version span {
+  min-width: 30px;
+  text-align: center;
+  font-weight: bold;
+}
