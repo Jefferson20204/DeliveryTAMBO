@@ -1,5 +1,4 @@
 import { Outlet, Link, NavLink } from "react-router-dom";
-import ExportButtons from "../../components/Buttons/ExportButtons";
 import "./Css/AdminHome.css";
 
 export default function AdminHome() {
@@ -19,7 +18,6 @@ export default function AdminHome() {
         <span> | </span>
         <Link to="productSection">Configuracion</Link>
         <span> | </span>
-        <ExportButtons />
       </nav>
       <Outlet />
     </div>
