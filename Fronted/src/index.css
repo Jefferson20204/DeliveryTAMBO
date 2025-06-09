@@ -100,3 +100,7 @@ html {
 /* form {
   border: 1px solid purple;
 } */
+
+.main-content {
+  min-height: 100vh;
+}

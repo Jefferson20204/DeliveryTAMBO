@@ -39,11 +39,6 @@ public class WebSecurityConfig {
         @Autowired
         private RESTAuthenticationEntryPoint restAuthenticationEntryPoint;
 
-        // Rutas públicas que no reuieren autenticación
-        private static final String[] publicApis = {
-                        "/api/auth/**"
-        };
-
         // Configuración del filtro de seguridad
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -88,6 +83,11 @@ public class WebSecurityConfig {
                 return http.build();
         }
 
+        // Rutas públicas que no reuieren autenticación
+        private static final String[] publicApis = {
+                        "/api/auth/**"
+        };
+
         // Excluye completamente las rutas públicas del sistema de seguridad
         @Bean
         public WebSecurityCustomizer webSecurityCustomizer() {
@@ -111,6 +111,7 @@ public class WebSecurityConfig {
                 return PasswordEncoderFactories.createDelegatingPasswordEncoder();
         }
 
+        // Configuarion de CORS para permitir solicitudes desde el fronted
         @Bean
         public CorsConfigurationSource corsConfigurationSource() {
                 CorsConfiguration configuration = new CorsConfiguration();
@@ -118,7 +119,6 @@ public class WebSecurityConfig {
                 configuration.addAllowedMethod("*"); // GET, POST, OPTIONS, PUT, DELETE
                 configuration.addAllowedHeader("*"); // Authorization, Content-Type, etc.
                 configuration.setAllowCredentials(true); // Si usás cookies o auth headers
-
                 UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
                 source.registerCorsConfiguration("/**", configuration);
                 return source;

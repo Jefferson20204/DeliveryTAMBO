@@ -6,6 +6,7 @@ import Button from "../../components/Buttons/Button";
 import Card from "../../components/Card/Card";
 import { clearCart } from "../../store/actions/cartAction";
 import { setLoading } from "../../store/features/common";
+import { confirmPayPalPayment } from "../../api/paymentApi";
 
 const CheckoutPage = () => {
   const location = useLocation();
@@ -41,22 +42,10 @@ const CheckoutPage = () => {
       );
       setError(null);
 
-      const response = await fetch(
-        "http://localhost:9090/api/payment/paypal/confirm-payment",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            orderId,
-            paypalOrderId: paymentData.orderID,
-          }),
-        }
-      );
+      const response = await confirmPayPalPayment(orderId, paymentData.orderID);
 
-      const result = await response.json();
-
-      if (!response.ok || result.status !== "success") {
-        throw new Error(result.message || "Error al confirmar pago");
+      if (response.status !== "success") {
+        throw new Error(response.message || "Error al confirmar pago");
       }
 
       dispatch(clearCart()); // Eliminamos todos los productos del carrito en el Local Storage
@@ -65,7 +54,6 @@ const CheckoutPage = () => {
       console.error("Error:", error);
       setError(error.message);
 
-      // Mostrar mensaje más amigable para este error específico
       if (error.message.includes("ORDER_ALREADY_CAPTURED")) {
         setError(
           "Este pago ya fue procesado anteriormente. Verifica tu historial de pedidos."

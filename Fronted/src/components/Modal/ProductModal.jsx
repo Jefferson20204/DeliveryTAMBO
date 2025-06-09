@@ -67,7 +67,10 @@ const ProductModal = ({ product, onClose, initialQuantity }) => {
                 </div>
               )}
               <img
-                src={product.thumbnail}
+                src={
+                  product.thumbnail ||
+                  "https://www.nisira.com.pe/images/Features/default-box.png"
+                }
                 alt={product.name}
                 className="modal-image"
               />

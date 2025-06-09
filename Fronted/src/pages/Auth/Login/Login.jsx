@@ -52,8 +52,8 @@ const Login = () => {
 
         if (res?.token) {
           saveToken(res.token);
-          await fetchAndStoreUserDetails(); // Obtener y guardar info del usuario
-          navigate("/"); // Redirigir al home
+          await fetchAndStoreUserDetails();
+          navigate("/");
         } else {
           setApiError({
             message: "¡Algo salió mal! No se recibió token de autenticación",
@@ -70,9 +70,7 @@ const Login = () => {
           code: err.response?.status || 500,
         });
       } finally {
-        dispatch(
-          setLoading({ loading: true, message: "Validando credenciales..." })
-        );
+        dispatch(setLoading({ loading: false, message: "" }));
       }
     },
     [dispatch, navigate, values, fetchAndStoreUserDetails]

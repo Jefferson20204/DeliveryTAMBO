@@ -35,7 +35,10 @@ const ProductCard = ({ product }) => {
       <div className="product-card" onClick={handleCardClick}>
         <div className="image-container">
           <img
-            src={product.thumbnail || "/image/producto-defecto.jpg"}
+            src={
+              product.thumbnail ||
+              "https://www.nisira.com.pe/images/Features/default-box.png"
+            }
             alt={product.name}
             className="product-image"
             loading="lazy"

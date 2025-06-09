@@ -1,28 +1,28 @@
-import { createBrowserRouter } from "react-router-dom"; // Función para crear el enrutador usando el navegador
-import ShopApplicationWrapper from "./pages/ShopApplicationWrapper"; // Componente envolvente para la aplicación de tienda
-import OAuth2LoginCallback from "./pages/OAuth2LoginCallback"; // Componente para manejar el callback de OAuth2
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"; // Componente que protege rutas privadas
-import AdminRoute from "./components/ProtectedRoute/AdminRoute"; // Componente que protege ritas de administrador
-import Account from "./pages/Auth/Account/Account"; //  Página de cuenta
-import Profile from "./pages/Auth/Account/Profile"; //  Página de perfil del usuario
-import Settings from "./pages/Auth/Account/Settings"; //  Página de configuración de cuenta
-import Home from "./pages/Public/Home"; //  Página de inicio
-import Login from "./pages/Auth/Login/Login"; //  Página de inicio de sesión
-import Register from "./pages/Auth/Register/Register"; //  Página de registro
-import ForgotPassword from "./pages/Auth/Login/ForgotPassword"; //  Página de olvido de contraseña
-import ResetPassword from "./pages/Auth/Login/ResetPassword"; //  Página de restablecimiento de contraseña
-import AdminHome from "./pages/Admin/AdminHome"; //  Página de inicio del panel de administrador
-import ProductsList from "./pages/Admin/ProductsList"; //  Página de lista de productos del adminstrador
-import DiscountList from "./pages/Admin/DiscountList"; //  Página de lista de descuentos
-import CategoryList from "./pages/Admin/CategoryList"; //  Página de lista de categorías
-import CategoryForm from "./pages/Admin/CategoryForm"; //  Página de crear/editar de categoría
-import ProductForm from "./pages/Admin/ProductForm"; //  Página de crear/editar de producto
-import DiscountForm from "./pages/Admin/DiscountForm"; // Página de crear/editar descuento
-import Cart from "./pages/Public/CartPage"; // Página del carrito
-import BrandsList from "./pages/Admin/BrandsList"; //  Página de lista de marcas
-import BrandForm from "./pages/Admin/BrandForm"; //  Página de crear/editar marcas
-import AdminProductSections from "./pages/Admin/AdminProductSections"; //  Página de la configuracion deladministrador
-import Address from "./pages/Auth/Account/Address"; //  Página de direcciones del usuario
+import { createBrowserRouter } from "react-router-dom";
+import ShopApplicationWrapper from "./pages/ShopApplicationWrapper";
+import OAuth2LoginCallback from "./pages/OAuth2LoginCallback";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import AdminRoute from "./components/ProtectedRoute/AdminRoute";
+import Account from "./pages/Auth/Account/Account";
+import Profile from "./pages/Auth/Account/Profile";
+import Settings from "./pages/Auth/Account/Settings";
+import Home from "./pages/Public/Home";
+import Login from "./pages/Auth/Login/Login";
+import Register from "./pages/Auth/Register/Register";
+import ForgotPassword from "./pages/Auth/Login/ForgotPassword";
+import ResetPassword from "./pages/Auth/Login/ResetPassword";
+import AdminHome from "./pages/Admin/AdminHome";
+import ProductsList from "./pages/Admin/ProductsList";
+import DiscountList from "./pages/Admin/DiscountList";
+import CategoryList from "./pages/Admin/CategoryList";
+import CategoryForm from "./pages/Admin/CategoryForm";
+import ProductForm from "./pages/Admin/ProductForm";
+import DiscountForm from "./pages/Admin/DiscountForm";
+import Cart from "./pages/Public/CartPage";
+import BrandsList from "./pages/Admin/BrandsList";
+import BrandForm from "./pages/Admin/BrandForm";
+import AdminProductSections from "./pages/Admin/AdminProductSections";
+import Address from "./pages/Auth/Account/Address";
 import Checkout from "./pages/Public/Checkout";
 import Orders from "./pages/Auth/Account/Orders";
 
@@ -34,14 +34,14 @@ export const router = createBrowserRouter([
   // Ruta principal de la tienda
   {
     path: "/",
-    element: <ShopApplicationWrapper type="shop" />, // Componente envolvente para la tienda
+    element: <ShopApplicationWrapper type="shop" />,
     children: [
       {
-        index: true, // Define esta ruta como la ruta raíz
-        element: <Home />, // Página de inicio
+        index: true,
+        element: <Home />,
       },
       {
-        path: "/account-details/", // Ruta para la sección de detalles de cuenta
+        path: "/account-details/",
         element: (
           <ProtectedRoute>
             <Account />
@@ -68,11 +68,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: <Cart />, // Carrito
+        element: <Cart />,
       },
       {
         path: "/checkout",
-        element: <Checkout />, // Carrito
+        element: <Checkout />,
       },
       // Aquí puedes añadir más rutas protegidas o públicas
     ],

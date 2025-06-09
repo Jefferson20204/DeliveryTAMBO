@@ -21,7 +21,7 @@ const Input = ({
         </label>
       )}
       <input
-        id={id || name} // Usamos el id proporcionado o name como fallback
+        id={id || name}
         type={type}
         name={name}
         value={value}

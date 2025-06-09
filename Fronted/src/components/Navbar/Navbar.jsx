@@ -61,25 +61,12 @@ const Navigation = ({ type = "shop" }) => {
   const userInfo = useSelector(selectUserInfo);
   const navigate = useNavigate();
   const isLoggedIn = isTokenValid();
-  const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef();
 
   const totalItems = useSelector(countCartItems); // Obtiene el numero total de articulos en el carrito
 
-  // Cierra el menú si se hace clic fuera
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (navRef.current && !navRef.current.contains(e.target)) {
-        setMenuOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
   const handleNavigate = (path) => {
     navigate(path);
-    setMenuOpen(false); // Cierra el menú al navegar
   };
 
   return (
@@ -93,13 +80,13 @@ const Navigation = ({ type = "shop" }) => {
       <nav className="navigation-container" ref={navRef}>
         <div className="navigation px-auto">
           <div className="nav-left">
-            <a href="/" onClick={() => setMenuOpen(false)}>
+            <a href="/">
               <img src={Logo} alt="Logo" className="nav-logo" />
             </a>
           </div>
 
           {type === "shop" && (
-            <div className={`nav-right ${menuOpen ? "show" : ""}`}>
+            <div className="nav-right ">
               <div
                 className="nav-user"
                 onClick={() =>

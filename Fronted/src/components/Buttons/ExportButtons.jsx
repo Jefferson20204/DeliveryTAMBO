@@ -2,10 +2,10 @@ import axios from "axios";
 import { API_BASE_URL } from "../../api/constant";
 
 const ExportButtons = () => {
-  const handleExport = async (type) => {
+  const handleExport = async ({ type, urlApi }) => {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/api/export/all-orders/${type}`,
+        `${API_BASE_URL}/api/export/${urlApi}/${type}`,
         {
           responseType: "blob", // Importante para descargar archivos
         }
@@ -17,9 +17,7 @@ const ExportButtons = () => {
       link.href = url;
       link.setAttribute(
         "download",
-        `Reporte de pedidos.${
-          type === "excel" ? "xlsx" : type === "pdf" ? "pdf" : "text"
-        }`
+        `Reporte.${type === "excel" ? "xlsx" : type === "pdf" ? "pdf" : "text"}`
       );
       document.body.appendChild(link);
       link.click();
@@ -32,8 +30,15 @@ const ExportButtons = () => {
 
   return (
     <div>
-      <button onClick={() => handleExport("excel")}>
+      <button
+        onClick={() => handleExport({ type: "excel", urlApi: "all-orders" })}
+      >
         Exportar todos los pedidos en Excel
+      </button>
+      <button
+        onClick={() => handleExport({ type: "excel", urlApi: "all-products" })}
+      >
+        Exportar todos los productos en Excel
       </button>
     </div>
   );

@@ -13,8 +13,6 @@ import "leaflet/dist/leaflet.css";
 import districtsData from "./data/districts.json";
 import { useDispatch } from "react-redux";
 import { addAddressAPI } from "../../../api/userInfo";
-import { saveAddress } from "../../../store/features/user";
-import { useNavigate } from "react-router-dom";
 import "./AddAddressModal.css";
 
 // Configurar íconos de marcador
@@ -66,7 +64,7 @@ function MapEventsHandler({
   return null;
 }
 
-const AddAddressModal = ({ show, onHide }) => {
+const AddAddressModal = ({ show, onHide, onSuccess }) => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -233,7 +231,6 @@ const AddAddressModal = ({ show, onHide }) => {
   };
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   // Guardar dirección
   const saveAddressDate = async (e) => {
@@ -260,7 +257,11 @@ const AddAddressModal = ({ show, onHide }) => {
       const result = await addAddressAPI(newAddress);
 
       if (result) {
-        dispatch(saveAddress(result));
+        // dispatch(saveAddress(result));
+
+        if (onSuccess) {
+          onSuccess();
+        }
 
         // Cerrar el modal y redirigir
         handleClose();

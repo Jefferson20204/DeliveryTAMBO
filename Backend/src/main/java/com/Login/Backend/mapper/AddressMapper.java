@@ -24,7 +24,7 @@ public class AddressMapper {
                 .apartment(address.getApartment())
                 .reference(address.getReference())
                 .isPrimary(address.getIsPrimary())
-                .userId(address.getUser().getId())
+                // .userId(address.getUser().getId())
                 .build();
     }
 

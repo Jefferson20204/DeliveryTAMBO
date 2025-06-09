@@ -1,8 +1,11 @@
 export const createOrderRequest = (
   cartItems,
+  deliveryMethod,
   totalToPay,
-  addressId,
+  latitude,
+  longitude,
   paymentMethod,
+  totalDiscount,
   invoiceType,
   docType,
   docNumber,
@@ -11,7 +14,8 @@ export const createOrderRequest = (
 ) => {
   let request = {};
   request.orderDate = new Date().toISOString();
-  request.addressId = addressId;
+  request.latitude = latitude;
+  request.longitude = longitude;
 
   let orderItems = [];
   cartItems?.map((item) => {
@@ -22,8 +26,9 @@ export const createOrderRequest = (
     });
   });
   request.orderItemRequests = orderItems;
+  request.deliveryMethod = deliveryMethod.toUpperCase();
   request.totalAmount = totalToPay?.toFixed(2);
-  request.discount = 0;
+  request.discount = totalDiscount.toFixed(2);
   request.paymentMethod = paymentMethod.toUpperCase();
   request.expectedDeliveryDate = "2025-10-05T21:11:46.202Z";
   //   request.currency = "usd";
