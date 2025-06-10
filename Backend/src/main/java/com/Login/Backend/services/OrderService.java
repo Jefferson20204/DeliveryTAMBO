@@ -111,38 +111,64 @@ public class OrderService {
     }
 
     @Transactional
-    public void updateOrderStatus(UUID orderId, OrderStatus status, String transactionId) throws Exception {
+    public void updateOrderStatus(UUID orderId, OrderStatus status, String transactionId) {
         try {
+            // 1. Validar parámetros
+            if (orderId == null) {
+                throw new IllegalArgumentException("ID de orden no puede ser nulo");
+            }
+
+            if (status == null) {
+                throw new IllegalArgumentException("Estado no puede ser nulo");
+            }
+
+            // 2. Obtener la orden
             Order order = orderRepository.findById(orderId)
                     .orElseThrow(() -> new BadRequestException("Orden no encontrada"));
 
-            // Validación adicional del estado
-            if (status == null) {
-                throw new IllegalArgumentException("El estado no puede ser nulo");
+            // 3. Validar transición de estado
+            if (!isValidStatusTransition(order.getOrderStatus(), status)) {
+                throw new IllegalStateException("Transición de estado no permitida");
             }
 
+            // 4. Actualizar estado
             order.setOrderStatus(status);
 
-            // Actualizar el pago asociado
+            // 5. Actualizar pago si existe
             if (order.getPayment() != null) {
-                Payment payment = order.getPayment();
-                payment.setPaymentStatus(
-                        status == OrderStatus.PAID ? PaymentStatus.COMPLETED
-                                : status == OrderStatus.CANCELLED ? PaymentStatus.REFUNDED : PaymentStatus.FAILED);
-
-                if (transactionId != null) {
-                    payment.setTransactionId(transactionId);
-                }
-
-                payment.setPaymentDate(new Date());
+                updatePaymentStatus(order.getPayment(), status, transactionId);
             }
 
             orderRepository.save(order);
-
         } catch (Exception e) {
-            throw new IllegalArgumentException("PaymentIntent not found or missing metadata");
+            System.out.println("Error al actualizar el estado de la ordern: " + e.getMessage());
         }
 
+    }
+
+    private void updatePaymentStatus(Payment payment, OrderStatus status, String transactionId) {
+        PaymentStatus paymentStatus = switch (status) {
+            case PAID -> PaymentStatus.COMPLETED;
+            case CANCELLED -> PaymentStatus.REFUNDED;
+            default -> PaymentStatus.FAILED;
+        };
+
+        payment.setPaymentStatus(paymentStatus);
+
+        if (transactionId != null) {
+            payment.setTransactionId(transactionId);
+        }
+
+        payment.setPaymentDate(new Date());
+    }
+
+    private boolean isValidStatusTransition(OrderStatus current, OrderStatus newStatus) {
+        // Implementa tu lógica de transiciones permitidas aquí
+        // Ejemplo básico:
+        if (newStatus == OrderStatus.CANCELLED) {
+            return current == OrderStatus.PENDING || current == OrderStatus.PAID;
+        }
+        return true;
     }
 
     // Método adicional para obtener la orden
@@ -205,5 +231,16 @@ public class OrderService {
 
     public List<Order> getAllOrdersByDateDesc() {
         return orderRepository.findAllByOrderByOrderDateDesc();
+    }
+
+    public boolean canOrderBeCancelled(UUID orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+
+        if (order == null) {
+            return false;
+        }
+
+        // Verifica si el estado de la order es PENDING O PAID
+        return order.getOrderStatus() == OrderStatus.PENDING || order.getOrderStatus() == OrderStatus.PAID;
     }
 }

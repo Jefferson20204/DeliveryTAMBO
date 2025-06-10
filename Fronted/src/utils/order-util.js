@@ -42,7 +42,8 @@ export const createOrderRequest = (
 
 export const getStepCount = {
   PENDING: 1,
-  IN_PROGRESS: 2,
-  SHIPPED: 3,
-  DELIVERED: 4,
+  PAID: 2,
+  IN_PROGRESS: 3,
+  SHIPPED: 4,
+  DELIVERED: 5,
 };

@@ -135,7 +135,6 @@ const CheckoutPage = () => {
 
         {paymentMethod === "PAYPAL" && !paymentCompleted ? (
           <div className="payment-section">
-            <h3>Pagar con PayPal</h3>
             <PayPalButton
               amount={totalToPay}
               currency="USD"
@@ -148,7 +147,9 @@ const CheckoutPage = () => {
         ) : paymentCompleted ? (
           <div className="success-message">
             <h3>¡Pago completado con éxito!</h3>
-            <Button onClick={() => navigate("/")}>Volver al inicio</Button>
+            <Button onClick={() => navigate("/account-details/orders")}>
+              Ver mis pedidos
+            </Button>
           </div>
         ) : (
           <Button onClick={() => navigate("/cart")}>Volver al carrito</Button>

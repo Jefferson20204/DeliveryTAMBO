@@ -127,14 +127,14 @@ export default function MainSlider() {
           className="custom-button prev-button"
           aria-label="Anterior"
         >
-          <i class="fa-solid fa-chevron-left"></i>
+          <i className="fa-solid fa-chevron-left"></i>
         </div>
         <div
           ref={nextRef}
           className="custom-button next-button"
           aria-label="Siguiente"
         >
-          <i class="fa-solid fa-chevron-right"></i>
+          <i className="fa-solid fa-chevron-right"></i>
         </div>
       </Swiper>
     </div>

@@ -72,7 +72,7 @@ const QuantityInput = ({
           onClick={handleAddInitial}
           aria-label="Agregar al carrito"
         >
-          <i class="fa-solid fa-plus"></i>
+          <i className="fa-solid fa-plus"></i>
         </button>
       </div>
     );
@@ -89,9 +89,9 @@ const QuantityInput = ({
         aria-label={value === min ? "Eliminar" : "Reducir cantidad"}
       >
         {value === min ? (
-          <i class="fa-solid fa-trash"></i>
+          <i className="fa-solid fa-trash"></i>
         ) : (
-          <i class="fa-solid fa-minus"></i>
+          <i className="fa-solid fa-minus"></i>
         )}
       </button>
       <span className="quantity-number" aria-live="polite">
@@ -103,7 +103,7 @@ const QuantityInput = ({
         aria-label="Aumentar cantidad"
         disabled={value >= max}
       >
-        <i class="fa-solid fa-plus"></i>
+        <i className="fa-solid fa-plus"></i>
       </button>
     </div>
   );
