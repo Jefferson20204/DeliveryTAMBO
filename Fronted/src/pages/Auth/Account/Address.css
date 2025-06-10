@@ -45,6 +45,7 @@
 
 /* Botón de eliminar */
 .delete-button {
+  font-size: 1rem;
   background: none;
   border: none;
   cursor: pointer;

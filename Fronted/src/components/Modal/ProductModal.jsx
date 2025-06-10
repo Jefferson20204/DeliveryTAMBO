@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import QuantityInput from "../Quantity/QuantityInput";
 import Button from "../Buttons/Button";
-import CloseIcon from "../../common/CloseIcon";
 import "./ProductModal.css";
 
 const ProductModal = ({ product, onClose, initialQuantity }) => {
@@ -95,7 +94,7 @@ const ProductModal = ({ product, onClose, initialQuantity }) => {
         </div>
 
         <button className="modal-close" onClick={handleClose}>
-          <CloseIcon />
+          <i class="fa-solid fa-xmark"></i>
         </button>
 
         <div className="bottom-bar">
