@@ -94,7 +94,7 @@ const ProductModal = ({ product, onClose, initialQuantity }) => {
         </div>
 
         <button className="modal-close" onClick={handleClose}>
-          <i class="fa-solid fa-xmark"></i>
+          <i className="fa-solid fa-xmark"></i>
         </button>
 
         <div className="bottom-bar">

@@ -44,7 +44,12 @@ const Address = () => {
   // Eliminar direccion
   const onDeleteAddress = useCallback(
     (id) => {
-      dispatch(setLoading(true));
+      dispatch(
+        setLoading({
+          loading: true,
+          message: "Eliminando direccion...",
+        })
+      );
       deleteAddressAPI(id)
         .then((res) => {
           // Actualizar las direcciones después de eliminar
@@ -54,7 +59,12 @@ const Address = () => {
           console.error("Error al eliminar dirección:", err);
         })
         .finally(() => {
-          dispatch(setLoading(false));
+          dispatch(
+            setLoading({
+              loading: false,
+              message: "",
+            })
+          );
         });
     },
     [dispatch, fetchAddresses]
@@ -92,7 +102,7 @@ const Address = () => {
                   className="delete-button"
                   aria-label="Eliminar dirección"
                 >
-                  <i class="fa-solid fa-trash delete-button"></i>
+                  <i className="fa-solid fa-trash delete-button"></i>
                 </button>
               </div>
             ))}

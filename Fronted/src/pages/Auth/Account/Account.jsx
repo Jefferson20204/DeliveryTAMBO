@@ -69,7 +69,7 @@ const Account = () => {
           <div className="sidebar-header">
             <h2>Mi Cuenta</h2>
             <button className="sidebar-close-btn" onClick={toggleSidebar}>
-              <i class="fa-solid fa-xmark"></i>
+              <i className="fa-solid fa-xmark"></i>
             </button>
           </div>
 
@@ -82,25 +82,25 @@ const Account = () => {
             <ul>
               <SidebarLink
                 to="/account-details/profile"
-                icon={<i class="fa-solid fa-user"></i>}
+                icon={<i className="fa-solid fa-user"></i>}
               >
                 Perfil
               </SidebarLink>
               <SidebarLink
                 to="/account-details/address"
-                icon={<i class="fa-solid fa-location-dot"></i>}
+                icon={<i className="fa-solid fa-location-dot"></i>}
               >
                 Direcciones
               </SidebarLink>
               <SidebarLink
                 to="/account-details/orders"
-                icon={<i class="fa-solid fa-truck"></i>}
+                icon={<i className="fa-solid fa-truck"></i>}
               >
                 Pedidos
               </SidebarLink>
               <SidebarLink
                 to="/account-details/settings"
-                icon={<i class="fa-solid fa-gear"></i>}
+                icon={<i className="fa-solid fa-gear"></i>}
               >
                 Ajustes
               </SidebarLink>
@@ -121,7 +121,7 @@ const Account = () => {
 
       {/* Botón de toggle para móvil */}
       <button className="menu-toggle-btn" onClick={toggleSidebar}>
-        <i class="fa-solid fa-bars"></i>
+        <i className="fa-solid fa-bars"></i>
       </button>
     </div>
   );

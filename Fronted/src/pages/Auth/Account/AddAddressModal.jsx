@@ -11,7 +11,6 @@ import L from "leaflet"; // importa toda la librería Leaflet
 import { OpenStreetMapProvider } from "leaflet-geosearch";
 import "leaflet/dist/leaflet.css";
 import districtsData from "./data/districts.json";
-import { useDispatch } from "react-redux";
 import { addAddressAPI } from "../../../api/userInfo";
 import "./AddAddressModal.css";
 
@@ -229,8 +228,6 @@ const AddAddressModal = ({ show, onHide, onSuccess }) => {
       [name]: value,
     }));
   };
-
-  const dispatch = useDispatch();
 
   // Guardar dirección
   const saveAddressDate = async (e) => {

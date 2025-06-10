@@ -5,7 +5,6 @@ import com.Login.Backend.auth.dto.UserResponseDto;
 import com.Login.Backend.auth.dto.UserUpdateDto;
 import com.Login.Backend.auth.entities.User;
 import com.Login.Backend.auth.helper.VerificationCodeGenerator;
-import com.Login.Backend.auth.repositories.AuthorityRepository;
 import com.Login.Backend.auth.repositories.UserDetailRepository;
 
 import java.util.List;
@@ -29,9 +28,6 @@ public class UserService {
 
     @Autowired
     private EmailService emailService;
-
-    @Autowired
-    private AuthorityRepository authorityRepository;
 
     // Registro de usuarios
     public UserResponseDto createUser(RegistrationRequest request) {
