@@ -26,7 +26,7 @@ const ProductSection = ({ title, products, onSeeMore }) => {
 
       <div className="carousel-container">
         <button className="scroll-button left" onClick={() => scroll(-300)}>
-          <i class="fa-solid fa-chevron-left"></i>
+          <i className="fa-solid fa-chevron-left"></i>
         </button>
 
         <div className="product-carousel" ref={scrollRef}>
@@ -36,7 +36,7 @@ const ProductSection = ({ title, products, onSeeMore }) => {
         </div>
 
         <button className="scroll-button right" onClick={() => scroll(300)}>
-          <i class="fa-solid fa-chevron-right"></i>
+          <i className="fa-solid fa-chevron-right"></i>
         </button>
       </div>
     </div>

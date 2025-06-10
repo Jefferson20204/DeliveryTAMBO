@@ -84,3 +84,22 @@ export const fetchOrderAPI = async () => {
     throw new Error(err);
   }
 };
+
+export const cancellingOrderAPI = async (orderId) => {
+  const url = API_BASE_URL + "/api/user/cancelMyOrder";
+  try {
+    const response = await axios(url, {
+      method: "POST",
+      data: orderId.toString(), // Asegúrate de convertirlo a string
+      headers: {
+        ...getHeaders(),
+        "Content-Type": "text/plain", // Especifica que envías texto plano
+      },
+    });
+    return response?.data;
+  } catch (err) {
+    throw new Error(
+      err.response?.data?.message || "Error al cancelar el pedido"
+    );
+  }
+};

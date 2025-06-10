@@ -491,7 +491,7 @@ const CartPage = () => {
                             <div className="address-container">
                               <div className="address-content">
                                 <div className="address-icon">
-                                  <i class="fa-solid fa-location-dot"></i>
+                                  <i className="fa-solid fa-location-dot"></i>
                                 </div>
                                 <div className="address-info">
                                   <p className="address-title">

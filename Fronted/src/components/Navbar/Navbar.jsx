@@ -96,14 +96,14 @@ const Navigation = ({ type = "shop" }) => {
                   <Avatar user={userInfo} size={32} />
                 ) : (
                   <>
-                    <i class="fa-solid fa-user nav-icon"></i>
+                    <i className="fa-solid fa-user nav-icon"></i>
                     <span>Iniciar sesión</span>
                   </>
                 )}
               </div>
 
               <div className="nav-cart" onClick={() => handleNavigate("/cart")}>
-                <i class="fa-solid fa-cart-shopping nav-icon"></i>
+                <i className="fa-solid fa-cart-shopping nav-icon"></i>
                 {totalItems > 0 && (
                   <span className="cart-count">{totalItems}</span>
                 )}
