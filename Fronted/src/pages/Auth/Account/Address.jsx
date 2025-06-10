@@ -6,7 +6,6 @@ import { setLoading } from "../../../store/features/common";
 import Button from "../../../components/Buttons/Button";
 import AddAddressModal from "./AddAddressModal";
 import { fetchUserAddress } from "../../../api/userInfo";
-import DeleteIcon from "../../../common/DeleteIcon";
 import "./Address.css";
 
 const Address = () => {
@@ -93,7 +92,7 @@ const Address = () => {
                   className="delete-button"
                   aria-label="Eliminar dirección"
                 >
-                  <DeleteIcon size={20} className="delete-button" />
+                  <i class="fa-solid fa-trash delete-button"></i>
                 </button>
               </div>
             ))}
