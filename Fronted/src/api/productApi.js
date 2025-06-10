@@ -10,7 +10,10 @@ export const getAllProducts = async (categoryId, typeId) => {
     if (categoryId) params.categoryId = categoryId;
     if (typeId) params.typeId = typeId;
 
-    const response = await axios.get(BASE_URL, { params });
+    const response = await axios.get(BASE_URL, {
+      params,
+      headers: getHeaders(),
+    });
     return response.data;
   } catch (error) {
     console.error("Error al obtener productos", error);
@@ -21,7 +24,9 @@ export const getAllProducts = async (categoryId, typeId) => {
 // Obtener producto por slug
 export const getProductBySlug = async (slug) => {
   try {
-    const response = await axios.get(`${BASE_URL}?slug=${slug}`);
+    const response = await axios.get(`${BASE_URL}?slug=${slug}`, {
+      headers: getHeaders(),
+    });
     return response.data;
   } catch (error) {
     console.error("Error al obtener producto por slug", error);
@@ -46,7 +51,7 @@ export const createProduct = async (productData) => {
 // Obtener un producto por ID
 export const getProductById = async (id) => {
   try {
-    const res = await axios.get(`${BASE_URL}/${id}`);
+    const res = await axios.get(`${BASE_URL}/${id}`, { headers: getHeaders() });
     return res.data;
   } catch (error) {
     console.error("Error al obtener producto por ID:", error);

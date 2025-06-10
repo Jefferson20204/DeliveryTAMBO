@@ -7,6 +7,10 @@ export const getAllDiscounts = async () => {
   try {
     const response = await fetch(BASE_URL, {
       method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...getHeaders(),
+      },
     });
 
     if (!response.ok) throw new Error("Error al obtener descuentos");
@@ -22,6 +26,10 @@ export const getDiscountById = async (id) => {
   try {
     const response = await fetch(`${BASE_URL}/${id}`, {
       method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...getHeaders(),
+      },
     });
 
     if (!response.ok)
