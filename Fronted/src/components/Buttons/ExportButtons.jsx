@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_BASE_URL } from "../../api/constant";
+import { API_BASE_URL, getHeaders } from "../../api/constant";
 
 const ExportButtons = ({ className, type = "excel", urlApi = "" }) => {
   const handleExport = async ({ type, urlApi }) => {
@@ -7,7 +7,11 @@ const ExportButtons = ({ className, type = "excel", urlApi = "" }) => {
       const response = await axios.get(
         `${API_BASE_URL}/api/export/${urlApi}/${type}`,
         {
-          responseType: "blob", // Importante para descargar archivos
+          responseType: "blob",
+          headers: {
+            "Content-Type": "application/json",
+            ...getHeaders(),
+          },
         }
       );
 

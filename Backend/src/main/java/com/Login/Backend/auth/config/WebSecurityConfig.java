@@ -46,31 +46,36 @@ public class WebSecurityConfig {
 
                                 .csrf(AbstractHttpConfigurer::disable)
                                 .authorizeHttpRequests((authorize) -> authorize
-                                                .requestMatchers("/v3/api-docs/**", "/swagger-ui.html",
-                                                                "/swagger-ui/**", "/test/**",
-                                                                "/api/payment/paypal/confirm-payment", "/api/export/**")
+                                                // Endpoints públicos
+                                                .requestMatchers("/test/**")
                                                 .permitAll()
-                                                .requestMatchers(HttpMethod.GET, "/api/products/**", "/api/category/**",
-                                                                "/api/discounts/**", "api/brands/**",
-                                                                "/admin/**", "/api/admin/config/**", "/api/address/**",
-                                                                "/api/order/**", "/api/payment/**", "/api/export/**")
+                                                .requestMatchers(HttpMethod.GET, "/api/admin/config/**",
+                                                                "/api/products/**",
+                                                                "/api/category/**",
+                                                                "/api/discount/**", "/api/brand/**")
                                                 .permitAll()
-                                                .requestMatchers(HttpMethod.POST, "/api/products", "/api/category",
-                                                                "/api/discounts", "api/brands",
-                                                                "/api/admin/config/**", "/api/address/**",
-                                                                "/api/order/**", "/api/payment/**", "/api/export/**")
-                                                .permitAll()
-                                                .requestMatchers(HttpMethod.DELETE, "/api/products/**",
-                                                                "/api/category/**", "/api/discounts/**",
-                                                                "api/brands/**",
-                                                                "/api/admin/config/**", "/api/address/**",
-                                                                "/api/order/**", "/api/payment/**", "/api/export/**")
-                                                .permitAll()
-                                                .requestMatchers(HttpMethod.PUT, "/api/products/**", "/api/category/**",
-                                                                "/api/discounts/**", "api/brands/**",
-                                                                "/api/admin/config/**", "/api/address/**",
-                                                                "/api/order/**", "/api/payment/**", "/api/export/**")
-                                                .permitAll()
+
+                                                // Endpoints para usuarios autenticados (cualquier rol)
+                                                .requestMatchers(
+                                                                "/api/user/**",
+                                                                "/api/address/**",
+                                                                "/api/payment/paypal/confirm-payment")
+                                                .authenticated()
+
+                                                // Endpoints solo para ADMIN
+                                                .requestMatchers(
+                                                                "/admin/**", "/api/export/**")
+                                                .hasAuthority("ADMIN")
+
+                                                // Configuración específica por método HTTP
+                                                .requestMatchers(HttpMethod.GET, "/api/order/**")
+                                                .hasAnyAuthority("ADMIN", "USER")
+                                                .requestMatchers(HttpMethod.POST, "/api/order").hasAuthority("USER")
+                                                .requestMatchers(HttpMethod.PUT, "/api/order/**")
+                                                .hasAnyAuthority("ADMIN", "USER")
+                                                .requestMatchers(HttpMethod.DELETE, "/api/order/**")
+                                                .hasAuthority("ADMIN")
+
                                                 .requestMatchers("/oauth2/success").permitAll()
                                                 .anyRequest().authenticated())
                                 .exceptionHandling(exception -> exception
