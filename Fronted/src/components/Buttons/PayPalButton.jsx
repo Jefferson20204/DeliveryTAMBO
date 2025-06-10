@@ -12,7 +12,6 @@ const PayPalButton = ({ amount, currency = "USD", onApprove, onError }) => {
   const buttonStyles = {
     layout: "vertical",
     color: "gold",
-    shape: "rect",
     label: "pay",
     height: 55,
     shape: "pill",
