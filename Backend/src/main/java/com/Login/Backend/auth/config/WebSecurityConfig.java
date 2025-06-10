@@ -70,7 +70,8 @@ public class WebSecurityConfig {
                                                 // Configuración específica por método HTTP
                                                 .requestMatchers(HttpMethod.GET, "/api/order/**")
                                                 .hasAnyAuthority("ADMIN", "USER")
-                                                .requestMatchers(HttpMethod.POST, "/api/order").hasAuthority("USER")
+                                                .requestMatchers(HttpMethod.POST, "/api/order")
+                                                .hasAnyAuthority("ADMIN", "USER")
                                                 .requestMatchers(HttpMethod.PUT, "/api/order/**")
                                                 .hasAnyAuthority("ADMIN", "USER")
                                                 .requestMatchers(HttpMethod.DELETE, "/api/order/**")
