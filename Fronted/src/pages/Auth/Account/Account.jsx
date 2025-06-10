@@ -4,12 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../store/features/common";
 import { fetchUserDetails } from "../../../api/userInfo";
 import { loadUserInfo, selectUserInfo } from "../../../store/features/user";
-import CloseIcon from "../../../common/CloseIcon";
-import MenuIcon from "../../../common/MenuIcon";
-import UserIcon from "../../../common/UserIcon";
-import AddressIcon from "../../../common/AddressIcon";
-import SettingsIcon from "../../../common/SettingsIcon";
-import ShoppingBagIcon from "../../../common/ShoppingBagIcon";
 import "./Account.css";
 
 const Account = () => {
@@ -75,7 +69,7 @@ const Account = () => {
           <div className="sidebar-header">
             <h2>Mi Cuenta</h2>
             <button className="sidebar-close-btn" onClick={toggleSidebar}>
-              <CloseIcon />
+              <i class="fa-solid fa-xmark"></i>
             </button>
           </div>
 
@@ -88,25 +82,25 @@ const Account = () => {
             <ul>
               <SidebarLink
                 to="/account-details/profile"
-                icon={<UserIcon size={20} />}
+                icon={<i class="fa-solid fa-user"></i>}
               >
                 Perfil
               </SidebarLink>
               <SidebarLink
                 to="/account-details/address"
-                icon={<AddressIcon size={20} />}
+                icon={<i class="fa-solid fa-location-dot"></i>}
               >
                 Direcciones
               </SidebarLink>
               <SidebarLink
                 to="/account-details/orders"
-                icon={<ShoppingBagIcon size={20} />}
+                icon={<i class="fa-solid fa-truck"></i>}
               >
                 Pedidos
               </SidebarLink>
               <SidebarLink
                 to="/account-details/settings"
-                icon={<SettingsIcon size={20} />}
+                icon={<i class="fa-solid fa-gear"></i>}
               >
                 Ajustes
               </SidebarLink>
@@ -127,7 +121,7 @@ const Account = () => {
 
       {/* Botón de toggle para móvil */}
       <button className="menu-toggle-btn" onClick={toggleSidebar}>
-        <MenuIcon size={32} />
+        <i class="fa-solid fa-bars"></i>
       </button>
     </div>
   );

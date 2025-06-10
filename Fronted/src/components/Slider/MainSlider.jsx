@@ -23,7 +23,6 @@ import banner8Desktop from "../../assets/img/Slider/banner-08-desktop.webp";
 import banner8Mobile from "../../assets/img/Slider/banner-08-mobile.webp";
 import banner9Desktop from "../../assets/img/Slider/banner-09-desktop.webp";
 import banner9Mobile from "../../assets/img/Slider/banner-09-mobile.webp";
-import ArrowIcon from "../../common/ArrowIcon";
 
 const slides = [
   {
@@ -128,14 +127,14 @@ export default function MainSlider() {
           className="custom-button prev-button"
           aria-label="Anterior"
         >
-          <ArrowIcon direction="left" size={32} />
+          <i class="fa-solid fa-chevron-left"></i>
         </div>
         <div
           ref={nextRef}
           className="custom-button next-button"
           aria-label="Siguiente"
         >
-          <ArrowIcon direction="right" size={32} />
+          <i class="fa-solid fa-chevron-right"></i>
         </div>
       </Swiper>
     </div>

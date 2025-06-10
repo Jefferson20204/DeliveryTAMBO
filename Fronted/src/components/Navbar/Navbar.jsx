@@ -1,15 +1,12 @@
-import { useState, useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useRef } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/img/Logo/logo-tambo2.png";
 import { isTokenValid } from "../../utils/jwt-helper";
 import { countCartItems } from "../../store/features/cart";
-import UserIcon from "../../common/UserIcon";
-import CartIcon from "../../common/CartIcon";
-import { selectUserInfo } from "../../store/features/user"; // TEMPORAL
+import { selectUserInfo } from "../../store/features/user";
 import "./Navbar.css";
 
-// Nuevo componente Avatar (puedes moverlo a un archivo aparte después)
 const Avatar = ({ user, size = 32 }) => {
   // Si hay imagen de perfil
   if (user?.profileImageUrl) {
@@ -99,14 +96,14 @@ const Navigation = ({ type = "shop" }) => {
                   <Avatar user={userInfo} size={32} />
                 ) : (
                   <>
-                    <UserIcon className={"nav-icon"} />
+                    <i class="fa-solid fa-user nav-icon"></i>
                     <span>Iniciar sesión</span>
                   </>
                 )}
               </div>
 
               <div className="nav-cart" onClick={() => handleNavigate("/cart")}>
-                <CartIcon className={"nav-icon"} />
+                <i class="fa-solid fa-cart-shopping nav-icon"></i>
                 {totalItems > 0 && (
                   <span className="cart-count">{totalItems}</span>
                 )}

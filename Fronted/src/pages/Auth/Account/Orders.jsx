@@ -4,7 +4,6 @@ import { setLoading } from "../../../store/features/common";
 import { fetchOrderAPI } from "../../../api/userInfo";
 import { loadOrders, selectAllOrders } from "../../../store/features/user";
 import Card from "../../../components/Card/Card";
-import DeleteIcon from "../../../common/DeleteIcon";
 
 const Orders = () => {
   const dispatch = useDispatch();
@@ -129,7 +128,7 @@ const Orders = () => {
                       className="delete-button"
                       aria-label="Eliminar dirección"
                     >
-                      <DeleteIcon size={20} className="delete-button" />
+                      <i class="fa-solid fa-trash delete-button"></i>
                     </button>
                   </div>
                 )

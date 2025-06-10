@@ -1,6 +1,3 @@
-import DeleteIcon from "../../common/DeleteIcon";
-import AddIcon from "../../common/AddIcon";
-import RemoveIcon from "../../common/RemoveIcon";
 import {
   addItemToCartAction,
   updateItemToCartAction,
@@ -75,7 +72,7 @@ const QuantityInput = ({
           onClick={handleAddInitial}
           aria-label="Agregar al carrito"
         >
-          <AddIcon />
+          <i class="fa-solid fa-plus"></i>
         </button>
       </div>
     );
@@ -91,7 +88,11 @@ const QuantityInput = ({
         onClick={handleSubtract}
         aria-label={value === min ? "Eliminar" : "Reducir cantidad"}
       >
-        {value === min ? <DeleteIcon /> : <RemoveIcon />}
+        {value === min ? (
+          <i class="fa-solid fa-trash"></i>
+        ) : (
+          <i class="fa-solid fa-minus"></i>
+        )}
       </button>
       <span className="quantity-number" aria-live="polite">
         {value}
@@ -102,7 +103,7 @@ const QuantityInput = ({
         aria-label="Aumentar cantidad"
         disabled={value >= max}
       >
-        <AddIcon />
+        <i class="fa-solid fa-plus"></i>
       </button>
     </div>
   );

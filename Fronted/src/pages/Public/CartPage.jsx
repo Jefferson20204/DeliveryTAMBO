@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectUserInfo, loadUserInfo } from "../../store/features/user";
+import { selectUserInfo } from "../../store/features/user";
 import Button from "../../components/Buttons/Button";
 import Card from "../../components/Card/Card";
 import AddAddressModal from "../Auth/Account/AddAddressModal";
@@ -9,8 +9,6 @@ import { countCartItems } from "../../store/features/cart";
 import { createOrderRequest } from "../../utils/order-util";
 import { placeOrderAPI } from "../../api/orderApi";
 import { setLoading } from "../../store/features/common";
-import { fetchUserDetails } from "../../api/userInfo";
-import AddressIcon from "../../common/AddressIcon";
 import { logOut } from "../../utils/jwt-helper";
 import { fetchUserAddress } from "../../api/userInfo";
 import "./CartPage.css";
@@ -493,7 +491,7 @@ const CartPage = () => {
                             <div className="address-container">
                               <div className="address-content">
                                 <div className="address-icon">
-                                  <AddressIcon />
+                                  <i class="fa-solid fa-location-dot"></i>
                                 </div>
                                 <div className="address-info">
                                   <p className="address-title">
