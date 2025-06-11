@@ -136,10 +136,10 @@ const Orders = () => {
                   <p className="address-details">
                     Fecha: {formatDate(order.orderDate)}
                   </p>
-                  <p className="address-details">
+                  {/* <p className="address-details">
                     Fecha de entrega estimada:{" "}
                     {formatDate(order.expectedDeliveryDate)}
-                  </p>
+                  </p> */}
 
                   {order.orderStatus !== "CANCELLED" && (
                     <Timeline stepCount={getStepCount[order.orderStatus]} />
