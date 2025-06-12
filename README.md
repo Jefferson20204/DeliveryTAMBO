@@ -28,6 +28,10 @@
 
 ![alt text](docs/image-27.png)
 
+### Página del administrador
+
+![alt text](image.png)
+
 ## ☕ Requisitos para el proyecto
 
 Antes de compilar y ejecutar este backend y fronted, asegúrate de tener instalado y configurado lo siguiente:
