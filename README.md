@@ -6,27 +6,27 @@
 
 ### Página principal
 
-- ![alt text](docs/image-22.png)
+![alt text](docs/image-22.png)
 
 ### Página de inicio de sesión
 
-- ![alt text](docs/image-23.png)
+![alt text](docs/image-23.png)
 
 ### Página de registro
 
-- ![alt text](docs/image-24.png)
+![alt text](docs/image-24.png)
 
 ### Página para restablecer contraseña
 
-- ![alt text](docs/image-25.png)
+![alt text](docs/image-25.png)
 
 ### Página para el carrito
 
-- ![alt text](docs/image-26.png)
+![alt text](docs/image-26.png)
 
 ### Página del perfil de usuario
 
-- ![alt text](docs/image-27.png)
+![alt text](docs/image-27.png)
 
 ## ☕ Requisitos para el proyecto
 
