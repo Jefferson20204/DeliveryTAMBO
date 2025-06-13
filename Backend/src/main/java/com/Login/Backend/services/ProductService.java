@@ -23,4 +23,6 @@ public interface ProductService {
 
     ProductDTO updateProduct(UUID id, ProductRequestDTO productDto);
 
+    boolean deleteProduct(UUID id);
+
 }

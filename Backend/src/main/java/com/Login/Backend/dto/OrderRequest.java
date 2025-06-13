@@ -29,7 +29,7 @@ public class OrderRequest {
     private Date expectedDeliveryDate; // Fecha de entrega esperada
     private ReceiptType receiptType; // tipo de facturacion
     private String docType; // tipo de documento de identidad
-    private int docNumber; // numero del documento de identidad
+    private long docNumber; // numero del documento de identidad
     private String billingAddress; // ruc
     private String businessName; // Razon social
 

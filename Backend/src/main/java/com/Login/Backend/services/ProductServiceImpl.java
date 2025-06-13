@@ -12,6 +12,8 @@ import com.Login.Backend.repositories.DiscountRepository;
 import com.Login.Backend.repositories.ProductRepository;
 import com.Login.Backend.specification.ProductSpecification;
 
+import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -156,6 +158,34 @@ public class ProductServiceImpl implements ProductService {
 
                 Product updated = productRepository.save(existing);
                 return ProductMapper.toDTO(updated);
+        }
+
+        @Override
+        @Transactional
+        public boolean deleteProduct(UUID id) {
+                Product product = productRepository.findById(id)
+                                .orElseThrow(() -> new EntityNotFoundException("Product not found"));
+
+                try {
+                        // Eliminar relaciones con descuentos primero
+                        for (Discount discount : product.getDiscounts()) {
+                                discount.getProducts().remove(product);
+                        }
+                        product.getDiscounts().clear();
+
+                        // Eliminar recursos asociados (si existen)
+                        if (product.getResources() != null) {
+                                product.getResources().clear();
+                        }
+
+                        // Eliminar producto de la base de datos
+                        productRepository.deleteById(id);
+                        return true;
+
+                } catch (Exception e) {
+                        System.out.println("Error al eliminar el producto");
+                        return false;
+                }
         }
 
 }
