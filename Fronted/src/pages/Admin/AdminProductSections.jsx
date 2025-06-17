@@ -6,10 +6,7 @@ import {
   updateProductSection,
   deleteProductSection,
 } from "../../api/configApi";
-<<<<<<< HEAD
-=======
 import "./Css/AdminProductSections.css";
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 
 const AdminProductSections = () => {
   const [categories, setCategories] = useState([]);
@@ -74,27 +71,11 @@ const AdminProductSections = () => {
   };
 
   return (
-<<<<<<< HEAD
-    <div style={{ padding: 20 }}>
-      <h2>Configuración: Secciones de Productos</h2>
-
-      {/* Formulario Crear/Editar */}
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          border: "1px solid #ccc",
-          padding: 12,
-          marginBottom: 20,
-          borderRadius: 4,
-        }}
-      >
-=======
     <div className="admin-sections-container">
       <h2>Configuración: Secciones de Productos</h2>
 
       {/* Formulario Crear/Editar */}
       <form onSubmit={handleSubmit} className="admin-form">
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
         <h3>{editing ? "Editar sección" : "Nueva sección"}</h3>
 
         <div style={{ marginBottom: 8 }}>
@@ -161,11 +142,7 @@ const AdminProductSections = () => {
       </form>
 
       {/* Tabla de secciones existentes */}
-<<<<<<< HEAD
-      <table border="1" cellPadding="8" cellSpacing="0" width="100%">
-=======
       <table className="admin-table">
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
         <thead>
           <tr>
             <th>Orden</th>

@@ -10,14 +10,10 @@ export const getAllProducts = async (categoryId, typeId) => {
     if (categoryId) params.categoryId = categoryId;
     if (typeId) params.typeId = typeId;
 
-<<<<<<< HEAD
-    const response = await axios.get(BASE_URL, { params });
-=======
     const response = await axios.get(BASE_URL, {
       params,
       headers: getHeaders(),
     });
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
     return response.data;
   } catch (error) {
     console.error("Error al obtener productos", error);
@@ -28,13 +24,9 @@ export const getAllProducts = async (categoryId, typeId) => {
 // Obtener producto por slug
 export const getProductBySlug = async (slug) => {
   try {
-<<<<<<< HEAD
-    const response = await axios.get(`${BASE_URL}?slug=${slug}`);
-=======
     const response = await axios.get(`${BASE_URL}?slug=${slug}`, {
       headers: getHeaders(),
     });
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
     return response.data;
   } catch (error) {
     console.error("Error al obtener producto por slug", error);
@@ -44,11 +36,6 @@ export const getProductBySlug = async (slug) => {
 
 // Crear un nuevo producto
 export const createProduct = async (productData) => {
-<<<<<<< HEAD
-  console.log(productData);
-
-=======
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
   try {
     console.log(productData);
     const response = await axios.post(BASE_URL, productData, {
@@ -64,11 +51,7 @@ export const createProduct = async (productData) => {
 // Obtener un producto por ID
 export const getProductById = async (id) => {
   try {
-<<<<<<< HEAD
-    const res = await axios.get(`${BASE_URL}/${id}`);
-=======
     const res = await axios.get(`${BASE_URL}/${id}`, { headers: getHeaders() });
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
     return res.data;
   } catch (error) {
     console.error("Error al obtener producto por ID:", error);
@@ -78,11 +61,6 @@ export const getProductById = async (id) => {
 
 // Actualizar un producto
 export const updateProduct = async (id, productData) => {
-<<<<<<< HEAD
-  console.log(productData);
-
-=======
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
   try {
     const res = await axios.put(`${BASE_URL}/${id}`, productData, {
       headers: getHeaders(),

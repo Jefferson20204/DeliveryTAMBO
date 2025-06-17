@@ -2,10 +2,6 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import QuantityInput from "../Quantity/QuantityInput";
 import Button from "../Buttons/Button";
-<<<<<<< HEAD
-import CloseIcon from "../../common/CloseIcon";
-=======
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 import "./ProductModal.css";
 
 const ProductModal = ({ product, onClose, initialQuantity }) => {
@@ -70,14 +66,10 @@ const ProductModal = ({ product, onClose, initialQuantity }) => {
                 </div>
               )}
               <img
-<<<<<<< HEAD
-                src={product.thumbnail}
-=======
                 src={
                   product.thumbnail ||
                   "https://www.nisira.com.pe/images/Features/default-box.png"
                 }
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
                 alt={product.name}
                 className="modal-image"
               />
@@ -102,11 +94,7 @@ const ProductModal = ({ product, onClose, initialQuantity }) => {
         </div>
 
         <button className="modal-close" onClick={handleClose}>
-<<<<<<< HEAD
-          <CloseIcon />
-=======
           <i className="fa-solid fa-xmark"></i>
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
         </button>
 
         <div className="bottom-bar">

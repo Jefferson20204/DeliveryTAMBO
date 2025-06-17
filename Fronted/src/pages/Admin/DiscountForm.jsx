@@ -6,10 +6,7 @@ import {
   updateDiscount,
 } from "../../api/discountApi";
 import { getAllProducts } from "../../api/productApi";
-<<<<<<< HEAD
-=======
 import "./Css/DiscountForm.css";
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 
 export default function DiscountForm() {
   const { id } = useParams();
@@ -74,18 +71,11 @@ export default function DiscountForm() {
   };
 
   return (
-<<<<<<< HEAD
-    <div>
-      <h2>{isEdit ? "Editar descuento" : "Agregar nuevo descuento"}</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-=======
     <div className="discount-form-container">
       <h2 className="discount-form-title">{isEdit ? "Editar descuento" : "Agregar nuevo descuento"}</h2>
       <form onSubmit={handleSubmit} className="discount-form">
         <input
           className="discount-input"
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
           name="name"
           placeholder="Nombre"
           value={formData.name}
@@ -93,10 +83,7 @@ export default function DiscountForm() {
           required
         />
         <input
-<<<<<<< HEAD
-=======
           className="discount-input"
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
           name="percentage"
           type="number"
           step="0.01"
@@ -105,39 +92,25 @@ export default function DiscountForm() {
           onChange={handleChange}
           required
         />
-<<<<<<< HEAD
-        <label>Fecha inicio</label>
-        <input
-=======
         <label className="discount-label">Fecha inicio</label>
         <input
           className="discount-input"
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
           name="startDate"
           type="datetime-local"
           value={formData.startDate}
           onChange={handleChange}
           required
         />
-<<<<<<< HEAD
-        <label>Fecha fin</label>
-        <input
-=======
         <label className="discount-label">Fecha fin</label>
         <input
           className="discount-input"
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
           name="endDate"
           type="datetime-local"
           value={formData.endDate}
           onChange={handleChange}
           required
         />
-<<<<<<< HEAD
-        <label>
-=======
         <label className="discount-checkbox">
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
           <input
             type="checkbox"
             name="isActive"
@@ -146,14 +119,9 @@ export default function DiscountForm() {
           />{" "}
           Activo
         </label>
-<<<<<<< HEAD
-        <label>Productos</label>
-        <select
-=======
         <label className="discount-label">Productos</label>
         <select
           className="discount-select"
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
           name="productIds"
           multiple
           value={formData.productIds}
@@ -165,11 +133,7 @@ export default function DiscountForm() {
             </option>
           ))}
         </select>
-<<<<<<< HEAD
-        <button type="submit">Guardar</button>
-=======
         <button type="submit" className="discount-submit-button">Guardar</button>
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
       </form>
     </div>
   );

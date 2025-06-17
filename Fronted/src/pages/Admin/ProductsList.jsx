@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import { getAllProductsAdmin } from "../../api/productApi";
 import { Link, useNavigate } from "react-router-dom";
-<<<<<<< HEAD
-=======
 import ExportButtons from "../../components/Buttons/ExportButtons";
 import "./Css/ProductsList.css";
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 
 export default function ProductsList() {
   const [products, setProducts] = useState([]);
@@ -16,17 +13,6 @@ export default function ProductsList() {
   }, []);
 
   return (
-<<<<<<< HEAD
-    <div className="py-auto">
-      <div className="py-auto">
-        <h2>Lista de productos</h2>
-        <Link to="/admin/products/new">Agregar producto</Link>
-      </div>
-      {products.length === 0 ? (
-        <p>No hay productos disponibles.</p>
-      ) : (
-        <table border="1" cellPadding="8" cellSpacing="0" width="100%">
-=======
     <div className="products-list-container">
       <div className="products-list-header">
         <h2 className="products-list-title">Lista de productos</h2>
@@ -45,7 +31,6 @@ export default function ProductsList() {
         <p className="products-empty-message">No hay productos disponibles.</p>
       ) : (
         <table className="products-table">
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
           <thead>
             <tr>
               <th>Nombre</th>
@@ -76,10 +61,7 @@ export default function ProductsList() {
                 <td>{product.brand.name}</td>
                 <td>
                   <button
-<<<<<<< HEAD
-=======
                     className="products-edit-btn"
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
                     onClick={() =>
                       navigate(`/admin/products/edit/${product.id}`)
                     }

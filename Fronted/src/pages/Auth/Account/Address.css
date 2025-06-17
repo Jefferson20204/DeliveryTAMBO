@@ -25,11 +25,8 @@
 /* Contenido de la dirección */
 .address-content {
   flex: 1;
-<<<<<<< HEAD
-=======
   flex-direction: column;
   align-items: flex-start;
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 }
 
 .address-text {
@@ -48,10 +45,7 @@
 
 /* Botón de eliminar */
 .delete-button {
-<<<<<<< HEAD
-=======
   font-size: 1rem;
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
   background: none;
   border: none;
   cursor: pointer;

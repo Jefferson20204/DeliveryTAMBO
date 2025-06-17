@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllDiscounts } from "../../api/discountApi";
-<<<<<<< HEAD
-=======
 import "./Css/DiscountList.css"
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 
 export default function DiscountList() {
   const [discounts, setDiscounts] = useState([]);
@@ -24,21 +21,12 @@ export default function DiscountList() {
   };
 
   return (
-<<<<<<< HEAD
-    <div>
-      <h2>Listado de Descuentos</h2>
-      <button onClick={() => navigate("/admin/discounts/new")}>
-        Agregar Descuento
-      </button>
-      <table border="1" cellPadding="8" cellSpacing="0" width="100%">
-=======
     <div className="discount-list-container">
       <h2 className="discount-list-title">Listado de Descuentos</h2>
       <button className="discount-list-button" onClick={() => navigate("/admin/discounts/new")}>
         Agregar Descuento
       </button>
       <table className="discount-list-table" border="1" cellPadding="8" cellSpacing="0" width="100%">
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
         <thead>
           <tr>
             <th>Nombre</th>
@@ -61,10 +49,7 @@ export default function DiscountList() {
               <td>{d.products.length}</td>
               <td>
                 <button
-<<<<<<< HEAD
-=======
                   className="discount-list-edit-btn"
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
                   onClick={() => navigate(`/admin/discounts/edit/${d.id}`)}
                 >
                   Editar

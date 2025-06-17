@@ -11,14 +11,7 @@ import L from "leaflet"; // importa toda la librería Leaflet
 import { OpenStreetMapProvider } from "leaflet-geosearch";
 import "leaflet/dist/leaflet.css";
 import districtsData from "./data/districts.json";
-<<<<<<< HEAD
-import { useDispatch } from "react-redux";
 import { addAddressAPI } from "../../../api/userInfo";
-import { saveAddress } from "../../../store/features/user";
-import { useNavigate } from "react-router-dom";
-=======
-import { addAddressAPI } from "../../../api/userInfo";
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 import "./AddAddressModal.css";
 
 // Configurar íconos de marcador
@@ -70,11 +63,7 @@ function MapEventsHandler({
   return null;
 }
 
-<<<<<<< HEAD
-const AddAddressModal = ({ show, onHide }) => {
-=======
 const AddAddressModal = ({ show, onHide, onSuccess }) => {
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -240,12 +229,6 @@ const AddAddressModal = ({ show, onHide, onSuccess }) => {
     }));
   };
 
-<<<<<<< HEAD
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-=======
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
   // Guardar dirección
   const saveAddressDate = async (e) => {
     e.preventDefault();
@@ -271,15 +254,11 @@ const AddAddressModal = ({ show, onHide, onSuccess }) => {
       const result = await addAddressAPI(newAddress);
 
       if (result) {
-<<<<<<< HEAD
-        dispatch(saveAddress(result));
-=======
         // dispatch(saveAddress(result));
 
         if (onSuccess) {
           onSuccess();
         }
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 
         // Cerrar el modal y redirigir
         handleClose();
