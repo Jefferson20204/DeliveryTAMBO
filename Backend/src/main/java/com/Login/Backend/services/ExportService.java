@@ -22,21 +22,14 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
-=======
 import com.Login.Backend.dto.ProductDTO;
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 import com.Login.Backend.entities.Order;
 import com.Login.Backend.entities.OrderStatus;
 
 @Service
 public class ExportService {
 
-<<<<<<< HEAD
-    // 📊 Exportar a Excel
-=======
     // Exportar TODOS los pedidos en Excel
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
     public byte[] exportAllOrdersToExcel(List<Order> orders) throws Exception {
         try (Workbook workbook = new XSSFWorkbook();
                 ByteArrayOutputStream out = new ByteArrayOutputStream()) {
@@ -51,11 +44,7 @@ public class ExportService {
             titleFont.setBold(true);
             titleFont.setColor(IndexedColors.WHITE.getIndex());
             titleStyle.setFont(titleFont);
-<<<<<<< HEAD
-            titleStyle.setFillForegroundColor(IndexedColors.RED.getIndex()); // Rojo TAMBO
-=======
             titleStyle.setFillForegroundColor(IndexedColors.VIOLET.getIndex());
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
             titleStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
             titleStyle.setAlignment(HorizontalAlignment.CENTER);
 
@@ -156,11 +145,7 @@ public class ExportService {
                 // Montos
                 // Subtotal
                 Cell subtotalCell = row.createCell(4);
-<<<<<<< HEAD
-                subtotalCell.setCellValue(order.getTotalAmount() / 1.18); // IGV desglosado
-=======
                 subtotalCell.setCellValue(order.getTotalAmount() / 1.18);
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
                 subtotalCell.setCellStyle(dataStyle);
 
                 // Descuento
@@ -240,8 +225,6 @@ public class ExportService {
         }
     }
 
-<<<<<<< HEAD
-=======
     // Exportar TODOS los pedidos en Excel
     public byte[] exportAllProductsExcel(List<ProductDTO> products) throws Exception {
         try (Workbook workbook = new XSSFWorkbook();
@@ -392,5 +375,4 @@ public class ExportService {
         }
     }
 
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 }

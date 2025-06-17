@@ -1,8 +1,4 @@
 package com.Login.Backend.mapper;
-<<<<<<< HEAD
-// com.Login.Backend.mapper.ProductSectionMapper
-=======
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 
 import com.Login.Backend.entities.ProductSection;
 import com.Login.Backend.dto.ProductSectionDTO;

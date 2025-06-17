@@ -1,11 +1,8 @@
 package com.Login.Backend.controllers;
 
-<<<<<<< HEAD
-=======
 import com.Login.Backend.auth.dto.UserDetailsDto;
 import com.Login.Backend.auth.entities.User;
 import com.Login.Backend.auth.services.UserService;
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 import com.Login.Backend.dto.ProductDTO;
 import com.Login.Backend.services.ProductService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,17 +10,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-<<<<<<< HEAD
-import org.springframework.web.bind.annotation.*;
-
-import java.math.BigDecimal;
-=======
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.security.Principal;
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -35,15 +26,12 @@ public class AdminProductController {
     @Autowired
     private ProductService productService;
 
-<<<<<<< HEAD
-=======
     @Autowired
     private UserService userService;
 
     @Autowired
     private UserDetailsService userDetailsService;
 
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
     // Obtener todos los productos para el administrador
     @GetMapping("/products")
     public ResponseEntity<List<ProductDTO>> getAllProducts(
@@ -65,8 +53,6 @@ public class AdminProductController {
         }
         return new ResponseEntity<>(productList, HttpStatus.OK);
     }
-<<<<<<< HEAD
-=======
 
     @GetMapping("/users")
     public ResponseEntity<List<UserDetailsDto>> getAllUsers(Principal principal) {
@@ -121,5 +107,4 @@ public class AdminProductController {
 
     // }
 
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 }

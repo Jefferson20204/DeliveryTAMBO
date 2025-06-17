@@ -10,17 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-<<<<<<< HEAD
-import com.Login.Backend.entities.Order;
-import com.Login.Backend.services.ExportService;
-import com.Login.Backend.services.OrderService;
-=======
 import com.Login.Backend.dto.ProductDTO;
 import com.Login.Backend.entities.Order;
 import com.Login.Backend.services.ExportService;
 import com.Login.Backend.services.OrderService;
 import com.Login.Backend.services.ProductService;
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 
 @RestController
 @RequestMapping("/api/export")
@@ -32,16 +26,11 @@ public class ExportController {
     @Autowired
     private OrderService orderService;
 
-<<<<<<< HEAD
-    @GetMapping("/all-orders/excel")
-    public ResponseEntity<byte[]> exportExcel() throws Exception {
-=======
     @Autowired
     private ProductService productService;
 
     @GetMapping("/all-orders/excel")
     public ResponseEntity<byte[]> exportAllOrdersExcel() throws Exception {
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
         List<Order> orders = orderService.getAllOrdersByDateDesc();
         byte[] excelBytes = exportService.exportAllOrdersToExcel(orders);
 
@@ -51,8 +40,6 @@ public class ExportController {
                 .body(excelBytes);
     }
 
-<<<<<<< HEAD
-=======
     @GetMapping("/all-products/excel")
     public ResponseEntity<byte[]> exportAllProductsExcel() throws Exception {
         List<ProductDTO> product = productService.getAllProducts(null, null, null, null, null, false);
@@ -64,5 +51,4 @@ public class ExportController {
                 .body(excelBytes);
     }
 
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 }

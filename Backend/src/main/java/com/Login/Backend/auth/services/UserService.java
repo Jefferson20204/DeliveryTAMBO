@@ -6,12 +6,9 @@ import com.Login.Backend.auth.dto.UserUpdateDto;
 import com.Login.Backend.auth.entities.User;
 import com.Login.Backend.auth.helper.VerificationCodeGenerator;
 import com.Login.Backend.auth.repositories.UserDetailRepository;
-<<<<<<< HEAD
-=======
 
 import java.util.List;
 
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -191,8 +188,6 @@ public class UserService {
                     .build();
         }
     }
-<<<<<<< HEAD
-=======
 
     public List<User> getAllUsers() {
         return userDetailRepository.findAll();
@@ -202,5 +197,4 @@ public class UserService {
         return userDetailRepository.findByEmail(email);
     }
 
->>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 }
