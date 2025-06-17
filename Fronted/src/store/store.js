@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import commonReducer from "./features/common"; // Reducer para estado global (como loading)
-import userReducer from "./features/user"; // Reducer para manejar datos del usuario
-import cartReducer from "./features/cart"; // Reducerpara manejar el carrito de compras
+import commonReducer from "./features/common";
+import userReducer from "./features/user";
+import cartReducer from "./features/cart";
 
 // Combina múltiples reducers en uno solo (estructura del store)
 const rootReducer = combineReducers({
@@ -15,5 +15,4 @@ const store = configureStore({
   reducer: rootReducer,
 });
 
-// Exporta el store para ser usado en tu aplicación React
 export default store;

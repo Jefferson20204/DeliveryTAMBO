@@ -6,6 +6,12 @@ import com.Login.Backend.auth.dto.UserUpdateDto;
 import com.Login.Backend.auth.entities.User;
 import com.Login.Backend.auth.services.UserService;
 import com.Login.Backend.dto.AddressDTO;
+<<<<<<< HEAD
+=======
+import com.Login.Backend.entities.OrderStatus;
+import com.Login.Backend.services.AddressService;
+import com.Login.Backend.services.OrderService;
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +25,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+<<<<<<< HEAD
+=======
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.web.bind.annotation.PostMapping;
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 
 // Proporcionar un endpoint seguro para que los usuarios autenticados obtengan su información de perfil
 @RestController
@@ -30,7 +43,17 @@ public class UserDetailController {
         private UserDetailsService userDetailsService;
 
         @Autowired
+<<<<<<< HEAD
         UserService userService;
+=======
+        private UserService userService;
+
+        @Autowired
+        private AddressService addressService;
+
+        @Autowired
+        private OrderService orderService;
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 
         // Método GET que devuelve los detalles del usuario
         @GetMapping("/profile")
@@ -50,6 +73,7 @@ public class UserDetailController {
                                 .profileImageUrl(user.getProfileImageUrl())
                                 .email(user.getEmail())
                                 .phoneNumber(user.getPhoneNumber())
+<<<<<<< HEAD
                                 .addressList(user.getAddressList().stream()
                                                 .map(address -> AddressDTO.builder()
                                                                 .id(address.getId())
@@ -68,6 +92,8 @@ public class UserDetailController {
                                                                 .userId(address.getUser().getId())
                                                                 .build())
                                                 .toList())
+=======
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
                                 .authorityList(user.getAuthorities().stream()
                                                 .map(auth -> auth.getAuthority()).toList())
                                 .build();
@@ -91,4 +117,48 @@ public class UserDetailController {
                 }
 
         }
+<<<<<<< HEAD
+=======
+
+        // Obtener todas las direcciones del usuario autenticado
+        @GetMapping("/getMyAddressses")
+        public ResponseEntity<List<AddressDTO>> getUserAddresses(Principal principal) {
+                List<AddressDTO> addresses = addressService.getUserAddresses(principal);
+                return ResponseEntity.ok(addresses);
+        }
+
+        @PostMapping("/cancelMyOrder")
+        public ResponseEntity<?> cancellOrderByOrderId(Principal principal, @RequestBody String orderIdStr) {
+                // 1. Validar usuario
+                User user = (User) userDetailsService.loadUserByUsername(principal.getName());
+                if (user == null) {
+                        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no autenticado");
+                }
+
+                // 2. Validar UUID
+                if (orderIdStr == null || orderIdStr.isEmpty()) {
+                        return ResponseEntity.badRequest().body("ID de orden no proporcionado");
+                }
+
+                try {
+                        UUID orderId = UUID.fromString(orderIdStr.trim());
+
+                        // 3. Validar si la orden puede cancelarse (añade esta lógica en tu servicio)
+                        if (!orderService.canOrderBeCancelled(orderId)) {
+                                return ResponseEntity.badRequest()
+                                                .body("La orden no puede cancelarse en su estado actual");
+                        }
+
+                        // 4. Actualizar orden
+                        orderService.updateOrderStatus(orderId, OrderStatus.CANCELLED, null);
+                        return ResponseEntity.ok().build();
+
+                } catch (IllegalArgumentException e) {
+                        return ResponseEntity.badRequest().body("ID de orden inválido");
+                } catch (Exception e) {
+                        return ResponseEntity.internalServerError().body("Error al procesar la solicitud");
+                }
+        }
+
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 }

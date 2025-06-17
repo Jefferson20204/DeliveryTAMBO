@@ -5,6 +5,11 @@ import {
   updateCategory,
   getCategoryById,
 } from "../../api/categoryApi";
+<<<<<<< HEAD
+=======
+import "./Css/CategoryForm.css";
+
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 
 const CategoryForm = () => {
   const { id } = useParams();
@@ -65,7 +70,11 @@ const CategoryForm = () => {
   }, [id]);
 
   return (
+<<<<<<< HEAD
     <div>
+=======
+    <div className="category-form-container">
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
       <h2>{id ? "Editar Categoría" : "Crear Categoría"}</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -92,7 +101,11 @@ const CategoryForm = () => {
 
         <h3>Tipos de categoría</h3>
         {category.categoryTypes.map((type, index) => (
+<<<<<<< HEAD
           <div key={index}>
+=======
+          <div key={index} className="category-type-item">
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
             <input
               placeholder="Nombre"
               value={type.name}
@@ -119,11 +132,19 @@ const CategoryForm = () => {
           </div>
         ))}
 
+<<<<<<< HEAD
         <button type="button" onClick={addType}>
           Agregar tipo
         </button>
 
         <button type="submit">{id ? "Actualizar" : "Crear"}</button>
+=======
+        <button type="button" className="add-type-button" onClick={addType}>
+          Agregar tipo
+        </button>
+
+        <button type="submit" className="submit-button">{id ? "Actualizar" : "Crear"}</button>
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
       </form>
     </div>
   );

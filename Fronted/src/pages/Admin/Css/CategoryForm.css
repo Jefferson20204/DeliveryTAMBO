@@ -1,0 +1,116 @@
+.category-form-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 30px 40px;
+  background-color: var(--secondary-color, #f0f0f0);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadowColor, #b12a8f36);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #3a3a3a;
+}
+
+.category-form-container h2 {
+  color: black;
+  font-weight: 700;
+  margin-bottom: 25px;
+  font-size: 28px;
+}
+
+.category-form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.category-form-container input[type="text"],
+.category-form-container textarea {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 1.8px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.category-form-container input[type="text"]:focus,
+.category-form-container textarea:focus {
+  outline: none;
+  border-color: var(--main-color, #b12a90);
+  box-shadow: 0 0 8px var(--main-color, #b12a90);
+}
+
+.category-form-container textarea {
+  min-height: 80px;
+}
+
+.category-form-container h3 {
+  margin-top: 30px;
+  margin-bottom: 12px;
+  color: black;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.category-type-item {
+  background-color: white;
+  padding: 18px 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px var(--shadowColor, #b12a8f36);
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.category-type-item input[type="text"],
+.category-type-item textarea {
+  font-size: 15px;
+}
+
+.category-type-item button {
+  align-self: flex-start;
+  padding: 8px 16px;
+  background-color: #8b1f6d;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.category-type-item button:hover {
+  background-color: #8b1f6d;
+}
+
+.add-type-button,
+.submit-button {
+  padding: 14px 25px;
+  font-size: 17px;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s ease;
+  width: fit-content;
+}
+
+.add-type-button {
+  background-color: #8b1f6d;    
+  margin-bottom: 25px;
+}
+
+.add-type-button:hover {
+  background-color: #741d5b;
+}
+
+.submit-button {
+  background-color:  #8b1f6d;
+}
+
+.submit-button:hover {
+  background-color: #741d5b;
+}

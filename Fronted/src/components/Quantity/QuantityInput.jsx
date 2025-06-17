@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 import DeleteIcon from "../../common/DeleteIcon";
 import AddIcon from "../../common/AddIcon";
 import RemoveIcon from "../../common/RemoveIcon";
+=======
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 import {
   addItemToCartAction,
   updateItemToCartAction,
@@ -75,7 +78,11 @@ const QuantityInput = ({
           onClick={handleAddInitial}
           aria-label="Agregar al carrito"
         >
+<<<<<<< HEAD
           <AddIcon />
+=======
+          <i className="fa-solid fa-plus"></i>
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
         </button>
       </div>
     );
@@ -91,7 +98,15 @@ const QuantityInput = ({
         onClick={handleSubtract}
         aria-label={value === min ? "Eliminar" : "Reducir cantidad"}
       >
+<<<<<<< HEAD
         {value === min ? <DeleteIcon /> : <RemoveIcon />}
+=======
+        {value === min ? (
+          <i className="fa-solid fa-trash"></i>
+        ) : (
+          <i className="fa-solid fa-minus"></i>
+        )}
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
       </button>
       <span className="quantity-number" aria-live="polite">
         {value}
@@ -102,7 +117,11 @@ const QuantityInput = ({
         aria-label="Aumentar cantidad"
         disabled={value >= max}
       >
+<<<<<<< HEAD
         <AddIcon />
+=======
+        <i className="fa-solid fa-plus"></i>
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
       </button>
     </div>
   );

@@ -1,33 +1,21 @@
 import axios from "axios";
 import { API_BASE_URL, getHeaders } from "./constant";
 
-/**
- * Obtiene los detalles del perfil del usuario desde la API.
- * Utiliza Axios para hacer una petición GET al endpoint correspondiente.
- *
- * @returns {Promise<Object>} Los datos del perfil del usuario.
- * @throws {Error} Lanza un error si la petición falla.
- */
 export const fetchUserDetails = async () => {
-  // Construye la URL del endpoint de perfil de usuario
   const url = API_BASE_URL + "/api/user/profile";
 
   try {
-    // Realiza la solicitud GET usando Axios con los headers configurados
     const response = await axios(url, {
       method: "GET",
-      headers: getHeaders(), // Función que retorna los encabezados necesarios (como token de autenticación)
+      headers: getHeaders(),
     });
 
-    // Retorna los datos contenidos en la respuesta
     return response?.data;
   } catch (err) {
-    // Lanza un error personalizado si ocurre una excepción durante la solicitud
     throw new Error(err);
   }
 };
 
-// Actualizar datos del usuario
 export const updateUser = async (user) => {
   const url = API_BASE_URL + "/api/user/update";
 
@@ -43,20 +31,16 @@ export const updateUser = async (user) => {
 };
 
 export const fetchUserAddress = async () => {
-  // Construye la URL del endpoint de perfil de usuario
-  const url = API_BASE_URL + "/api/address";
+  const url = API_BASE_URL + "/api/user/getMyAddressses";
 
   try {
-    // Realiza la solicitud GET usando Axios con los headers configurados
     const response = await axios(url, {
       method: "GET",
-      headers: getHeaders(), // Función que retorna los encabezados necesarios (como token de autenticación)
+      headers: getHeaders(),
     });
 
-    // Retorna los datos contenidos en la respuesta
     return response?.data;
   } catch (err) {
-    // Lanza un error personalizado si ocurre una excepción durante la solicitud
     throw new Error(err);
   }
 };
@@ -98,5 +82,24 @@ export const fetchOrderAPI = async () => {
     return response?.data;
   } catch (err) {
     throw new Error(err);
+  }
+};
+
+export const cancellingOrderAPI = async (orderId) => {
+  const url = API_BASE_URL + "/api/user/cancelMyOrder";
+  try {
+    const response = await axios(url, {
+      method: "POST",
+      data: orderId.toString(), // Asegúrate de convertirlo a string
+      headers: {
+        ...getHeaders(),
+        "Content-Type": "text/plain", // Especifica que envías texto plano
+      },
+    });
+    return response?.data;
+  } catch (err) {
+    throw new Error(
+      err.response?.data?.message || "Error al cancelar el pedido"
+    );
   }
 };

@@ -334,3 +334,17 @@
   padding-top: 1.5rem;
   border-top: 1px solid #eee;
 }
+<<<<<<< HEAD
+=======
+
+.payment-section {
+  align-items: center;
+  max-width: 100%;
+}
+
+.success-message {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60

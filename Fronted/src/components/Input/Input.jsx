@@ -21,7 +21,11 @@ const Input = ({
         </label>
       )}
       <input
+<<<<<<< HEAD
         id={id || name} // Usamos el id proporcionado o name como fallback
+=======
+        id={id || name}
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
         type={type}
         name={name}
         value={value}

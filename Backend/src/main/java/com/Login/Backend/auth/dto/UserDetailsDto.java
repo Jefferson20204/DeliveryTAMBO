@@ -1,6 +1,5 @@
 package com.Login.Backend.auth.dto;
 
-import com.Login.Backend.dto.AddressDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +19,4 @@ public class UserDetailsDto {
     private String phoneNumber;
     private String email;
     private List<String> authorityList;
-    private List<AddressDTO> addressList;
 }

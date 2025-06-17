@@ -39,11 +39,6 @@ public class WebSecurityConfig {
         @Autowired
         private RESTAuthenticationEntryPoint restAuthenticationEntryPoint;
 
-        // Rutas públicas que no reuieren autenticación
-        private static final String[] publicApis = {
-                        "/api/auth/**"
-        };
-
         // Configuración del filtro de seguridad
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -51,31 +46,37 @@ public class WebSecurityConfig {
 
                                 .csrf(AbstractHttpConfigurer::disable)
                                 .authorizeHttpRequests((authorize) -> authorize
-                                                .requestMatchers("/v3/api-docs/**", "/swagger-ui.html",
-                                                                "/swagger-ui/**", "/test/**",
-                                                                "/api/payment/paypal/confirm-payment", "/api/export/**")
+                                                // Endpoints públicos
+                                                .requestMatchers("/test/**")
                                                 .permitAll()
-                                                .requestMatchers(HttpMethod.GET, "/api/products/**", "/api/category/**",
-                                                                "/api/discounts/**", "api/brands/**",
-                                                                "/admin/**", "/api/admin/config/**", "/api/address/**",
-                                                                "/api/order/**", "/api/payment/**", "/api/export/**")
+                                                .requestMatchers(HttpMethod.GET, "/api/admin/config/**",
+                                                                "/api/products/**",
+                                                                "/api/category/**",
+                                                                "/api/discount/**", "/api/brand/**")
                                                 .permitAll()
-                                                .requestMatchers(HttpMethod.POST, "/api/products", "/api/category",
-                                                                "/api/discounts", "api/brands",
-                                                                "/api/admin/config/**", "/api/address/**",
-                                                                "/api/order/**", "/api/payment/**", "/api/export/**")
-                                                .permitAll()
-                                                .requestMatchers(HttpMethod.DELETE, "/api/products/**",
-                                                                "/api/category/**", "/api/discounts/**",
-                                                                "api/brands/**",
-                                                                "/api/admin/config/**", "/api/address/**",
-                                                                "/api/order/**", "/api/payment/**", "/api/export/**")
-                                                .permitAll()
-                                                .requestMatchers(HttpMethod.PUT, "/api/products/**", "/api/category/**",
-                                                                "/api/discounts/**", "api/brands/**",
-                                                                "/api/admin/config/**", "/api/address/**",
-                                                                "/api/order/**", "/api/payment/**", "/api/export/**")
-                                                .permitAll()
+
+                                                // Endpoints para usuarios autenticados (cualquier rol)
+                                                .requestMatchers(
+                                                                "/api/user/**",
+                                                                "/api/address/**",
+                                                                "/api/payment/paypal/confirm-payment")
+                                                .authenticated()
+
+                                                // Endpoints solo para ADMIN
+                                                .requestMatchers(
+                                                                "/admin/**", "/api/export/**")
+                                                .hasAuthority("ADMIN")
+
+                                                // Configuración específica por método HTTP
+                                                .requestMatchers(HttpMethod.GET, "/api/order/**")
+                                                .hasAnyAuthority("ADMIN", "USER")
+                                                .requestMatchers(HttpMethod.POST, "/api/order")
+                                                .hasAnyAuthority("ADMIN", "USER")
+                                                .requestMatchers(HttpMethod.PUT, "/api/order/**")
+                                                .hasAnyAuthority("ADMIN", "USER")
+                                                .requestMatchers(HttpMethod.DELETE, "/api/order/**")
+                                                .hasAuthority("ADMIN")
+
                                                 .requestMatchers("/oauth2/success").permitAll()
                                                 .anyRequest().authenticated())
                                 .exceptionHandling(exception -> exception
@@ -87,6 +88,11 @@ public class WebSecurityConfig {
                                                 UsernamePasswordAuthenticationFilter.class);
                 return http.build();
         }
+
+        // Rutas públicas que no reuieren autenticación
+        private static final String[] publicApis = {
+                        "/api/auth/**"
+        };
 
         // Excluye completamente las rutas públicas del sistema de seguridad
         @Bean
@@ -111,6 +117,7 @@ public class WebSecurityConfig {
                 return PasswordEncoderFactories.createDelegatingPasswordEncoder();
         }
 
+        // Configuarion de CORS para permitir solicitudes desde el fronted
         @Bean
         public CorsConfigurationSource corsConfigurationSource() {
                 CorsConfiguration configuration = new CorsConfiguration();
@@ -118,7 +125,6 @@ public class WebSecurityConfig {
                 configuration.addAllowedMethod("*"); // GET, POST, OPTIONS, PUT, DELETE
                 configuration.addAllowedHeader("*"); // Authorization, Content-Type, etc.
                 configuration.setAllowCredentials(true); // Si usás cookies o auth headers
-
                 UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
                 source.registerCorsConfiguration("/**", configuration);
                 return source;

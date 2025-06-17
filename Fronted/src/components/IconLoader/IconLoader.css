@@ -26,8 +26,14 @@
 
 .loader-text {
   color: var(--main-color);
+<<<<<<< HEAD
   font-size: 1rem;
   font-weight: 600;
+=======
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
   letter-spacing: 0.05em;
 }
 

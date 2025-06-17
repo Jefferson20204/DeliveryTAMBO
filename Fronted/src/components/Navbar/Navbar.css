@@ -88,9 +88,17 @@
 /* Iconos */
 .nav-icon {
   color: var(--main-color);
+<<<<<<< HEAD
   height: 30px;
   width: 30px;
   object-fit: contain;
+=======
+  /* height: 30px; */
+  /* width: 30px; */
+  /* object-fit: contain; */
+  font-size: 1.3rem;
+  padding-right: 5px;
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
   cursor: pointer;
 }
 

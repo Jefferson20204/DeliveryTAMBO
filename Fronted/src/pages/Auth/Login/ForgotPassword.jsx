@@ -26,8 +26,6 @@ const ResetPasswordPage = () => {
 
       try {
         const response = await sendResetPasswordEmailAPI(email);
-
-        // Suponiendo que tu API devuelve un string como mensaje
         setMessage(response.message || "Correo de recuperación enviado.");
         disableButtonTemporarily();
       } catch (error) {

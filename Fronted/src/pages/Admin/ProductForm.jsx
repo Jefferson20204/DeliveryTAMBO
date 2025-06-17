@@ -7,6 +7,10 @@ import {
 } from "../../api/productApi";
 import { getAllBrands } from "../../api/brandsApi";
 import { getAllCategories } from "../../api/categoryApi";
+<<<<<<< HEAD
+=======
+import "./Css/ProductForm.css";
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
 
 export default function ProductForm() {
   const { id } = useParams();
@@ -135,11 +139,20 @@ export default function ProductForm() {
   };
 
   return (
+<<<<<<< HEAD
     <div>
       <h2>{isEdit ? "Editar producto" : "Agregar nuevo producto"}</h2>
       <form onSubmit={handleSubmit}>
         {/* Campos básicos */}
         <input
+=======
+    <div className="product-form-container">
+      <h2 className="product-form-title">{isEdit ? "Editar producto" : "Agregar nuevo producto"}</h2>
+      <form onSubmit={handleSubmit} className="product-form">
+        {/* Campos básicos */}
+        <input
+          className="product-form-input"
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
           name="name"
           placeholder="Nombre"
           value={formData.name}
@@ -147,12 +160,20 @@ export default function ProductForm() {
           required
         />
         <textarea
+<<<<<<< HEAD
+=======
+          className="product-form-textarea"
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
           name="description"
           placeholder="Descripción"
           value={formData.description}
           onChange={handleChange}
         />
         <input
+<<<<<<< HEAD
+=======
+          className="product-form-input"
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
           name="price"
           type="number"
           placeholder="Precio"
@@ -161,6 +182,10 @@ export default function ProductForm() {
           required
         />
         <input
+<<<<<<< HEAD
+=======
+          className="product-form-input"
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
           name="slug"
           placeholder="Slug"
           value={formData.slug}
@@ -168,6 +193,10 @@ export default function ProductForm() {
           required
         />
         <input
+<<<<<<< HEAD
+=======
+          className="product-form-input"
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
           name="stock"
           type="number"
           placeholder="Stock"
@@ -175,8 +204,14 @@ export default function ProductForm() {
           onChange={handleChange}
         />
         {/* Marcas */}
+<<<<<<< HEAD
         <label>Marca</label>
         <select
+=======
+        <label className="product-form-label">Marca</label>
+        <select
+          className="product-form-select"
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
           name="brandId"
           value={formData.brandId}
           onChange={handleChange}
@@ -191,6 +226,10 @@ export default function ProductForm() {
         </select>
         {/* Valoracion */}
         <input
+<<<<<<< HEAD
+=======
+          className="product-form-input"
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
           name="rating"
           type="number"
           step="0.1"
@@ -200,8 +239,14 @@ export default function ProductForm() {
           onChange={handleChange}
         />
         {/* Categorías */}
+<<<<<<< HEAD
         <label>Categoría</label>
         <select
+=======
+        <label className="product-form-label">Categoría</label>
+        <select
+          className="product-form-select"
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
           name="categoryId"
           value={formData.categoryId}
           onChange={handleCategoryChange}
@@ -215,7 +260,11 @@ export default function ProductForm() {
           ))}
         </select>
         {/* Sub categorias */}
+<<<<<<< HEAD
         <label>Sub categoría</label>
+=======
+        <label className="product-form-label">Sub categoría</label>
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
         <select name="typeId" value={formData.typeId} onChange={handleChange}>
           <option value="">Selecciona un tipo</option>
           {categoryTypes.map((type) => (
@@ -225,7 +274,11 @@ export default function ProductForm() {
           ))}
         </select>
         {/* Nuevo producto */}
+<<<<<<< HEAD
         <label>
+=======
+        <label className="product-form-checkbox-label">
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
           <input
             type="checkbox"
             name="isNewArrival"
@@ -235,7 +288,11 @@ export default function ProductForm() {
           ¿Es nuevo?
         </label>
         {/* Producto Activo */}
+<<<<<<< HEAD
         <label>
+=======
+        <label className="product-form-checkbox-label">
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
           <input
             type="checkbox"
             name="isActive"
@@ -245,6 +302,7 @@ export default function ProductForm() {
           Activo
         </label>
         {/* Recursos - Imagenes*/}
+<<<<<<< HEAD
         <h3>Recursos</h3>
         {formData.resources.map((r, idx) => (
           <div
@@ -252,18 +310,33 @@ export default function ProductForm() {
             style={{ display: "flex", gap: "8px", alignItems: "center" }}
           >
             <input
+=======
+        <h3 className="product-form-subtitle">Recursos</h3>
+        {formData.resources.map((r, idx) => (
+          <div key={idx} className="product-form-resource-row">
+            <input
+              className="product-form-input resource-input"
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
               name="name"
               placeholder="Nombre recurso"
               value={r.name}
               onChange={(e) => handleResourceChange(idx, e)}
             />
             <input
+<<<<<<< HEAD
+=======
+              className="product-form-input resource-input"
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
               name="url"
               placeholder="URL recurso"
               value={r.url}
               onChange={(e) => handleResourceChange(idx, e)}
             />
+<<<<<<< HEAD
             <label>
+=======
+            <label className="product-form-checkbox-label">
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
               <input
                 type="checkbox"
                 name="isPrimary"
@@ -272,17 +345,37 @@ export default function ProductForm() {
               />
               Principal
             </label>
+<<<<<<< HEAD
             <button type="button" onClick={() => removeResource(idx)}>
+=======
+            <button
+              type="button"
+              className="product-form-remove-resource-btn"
+              onClick={() => removeResource(idx)}
+            >
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
               Eliminar
             </button>
           </div>
         ))}
+<<<<<<< HEAD
         <button type="button" onClick={addResource}>
+=======
+        <button
+          type="button"
+          className="product-form-add-resource-btn"
+          onClick={addResource}
+        >
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
           Agregar recurso
         </button>
 
         {/* Submit */}
+<<<<<<< HEAD
         <button type="submit">Guardar</button>
+=======
+        <button type="submit" className="product-form-submit-btn">Guardar</button>
+>>>>>>> e87fda2524a0265c9281c2166a4703b61369ad60
       </form>
     </div>
   );
