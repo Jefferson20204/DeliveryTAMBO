@@ -157,14 +157,31 @@ public class UserService {
     public UserResponseDto updateUser(UserUpdateDto request) {
         User existing = userDetailRepository.findByEmail(request.getEmail());
 
-        if (existing == null) {
-            return UserResponseDto.builder()
-                    .code(404)
-                    .message("Usuario no encontrado")
-                    .build();
-        }
-
         try {
+
+            if (existing == null) {
+                return UserResponseDto.builder()
+                        .code(404)
+                        .message("Usuario no encontrado")
+                        .build();
+            }
+
+            // Validar el número telefónico
+            String phoneNumber = request.getPhoneNumber();
+            if (phoneNumber == null || phoneNumber.isEmpty()) {
+                return UserResponseDto.builder()
+                        .code(400)
+                        .message("Ingrese el número telefónico.")
+                        .build();
+            }
+
+            // Validar que el número telefónico tenga 9 digitos
+            if (phoneNumber == null || !phoneNumber.matches("\\d{9}")) {
+                return UserResponseDto.builder()
+                        .code(400)
+                        .message("El número telefónico debe tener exactamente 9 dígitos.")
+                        .build();
+            }
             // Actualizar solo los campos permitidos
             existing.setFirstName(request.getFirstName());
             existing.setLastName(request.getLastName());
