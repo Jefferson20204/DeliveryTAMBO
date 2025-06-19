@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllProductsAdmin } from "../../api/productApi";
+import { getAllProductsAdmin, deleteProduct } from "../../api/productApi";
 import { Link, useNavigate } from "react-router-dom";
 import ExportButtons from "../../components/Buttons/ExportButtons";
 import "./Css/ProductsList.css";
@@ -11,6 +11,19 @@ export default function ProductsList() {
   useEffect(() => {
     getAllProductsAdmin().then(setProducts);
   }, []);
+
+  const handleDelete = (productId) => {
+    if (window.confirm("Estas seguro de eliminar este producto?")) {
+      deleteProduct(productId)
+        .then((response) => {
+          console.log(response);
+          getAllProductsAdmin().then(setProducts);
+        })
+        .catch((error) => {
+          console.log("Eror al eliminar el producto: ", error);
+        });
+    }
+  };
 
   return (
     <div className="products-list-container">
@@ -67,6 +80,14 @@ export default function ProductsList() {
                     }
                   >
                     Editar
+                  </button>
+                  <button
+                    className="products-edit-btn"
+                    onClick={() => {
+                      handleDelete(product.id);
+                    }}
+                  >
+                    Eliminar
                   </button>
                 </td>
               </tr>

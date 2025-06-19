@@ -11,6 +11,7 @@ import Card from "../../../components/Card/Card";
 import Button from "../../../components/Buttons/Button";
 import Input from "../../../components/Input/Input";
 import { fetchUserDetails, updateUser } from "../../../api/userInfo";
+import Message from "../../../components/Message/Message";
 
 const Profile = () => {
   const userInfo = useSelector(selectUserInfo);
@@ -69,6 +70,8 @@ const Profile = () => {
   }, []);
 
   const handleSubmit = async (e) => {
+    console.log(values);
+
     e.preventDefault();
     setError(null);
     dispatch(setLoading(true));
@@ -76,6 +79,9 @@ const Profile = () => {
     try {
       const payload = { ...values, phoneNumber: values.phoneNumber || null };
       const result = await updateUser(payload);
+      console.log(result);
+
+      setError(result?.message || null);
 
       if (result) {
         fetchUserDetails()
@@ -114,6 +120,7 @@ const Profile = () => {
         }
       >
         <div>
+          {error && <Message type="error" message={error} />}
           <form onSubmit={handleSubmit} id="userProfile">
             <Input
               type="text"

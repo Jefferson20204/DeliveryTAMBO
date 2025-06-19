@@ -85,7 +85,7 @@ public class Order {
     private String docType;
 
     @Column(nullable = false)
-    private int docNumber;
+    private long docNumber;
 
     @Column(nullable = true)
     private String ruc;

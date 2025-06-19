@@ -66,4 +66,14 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
+    // Actualizar un producto por ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable UUID id) {
+        boolean isDelete = productService.deleteProduct(id);
+        if (!isDelete) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(isDelete, HttpStatus.OK);
+    }
+
 }

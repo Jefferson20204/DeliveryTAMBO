@@ -75,6 +75,19 @@ export const updateProduct = async (id, productData) => {
   }
 };
 
+// Eliminar un producto
+export const deleteProduct = async (id) => {
+  try {
+    const res = await axios.delete(`${BASE_URL}/${id}`, {
+      headers: getHeaders(),
+    });
+    return res.data;
+  } catch (error) {
+    console.error("Error al eliminar producto:", error.response?.data || error);
+    return null;
+  }
+};
+
 //Admin
 export const getAllProductsAdmin = async (categoryId, typeId) => {
   try {
